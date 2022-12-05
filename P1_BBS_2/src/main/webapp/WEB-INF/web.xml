@@ -15,7 +15,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
     
 	<filter>
@@ -24,7 +24,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>HTMLTagFilter</filter-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>*</url-pattern>
 	</filter-mapping>
     
 	<context-param>
@@ -50,6 +50,18 @@
 		<servlet-name>action</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	    <!-- .jpg 등도 화면에 불러올 수 있게 함. -->  
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.js</url-pattern>
+		<url-pattern>*.css</url-pattern>
+		<url-pattern>*.jpg</url-pattern>
+		<url-pattern>*.gif</url-pattern>
+		<url-pattern>*.png</url-pattern>
+		<url-pattern>*.ico</url-pattern>
+		<url-pattern>*.swf</url-pattern>
+	</servlet-mapping> 
 	
 	
     
