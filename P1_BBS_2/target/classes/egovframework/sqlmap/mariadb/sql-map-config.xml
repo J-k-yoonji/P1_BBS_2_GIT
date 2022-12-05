@@ -2,6 +2,7 @@
 <!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
 
 <sqlMapConfig>
-<!-- 	<sqlMap resource="egovframework/sqlmap/mariadb/test.xml"/> -->
-	<sqlMap resource=""/>
+<!--참고 : testMapper.xml 로 수정!! -->
+ 	<sqlMap resource="egovframework/sqlmap/mariadb/testMapper.xml"/> 
+<!-- 	<sqlMap resource=""/> -->
 </sqlMapConfig>

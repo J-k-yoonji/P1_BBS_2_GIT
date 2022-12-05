@@ -3,10 +3,16 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
 	<!-- SqlSession setup for MyBatis Database Layer -->
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!-- 참고 : 바로 아래줄 sqlSession를  sqlSessionFactory로 변경함-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:/egovframework/sqlmap/mariadb/sql-mapper-config.xml" />
-		<property name="mapperLocations" value="classpath*:/egovframework/sqlmap/mariadb/mappers/*.xml" />
+		<!-- 참고: value="classpath:/egovframework/sqlmap/mariadb/**/*Mapper.xml" 로 수정 필수!! -->
+		<property name="mapperLocations" value="classpath:/egovframework/sqlmap/mariadb/**/*Mapper.xml" />
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 
 	<!-- MapperConfigurer setup for MyBatis Database Layer with @Mapper("deptMapper") in DeptMapper Interface -->
