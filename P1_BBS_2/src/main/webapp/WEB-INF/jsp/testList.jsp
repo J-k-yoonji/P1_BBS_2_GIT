@@ -1,16 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
-
-<% 
- List dataList = new ArrayList();
- dataList.add("hello");
- dataList.add("world");
- dataList.add("안녕하세요");
-%>
-
-<c:set var="list00" value="<%=dataList %>" />
-
+    pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
 <html>
 <head>
@@ -19,9 +9,9 @@
 </head>
 <body>
 
-<h1>테스트 메인 화면</h1>
+<h1>mariaDB 연동 확인</h1>
 
-<%-- <table style="border:1px solid;">
+<table style="border:1px solid;">
 	<thead>
 		<tr>
 		    <th>ID</th>
@@ -31,16 +21,16 @@
 	</thead>
 	
 	<tbody>
-		<c:forEach var="result" items="${list00}">
+		<c:forEach var="result" items="${list}">
 			<tr>
-				<td>${result}</td>
-				<td>${result}</td>
-				<td>${result}</td>
+ 				<td>${result.userID}</td>
+				<td>${result.userName}</td>
+				<td>${result.userEmail}</td> 
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
- --%>
+
 
 </body>
 </html>
