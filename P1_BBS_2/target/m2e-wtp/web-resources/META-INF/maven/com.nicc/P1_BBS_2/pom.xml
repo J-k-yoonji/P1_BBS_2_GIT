@@ -124,7 +124,7 @@
 			<version>2.5.0</version>
 		</dependency>
 
-        <!-- mysql이나 oracle DB 사용시 아래 설정 추가
+        <!-- mysql이나 oracle DB 사용시 아래 설정 추가-->
         <dependency>
             <groupId>com.googlecode.log4jdbc</groupId>
             <artifactId>log4jdbc</artifactId>
@@ -137,18 +137,54 @@
             </exclusions>
         </dependency>
 
+        <!-- dbcp2 아님! -->    
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
             <version>1.4</version>
         </dependency>
 
-        <dependency>
+         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.31</version>
+        </dependency> 
+        
+        <!-- MariaDB 추가 -->
+        <dependency>
+        	<groupId>org.mariadb.jdbc</groupId>
+        	<artifactId>mariadb-java-client</artifactId>
+        	<version>2.7.2</version>
         </dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 -->
+<!-- 		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>2.6.0</version>
+		</dependency> -->
+        
+        <!-- 빈 등록에 앞서 필요한 라이브러리 3개 추가 (ibatis와 spring_orm) (책참고)-->
+         <dependency>
+        	<groupId>org.mybatis</groupId>
+        	<artifactId>mybatis-spring</artifactId>
+        	<version>1.2.2</version>
+        </dependency>
+        
+  	    <dependency>
+        	<groupId>org.mybatis</groupId>
+        	<artifactId>mybatis</artifactId>
+        	<version>3.2.8</version>
+        </dependency>
+        
+        <dependency>
+        	<groupId>org.springframework</groupId>
+        	<artifactId>spring-orm</artifactId>
+        	<version>${spring.maven.artifact.version}</version>
+        </dependency>
+         
+        
+		<!--
         <dependency>
             <groupId>ojdbc</groupId>
             <artifactId>ojdbc</artifactId>
@@ -168,7 +204,7 @@
                 <plugin>
 	                <groupId>org.apache.tomcat.maven</groupId>
 	                <artifactId>tomcat7-maven-plugin</artifactId>
-	                <version>2.2</version>
+	                <version>3.1</version>
 	                <configuration>
 	                    <port>80</port>
 	                    <path>/</path>
