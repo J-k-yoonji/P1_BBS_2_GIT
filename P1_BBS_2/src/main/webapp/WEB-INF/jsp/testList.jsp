@@ -11,6 +11,8 @@
 
 <h1>게시판[mariaDB 연동 확인]</h1>
 
+<p><button type="button" onclick="window.open('/write');">게시물 작성</button></p>
+
 <table style="border:1px solid;">
 	<thead>
 		<tr>
@@ -18,7 +20,6 @@
 		    <th>제목</th>
 		    <th>작성자</th>
 		    <th>작성일</th>
-		    <th>조회수</th>
 		</tr>
 	</thead>
 	
@@ -29,7 +30,6 @@
 				<td>${result.title}</td>
 				<td>${result.writer}</td> 
 				<td>${result.regDate}</td> 
-				<td>${result.viewCnt}</td> 
 			</tr>
 		</c:forEach>
 	</tbody>

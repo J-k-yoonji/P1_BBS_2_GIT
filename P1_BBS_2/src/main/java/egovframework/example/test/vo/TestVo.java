@@ -7,19 +7,19 @@ public class TestVo {
 	private String title;
 	private String content;
 	private String writer;
-	private Date regDate;
-	private int viewCnt;
+	private String regDate;
+//	private int viewCnt;
 	
 	public TestVo() {}
 
-	public TestVo(int bno, String title, String content, String writer, Date regDate, int viewCnt) {
+	public TestVo(int bno, String title, String content, String writer, String regDate) {
 		super();
 		this.bno = bno;
 		this.title = title;
 		this.content = content;
 		this.writer = writer;
 		this.regDate = regDate;
-		this.viewCnt = viewCnt;
+//		this.viewCnt = viewCnt;
 	}
 
 	public int getBno() {
@@ -54,20 +54,14 @@ public class TestVo {
 		this.writer = writer;
 	}
 
-	public Date getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
 
-	public void setRegDate(Date regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
 
-	public int getViewCnt() {
-		return viewCnt;
-	}
 
-	public void setViewCnt(int viewCnt) {
-		this.viewCnt = viewCnt;
-	}
 	
 }

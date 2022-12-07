@@ -6,12 +6,12 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>게시물 작성</title>
+<title>게시물 조회</title>
 </head>
 
 <body>
 
-<h1>게시물 작성</h1>
+<h1>게시물 조회</h1>
 
 <form method="post">
 
@@ -24,8 +24,6 @@
       <label>내용</label>
       <textarea cols="50" rows="5" name="content"></textarea>
       
-      <button type="submit">작성</button>
-
 </form>
 
 </body>
