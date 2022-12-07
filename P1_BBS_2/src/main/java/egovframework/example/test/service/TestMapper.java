@@ -8,4 +8,6 @@ import egovframework.example.test.vo.TestVo2;
 public interface TestMapper {
 
 	public List<TestVo> selectList(TestVo testVo) throws Exception;
+
+	public void write(TestVo testVo);
 }

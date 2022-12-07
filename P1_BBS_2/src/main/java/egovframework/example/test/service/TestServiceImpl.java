@@ -15,9 +15,16 @@ public class TestServiceImpl implements TestService{
 		@Autowired
 		private TestDao testDao;
 		
+		//게시물 리스트
 		@Override
 		public List<TestVo> selectList(TestVo testVo) throws Exception{
 			return testDao.selectList(testVo);
+		}
+		
+		//게시물 작성
+		@Override
+		public void write(TestVo testVo) throws Exception {
+			testDao.write(testVo);
 		}
 		
 }

@@ -16,9 +16,16 @@ public class TestDaoImpl implements TestDao{
 	@Autowired
 	private SqlSession sqlSession;
 	
+	//게시물 목록
 	@Override
 	public List<TestVo> selectList(TestVo testVo) throws Exception{
 		TestMapper mapper = sqlSession.getMapper(TestMapper.class);
 		return mapper.selectList(testVo);
+	}
+	
+	//게시물 작성
+	public void write(TestVo testVo) throws Exception {
+		TestMapper mapper = sqlSession.getMapper(TestMapper.class);
+		mapper.write(testVo);
 	}
 }
