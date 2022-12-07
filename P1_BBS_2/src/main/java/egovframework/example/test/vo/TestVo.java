@@ -1,54 +1,73 @@
 package egovframework.example.test.vo;
 
+import java.util.Date;
+
 public class TestVo {
-	private String userID;
-	private String userPassword;
-	private String userName;
-	private String userEmail;
+	private int bno;
+	private String title;
+	private String content;
+	private String writer;
+	private Date regDate;
+	private int viewCnt;
 	
 	public TestVo() {}
-	
 
-	public TestVo(String userID, String userPassword, String userName, String userEmail) {
+	public TestVo(int bno, String title, String content, String writer, Date regDate, int viewCnt) {
 		super();
-		this.userID = userID;
-		this.userPassword = userPassword;
-		this.userName = userName;
-		this.userEmail = userEmail;
+		this.bno = bno;
+		this.title = title;
+		this.content = content;
+		this.writer = writer;
+		this.regDate = regDate;
+		this.viewCnt = viewCnt;
 	}
 
-
-	public String getUserID() {
-		return userID;
+	public int getBno() {
+		return bno;
 	}
 
-	public void setUserID(String userID) {
-		this.userID = userID;
+	public void setBno(int bno) {
+		this.bno = bno;
 	}
 
-	public String getUserPassword() {
-		return userPassword;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getContent() {
+		return content;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public String getUserEmail() {
-		return userEmail;
+	public String getWriter() {
+		return writer;
 	}
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
-	
+
+	public Date getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
+
+	public int getViewCnt() {
+		return viewCnt;
+	}
+
+	public void setViewCnt(int viewCnt) {
+		this.viewCnt = viewCnt;
+	}
 	
 }

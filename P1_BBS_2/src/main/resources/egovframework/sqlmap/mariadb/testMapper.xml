@@ -3,6 +3,6 @@
 
 <mapper namespace="egovframework.example.test.service.TestMapper"> 
 	<select id="selectList" resultType="testVo">
-		SELECT * FROM user
+		SELECT * FROM tbl_board
 	</select>
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import egovframework.example.test.service.TestService;
 import egovframework.example.test.vo.TestVo;
+import egovframework.example.test.vo.TestVo2;
 
 @Controller
 public class TestController {

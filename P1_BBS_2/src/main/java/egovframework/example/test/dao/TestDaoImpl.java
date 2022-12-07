@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import egovframework.example.test.service.TestMapper;
 import egovframework.example.test.vo.TestVo;
+import egovframework.example.test.vo.TestVo2;
 
 @Repository
 public class TestDaoImpl implements TestDao{

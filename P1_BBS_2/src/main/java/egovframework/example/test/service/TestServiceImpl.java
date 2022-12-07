@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import egovframework.example.test.dao.TestDao;
 import egovframework.example.test.vo.TestVo;
+import egovframework.example.test.vo.TestVo2;
 
 @Service
 public class TestServiceImpl implements TestService{

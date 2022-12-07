@@ -9,23 +9,27 @@
 </head>
 <body>
 
-<h1>mariaDB 연동 확인</h1>
+<h1>게시판[mariaDB 연동 확인]</h1>
 
 <table style="border:1px solid;">
 	<thead>
 		<tr>
-		    <th>ID</th>
-		    <th>이름</th>
-		    <th>이메일</th>
+		    <th>글번호</th>
+		    <th>제목</th>
+		    <th>작성자</th>
+		    <th>작성일</th>
+		    <th>조회수</th>
 		</tr>
 	</thead>
 	
 	<tbody>
-		<c:forEach var="result" items="${list}">
+		<c:forEach items="${list}" var="result">
 			<tr>
- 				<td>${result.userID}</td>
-				<td>${result.userName}</td>
-				<td>${result.userEmail}</td> 
+ 				<td>${result.bno}</td>
+				<td>${result.title}</td>
+				<td>${result.writer}</td> 
+				<td>${result.regDate}</td> 
+				<td>${result.viewCnt}</td> 
 			</tr>
 		</c:forEach>
 	</tbody>
