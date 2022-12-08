@@ -25,19 +25,22 @@
 <form method="post" action="/modify" >
 
 <!-- 바뀌면 안되는 정보는 label로 바로 출력한다. (번호) -->
-      <label>번호</label>
-      <label class="lbl" >${view.bno}</label><br/>
+      <label>번호 :</label>
+      <label class="lbl" >${view.bno}</label><br/><br/>
+		<input type="hidden" name="bno" value="${view.bno}"/>
 
-      <label>제목</label>
-      <input type="text" name="title" value="${view.title}" /><br/>
+      <label>제목 :</label>
+      <input type="text" name="title" value="${view.title}" /><br/><br/>
 
-      <label>작성자</label>
-      <input type="text" name="writer" value="${view.writer}" /><br/>
-
-      <label>내용</label>
+      <label>작성자 :</label>
+      <input type="text" name="writer" value="${view.writer}" /><br/><br/>
+		
+    <div style="display:flex;">
+      <label>내용&nbsp;</label>
       <textarea cols="50" rows="5" name="content">${view.content}</textarea><br/>
+    </div>  
 <!--       window.open -> 새창 넘어옴 location.href 를 쓰는게 나을듯 -->
-      <button type="submit" class="btn" onclick="location.href='/view?bno=${view.bno}';">수정 완료</button>
+      <p><button type="submit" class="btn" >수정 완료</button></p>
 
 </form>
 

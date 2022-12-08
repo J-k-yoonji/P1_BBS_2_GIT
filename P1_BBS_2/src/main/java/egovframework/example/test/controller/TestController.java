@@ -57,14 +57,14 @@ public class TestController {
 		TestVo testVo = testService.view(bno);
 		model.addAttribute("view", testVo);
 		
-//		System.out.println("view" + bno+"1");
+		System.out.println("view" + bno);
 //		System.out.println("view" + bno+"2");
 	}
 	
 	//게시물 수정 (사용자에서 서버로 데이터 이동 POST메서드)
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String postModify(TestVo testVo) throws Exception {
-//		System.out.println("view" + testVo.getBno()+"3");
+		System.out.println("view" + testVo.getBno()+"3");
 		testService.modify(testVo);
 		
 		return "redirect:/view?bno=" + testVo.getBno() ;

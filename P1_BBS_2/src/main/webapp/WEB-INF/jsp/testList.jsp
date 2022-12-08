@@ -13,7 +13,7 @@
         height: 400px;
       }
       
-      .hlink:hover {
+      .trlink:hover {
           color: #FF1E9D;
       }
     </style>
@@ -43,12 +43,11 @@
 	
 	<tbody>
 		<c:forEach items="${list}" var="result">
-			<tr>
+<!-- 			<tr  onclick=window.open("/view?bno=${result.bno}","_self") style='cursor:pointer; border:0; margin:0; '> -->
+			<tr class="trlink" onclick="location.href='/view?bno=${result.bno}';" style='cursor:pointer;  '>
  				<td>${result.bno}</td>
-<%-- 				<td>
-				        <a href="/view?bno=${result.bno}">${result.title}</a>   
-				</td> --%>
-				<td><h4 class="hlink" onclick=window.open("/view?bno=${result.bno}","_self") style='cursor:pointer; border:0; margin:0; '>${result.title}</h4></td>
+				<td>${result.title}</td>
+<%-- 				<td><h4 class="hlink">${result.title}</h4></td> --%>
 				<td>${result.writer}</td> 
 				<td>${result.regDate}</td> 
 			</tr>
