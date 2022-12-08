@@ -13,6 +13,10 @@
 
 <h1>게시물 작성</h1>
 
+<div id="nav">
+     <%@ include file="../jsp/nav.jsp" %>
+</div>
+
 <form method="post">
 
       <label>제목</label>
@@ -24,7 +28,7 @@
       <label>내용</label>
       <textarea cols="50" rows="5" name="content"></textarea>
       
-      <button type="submit">작성</button>
+      <p><button type="submit" class="btn" >작성 완료</button></p>
 
 </form>
 

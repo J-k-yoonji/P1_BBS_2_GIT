@@ -7,24 +7,77 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>게시물 조회</title>
+
+<style>
+table, td, th {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+table {
+	width: 600px;
+	height: 400px;
+}
+
+th, td {
+	vertical-align: top;
+}
+
+.th03, .td03 { width: 250px; }
+
+.th02, .td02 { width: 100px; }
+
+</style>
+
 </head>
 
 <body>
 
 <h1>게시물 조회</h1>
 
-<form method="post">
 
-      <label>제목</label>
-      <input type="text" name="title" /><br/>
+<div id="nav">
+     <%@ include file="../jsp/nav.jsp" %>
+</div>
 
-      <label>작성자</label>
-      <input type="text" name="writer" /><br/>
+<!-- <div>
+    <p><button type="button" class="btn" onclick="location.href='/testList';">목록으로</button></p>
+</div> -->
 
-      <label>내용</label>
-      <textarea cols="50" rows="5" name="content"></textarea>
+<p>
+ <form style="border:0; margin:0; " method="post">
       
-</form>
+  <table id= "tab" style="border:1px solid; ">
+	<thead>
+		<tr>
+		    <th class="th01" >번호</th>
+		    <th class="th02" >제목</th>
+		    <th class="th03" >내용</th>
+		    <th class="th04" >작성자</th>
+		    <th class="th05" >작성시간</th>
+		</tr>
+	</thead>
+	
+	<tbody>
+
+			<tr>
+ 				<td class="td01" >${view.bno}</td>
+ 				<td class="td02" >${view.title}</td>
+ 				<td class="td03" >${view.content}</td>
+				<td class="td04" >${view.writer}</td> 
+				<td class="td05" >${view.regDate}</td> 
+			</tr>
+
+	</tbody>
+  </table>
+      
+ </form>
+</p>
+
+<div>
+    <button type="button" class="btn" onclick="location.href='/modify?bno=${view.bno}';">게시물 수정</button>
+    <button type="button" class="btn" onclick="location.href='/delete?bno=${view.bno}';">게시물 삭제</button>
+</div>
 
 </body>
 

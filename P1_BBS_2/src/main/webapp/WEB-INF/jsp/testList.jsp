@@ -5,21 +5,39 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>BoardHome</title>
+
+    <style>
+      table {
+        width: 600px;
+        height: 400px;
+      }
+      
+      .hlink:hover {
+          color: #FF1E9D;
+      }
+    </style>
+
 </head>
 <body>
 
-<h1>게시판[mariaDB 연동 확인]</h1>
+<h1>게시판 목록</h1>
 
-<p><button type="button" onclick="window.open('/write');">게시물 작성</button></p>
+<div id="nav">
+     <%@ include file="../jsp/nav.jsp" %>
+</div>
 
-<table style="border:1px solid;">
+<!-- <div>
+    <p><button type="button" class="btn" onclick="location.href='/write';">게시물 작성</button></p>
+</div> -->
+
+<table style="border:1px solid; text-align: center;">
 	<thead>
 		<tr>
-		    <th>글번호</th>
+		    <th>번호</th>
 		    <th>제목</th>
 		    <th>작성자</th>
-		    <th>작성일</th>
+		    <th>작성시간</th>
 		</tr>
 	</thead>
 	
@@ -27,7 +45,10 @@
 		<c:forEach items="${list}" var="result">
 			<tr>
  				<td>${result.bno}</td>
-				<td>${result.title}</td>
+<%-- 				<td>
+				        <a href="/view?bno=${result.bno}">${result.title}</a>   
+				</td> --%>
+				<td><h4 class="hlink" onclick=window.open("/view?bno=${result.bno}","_self") style='cursor:pointer; border:0; margin:0; '>${result.title}</h4></td>
 				<td>${result.writer}</td> 
 				<td>${result.regDate}</td> 
 			</tr>
