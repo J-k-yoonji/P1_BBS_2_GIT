@@ -6,10 +6,12 @@
     <!--    resultType 은 쿼리를 실행한 뒤 결과가 있을 경우에 사용하며, 반대로 데이터를 넣을 때는 parameterType을 사용. -->
     <!-- 게시물 목록 -->   
 	<select id="selectList" resultType="testVo">
-		SELECT bno, title, content, writer, 
+		SELECT 
+		       bno, title, content, writer, 
 		       DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate
-		         FROM tbl_board
-		             ORDER BY bno DESC 
+		FROM 
+		       tbl_board
+		ORDER BY bno DESC 
 	</select>
 	
     <!-- 게시물 작성 -->   
@@ -19,13 +21,39 @@
 		                VALUES (#{title}, #{content}, #{writer}) 
 	</insert>
 	
-<!-- 	
-	게시물 조회   
+	
+    <!--게시물 조회 -->
+    <!-- 데이터를 넣을 떄는 parameterType 을 사용! -->
 	<select id="view" parameterType="int" resultType="testVo">
-     	SELECT bno, title, content, writer, regDate, viewCnt
-             	FROM `tbl_board`
-                    	WHERE bno = #{bno};
+     	SELECT 
+     	       bno, title, content, writer, 
+     	       DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate
+        FROM 
+               tbl_board
+        WHERE 
+               bno = #{bno}
 	</select>
 	
-	 -->
+	<!-- 게시물 수정 -->
+<!-- 	중요 : parameterType 확인 -->
+	<update id="modify" parameterType="testVo" >
+	    UPDATE 
+	            tbl_board    
+	    SET 
+	            title = #{title}, content = #{content}, writer = #{writer}
+	    WHERE 
+                bno = #{bno} 
+	</update>
+	
+	<!-- 게시물 삭제 -->
+	<delete id="delete" parameterType="int">
+	    DELETE 
+	    FROM 
+                tbl_board
+	    WHERE 
+                bno = #{bno}                 
+	
+	</delete>
+	
+	
 </mapper>
