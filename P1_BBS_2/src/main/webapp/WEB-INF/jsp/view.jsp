@@ -44,7 +44,7 @@ th, td {
     <p><button type="button" class="btn" onclick="location.href='/testList';">목록으로</button></p>
 </div> -->
 
-<p>
+<%-- <p>
  <form style="border:0; margin:0; " method="post">
       
   <table id= "tab" style="border:1px solid; ">
@@ -72,6 +72,30 @@ th, td {
   </table>
       
  </form>
+</p> --%>
+
+<p>
+<form method="post">
+
+      <label>번호 :</label>
+      <label class="lbl" >${view.bno}</label><br/>
+       <input type="hidden" name="bno" value="${view.bno}"/><br/>
+
+      <label>제목 :</label>
+      <label class="lbl" >${view.title}</label><br/>
+       <input type="hidden" name="title" value="${view.title}"/><br/>
+
+      <label>작성자 :</label>
+      <label class="lbl" >${view.writer}</label><br/>
+       <input type="hidden" name="writer" value="${view.writer}"/><br/>
+
+    <div style="display:flex;">
+      <label>내용&nbsp;</label>
+      <textarea disabled="disabled" cols="50" rows="5" name="content" >${view.content}</textarea>
+       <input type="hidden" name="content" value="${view.content}"/><br/>  
+    </div>   
+          
+</form>
 </p>
 
 <div>

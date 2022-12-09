@@ -43,7 +43,7 @@ public class TestServiceImpl implements TestService{
 			mapper.modify(testVo);
 		}
 		
-		//게시물 조회
+		//게시물 삭제
 		@Override
 		public void delete(int bno) throws Exception {
 			TestMapper mapper = sqlSession.getMapper(TestMapper.class);

@@ -3,7 +3,6 @@ package egovframework.example.test.service;
 import java.util.List;
 
 import egovframework.example.test.vo.TestVo;
-import egovframework.example.test.vo.TestVo2;
 
 public interface TestService {
 
@@ -16,7 +15,7 @@ public interface TestService {
 	//게시물 조회
 	public TestVo view(int bno) throws Exception;
 	
-	//게시물 작성
+	//게시물 수정
 	public void modify(TestVo testVo) throws Exception;
 
 	//게시물 삭제
