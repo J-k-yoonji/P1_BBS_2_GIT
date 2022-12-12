@@ -21,6 +21,23 @@
 		                VALUES (#{title}, #{content}, #{writer}) 
 	</insert>
 	
+	<!-- insertNewArticle -->
+    <insert id="insertNewArticle" parameterType="java.uti.Map">
+        <![CDATA[
+           INSERT INTO 
+               tbl_board( bno, title, content, writer, imageFileName ) 
+                        VALUES ( #{bno}, #{title}, #{content}, #{writer}, #{imageFileName} )
+        ]]>
+                          
+    </insert>	
+    
+	<!-- 추가하는 새 글에 대한 글 번호를 가져옴.(작성) -->
+    <select id="selectNewArticleNO" resultType="int">
+        <![CDATA[
+           SELECT nvl(max(bno, 0)) + 1 FROM tbl_board
+        ]]>
+                          
+    </select>   
 	
     <!--게시물 조회 -->
     <!-- 데이터를 넣을 떄는 parameterType 을 사용! -->

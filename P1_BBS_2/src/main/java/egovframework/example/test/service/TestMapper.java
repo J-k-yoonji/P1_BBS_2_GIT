@@ -1,6 +1,7 @@
 package egovframework.example.test.service;
 
 import java.util.List;
+import java.util.Map;
 
 import egovframework.example.test.vo.TestVo;
 
@@ -17,4 +18,10 @@ public interface TestMapper {
 	public void delete(int bno) throws Exception;
 
 	public void uploadForm(TestVo testVo) throws Exception;
+
+	public int insertNewArticle(Map articleMap);
+
+//	public int insert(Map articleMap);
+
+//	public void insert(String string, Map articleMap);
 }

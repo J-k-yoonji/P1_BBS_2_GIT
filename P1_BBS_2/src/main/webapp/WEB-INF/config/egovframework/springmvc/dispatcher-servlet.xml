@@ -58,8 +58,19 @@
             </map>
         </property>
     </bean>
+    
+        <!-- 중요 : 파일업로드 관련  -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+      <property name="maxUploadSize" value="52428800" />
+      <property name="maxInMemorySize" value="1000000" />
+      <property name="defaultEncoding" value="utf-8" />
+    </bean>
+     
 	<!-- /For Pagination Tag -->
 
     <mvc:view-controller path="/cmmn/validator.do" view-name="cmmn/validator"/>
+    
+    
 
 </beans>
+

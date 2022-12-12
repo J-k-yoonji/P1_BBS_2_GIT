@@ -17,7 +17,7 @@
      <%@ include file="../jsp/nav.jsp" %>
 </div>
 
-<form method="post">
+<form method="post" >
 
       <label>제목 :</label>
       <input type="text" name="title" /><br/><br/>
@@ -32,6 +32,17 @@
       
       <p><button type="submit" class="btn" >작성 완료</button></p>
 
+</form>
+
+<!-- 서블릿에 요청해 파일업로드 -->
+<!-- 중요 : 서블릿 파일인 FileUpload.java에서 생성한 "/서블릿매핑이름"을 form의 action에 써준다. 참고 : @WebServlet("/upload") -->
+<form action="view" method="post" enctype="multipart/form-data" >
+  파일1: <input type="file" name="file1" ><br>
+  파일2: <input type="file" name="file2" ><br>
+  매개변수1: <input type="text" name="param1" ><br>
+  매개변수2: <input type="text" name="param2" ><br>
+  매개변수3: <input type="text" name="param3" ><br>
+  <input type="submit" value="업로드" ><br>
 </form>
 
 </body>
