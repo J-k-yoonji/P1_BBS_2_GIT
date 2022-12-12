@@ -17,8 +17,8 @@
     <!-- 게시물 작성 -->   
 	<insert id="write" parameterType="testVo">
 		INSERT INTO 
-		       tbl_board( title, content, writer ) 
-		                VALUES (#{title}, #{content}, #{writer}) 
+		       tbl_board( title, content, writer, imageFileName, imageFileSize) 
+		                VALUES (#{title}, #{content}, #{writer}, #{imageFileName}, #{imageFileSize}) 
 	</insert>
 	
 	

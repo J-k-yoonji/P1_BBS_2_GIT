@@ -1,5 +1,18 @@
 package egovframework.example.test.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,13 +20,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import egovframework.example.test.service.TestService;
 import egovframework.example.test.vo.TestVo;
 
 @Controller
 public class TestController {
-
+	
 	@Autowired
 	private TestService testService;
 
@@ -38,7 +52,24 @@ public class TestController {
 	
 	//게시물 작성 (사용자에서 서버로 데이터 이동 POST메서드)
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String postWrite(TestVo testVo) throws Exception {
+	public String postWrite(TestVo testVo, @RequestParam("file1") MultipartFile report) throws Exception {
+		//파일명
+		String originalFile = report.getOriginalFilename();
+		//파일명 중 확장자만 추출 
+		String originalFileExtension = originalFile.substring(originalFile.lastIndexOf("."));
+//		System.out.println(originalFile);
+//		System.out.println(originalFileExtension);
+		String filePath = "C://file_repo/";
+		///C://download/pororo.png
+		
+		File file = new File(filePath  + originalFile);
+//		System.out.println(file.getName());
+		
+		//파일 저장
+		report.transferTo(file);
+		
+//		TestVo testVo = new TestVo();
+		
 		testService.write(testVo);
 		
 		return "redirect:/testList";
@@ -100,5 +131,67 @@ public class TestController {
 //		
 //		return "redirect:/view?bno=" + testVo.getBno() ;
 //	}
+	
+	@RequestMapping(value = "/upload", method = { RequestMethod.POST, RequestMethod.GET } )
+	public class FileUpload extends HttpServlet {
+		protected void doGet(HttpServletRequest request, HttpServletResponse response)
+				throws ServletException, IOException {
+			doHandle(request, response);
+		}
+
+		protected void doPost(HttpServletRequest request, HttpServletResponse response)
+				throws ServletException, IOException {
+			doHandle(request, response);
+		}
+
+		protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			request.setCharacterEncoding("utf-8");
+			String encoding = "utf-8";
+
+//			업로드할 파일 경로 지정
+			File currentDirPath = new File("C:\\file_repo");
+			DiskFileItemFactory factory = new DiskFileItemFactory();
+//			파일 경로 설정
+			factory.setRepository(currentDirPath);
+//			최대업로드 가능한 파일 크기 설정
+			factory.setSizeThreshold(1024 * 1024 * 100);
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			try {
+//				request 객체에서 매개변수를 list로 가져옵니다.
+				List items = upload.parseRequest(request);
+				for (int i = 0; i < items.size(); i++) {
+//					파일 업로드창에서 업로드된 항목들을 하나씩 가져옵니다.
+					FileItem fileItem = (FileItem) items.get(i);
+//			    	폼 필드이면 전송된 매개변수 값을 출력합니다.
+					if (fileItem.isFormField()) {
+						System.out.println(fileItem.getFieldName() + "=" + fileItem.getString(encoding));
+					} else {
+//					       폼 필드가 아니면 파일업로드 기능을 수행합니다.
+						System.out.println("매개변수이름:" + fileItem.getFieldName());
+						System.out.println("파일이름:" + fileItem.getName());
+						System.out.println("파일크기:" + fileItem.getSize() + "bytes");
+						if (fileItem.getSize() > 0) {
+							int idx = fileItem.getName().lastIndexOf("\\");
+							if (idx == -1) {
+								idx = fileItem.getName().lastIndexOf("/");
+							}
+//					    	업로드한 파일 이름을 가져옵니다.
+							String fileName = fileItem.getFieldName().substring(idx + 1);
+//					    	업로드한 파일 이름으로 저장소에 파일을 업로드합니다.
+							File uploadFile = new File(currentDirPath + "\\" + fileName);
+							fileItem.write(uploadFile);
+						} // end if
+					} // end if
+				} // end for 
+		        response.setContentType("text/html; charset=UTF-8");
+		        request.setCharacterEncoding("utf-8");
+		        PrintWriter out = response.getWriter();
+				out.println("<h1>업로드 완료</h1>");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}	
+	
 
 }
