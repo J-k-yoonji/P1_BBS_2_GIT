@@ -76,6 +76,29 @@ public class TestController {
 		testService.delete(bno);
 		return "redirect:/testList" ;
 	}
-
+	
+	//파일업로드 (서버에서 사용자로 데이터 이동 GET메서드)
+	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
+	public void getUploadForm() throws Exception {
+		System.out.println("uploadForm-1 clear");
+	}
+	
+	//파일업로드 (사용자에서 서버로 데이터 이동 POST메서드)
+	@RequestMapping(value = "/uploadForm", method = RequestMethod.POST)
+	public String postUploadForm(TestVo testVo) throws Exception {
+		System.out.println("uploadForm-2 clear");
+		testService.uploadForm(testVo);
+		
+		return "redirect:/testList";
+	}
+	
+//	//게시물 수정 (사용자에서 서버로 데이터 이동 POST메서드)
+//	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+//	public String postModify(TestVo testVo) throws Exception {
+//		System.out.println("view" + testVo.getBno()+"3");
+//		testService.modify(testVo);
+//		
+//		return "redirect:/view?bno=" + testVo.getBno() ;
+//	}
 
 }

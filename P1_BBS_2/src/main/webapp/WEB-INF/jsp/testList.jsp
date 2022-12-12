@@ -14,7 +14,7 @@
       }
       
       .trlink:hover {
-          color: #FF1E9D;
+          color: #FF8200;
       }
     </style>
 

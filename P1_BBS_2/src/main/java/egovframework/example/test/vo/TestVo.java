@@ -1,8 +1,12 @@
 package egovframework.example.test.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class TestVo {
@@ -11,8 +15,9 @@ public class TestVo {
 	private String content;
 	private String writer;
 	private String regDate;
-	private String fileName;
-	private String fileSize;
+	private String imageFileName;
+	private String imageFileSize;
+	
 	
 //	private int viewCnt;
 

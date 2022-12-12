@@ -21,4 +21,7 @@ public interface TestService {
 	//게시물 삭제
 	public void delete(int bno) throws Exception;
 
+	//파일업로드
+	public void uploadForm(TestVo testVo) throws Exception;
+
 }

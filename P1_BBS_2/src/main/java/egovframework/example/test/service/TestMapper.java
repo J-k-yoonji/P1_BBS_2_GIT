@@ -15,4 +15,6 @@ public interface TestMapper {
 	public void modify(TestVo testVo) throws Exception;
 
 	public void delete(int bno) throws Exception;
+
+	public void uploadForm(TestVo testVo) throws Exception;
 }

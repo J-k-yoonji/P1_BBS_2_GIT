@@ -49,5 +49,13 @@ public class TestServiceImpl implements TestService{
 			TestMapper mapper = sqlSession.getMapper(TestMapper.class);
 			mapper.delete(bno);
 		}
+
+		//파일업로드
+		@Override
+		public void uploadForm(TestVo testVo) throws Exception {
+			TestMapper mapper = sqlSession.getMapper(TestMapper.class);
+			mapper.uploadForm(testVo);
+		}
+
 		
 }
