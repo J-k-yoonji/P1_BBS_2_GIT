@@ -3,7 +3,9 @@ package egovframework.example.test.service;
 import java.util.List;
 
 import egovframework.example.test.vo.TestVo;
+import egovframework.rte.psl.dataaccess.mapper.Mapper;
 
+@Mapper("mapper")
 public interface TestMapper {
 
 	public List<TestVo> selectList(TestVo testVo) throws Exception;

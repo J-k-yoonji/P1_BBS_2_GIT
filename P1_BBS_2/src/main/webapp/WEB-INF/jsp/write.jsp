@@ -6,6 +6,46 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+  function fn_validate() {
+      var upLoadFile = document.upLoadFile;
+      var file1Origin = upLoadFile.file1;
+      var file1 = upLoadFile.file1.value;
+      var fileName = file1.substr(-3);
+      
+      var file1Size = document.upLoadFile.file1.files[0].size ; 
+/*    var file1Size = file1Origin.size; */
+/*    var file1Size = returnFileSize(file1Origin.size); */
+      
+      
+/*    참고 : console.log(document.upLoadFile.file1.files); 로 먼저 files 리스트에 들어있는  값을 확인해보자. key: size / value:  3120396 (파일사이즈byte )*/    
+      console.log(document.upLoadFile.file1.files[0].size);
+/*       console.log(file1Size); */
+      console.log(file1);
+/*         if (file1 == 동영상. ) */
+      /* alert(fileName); */ 
+      
+      var file1SizeMB = file1Size / 1024 / 1024 ;
+      console.log(file1SizeMB);
+      
+       if ( (file1SizeMB < 1 )
+              && (fileName == "mp4" || fileName == "jpg" || fileName == "png") ) {
+          upLoadFile.method = "post";
+          upLoadFile.action = "write";
+          upLoadFile.submit();  
+          alert(" 글 작성완료! ");          
+
+      } else if (file1SizeMB >= 1) {
+          alert(" 1 MB 미만의 파일만 업로드가 가능합니다.");
+      } else {
+          alert(".mp4 또는 .jpg 또는 .png 파일형식만 업로드가 가능합니다.");
+      }
+  }
+  
+</script>
+
 <title>게시물 작성</title>
 </head>
 
@@ -17,7 +57,7 @@
      <%@ include file="../jsp/nav.jsp" %>
 </div>
 
-<form method="post" enctype="multipart/form-data" action="/write">
+<form name="upLoadFile" method="post" enctype="multipart/form-data" action="/write" >
 
       <label>제목 :</label>
       <input type="text" name="title" /><br/><br/>
@@ -26,13 +66,13 @@
       <input type="text" name="writer" /><br/><br/>
 
     <div style="display:flex;">
-    	<label>내용&nbsp;</label>
+        <label>내용&nbsp;</label>
         <textarea cols="50" rows="5" name="content"></textarea>
     </div>
     
-      파일1: <input type="file" name="file1" ><br>
+      파일1: <input type="file" name="file1" id="file1" ><br>
       
-      <p><button type="submit" class="btn" >작성 완료</button></p>
+      <p><input type="button" class="input_btn" onClick="fn_validate()" value="작성 완료"/></p>
 
 </form>
 

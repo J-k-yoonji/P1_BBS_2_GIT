@@ -27,7 +27,8 @@
 	<select id="view" parameterType="int" resultType="testVo">
      	SELECT 
      	       bno, title, content, writer, 
-     	       DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate
+     	       DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate,
+     	       imageFileName, imageFileSize
         FROM 
                tbl_board
         WHERE 

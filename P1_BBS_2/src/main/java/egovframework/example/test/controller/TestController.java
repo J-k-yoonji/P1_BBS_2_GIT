@@ -52,11 +52,11 @@ public class TestController {
 	
 	//게시물 작성 (사용자에서 서버로 데이터 이동 POST메서드)
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String postWrite(TestVo testVo, @RequestParam("file1") MultipartFile report) throws Exception {
+	public String postWrite( TestVo testVo, @RequestParam("file1") MultipartFile report) throws Exception {
 		//파일명
 		String originalFile = report.getOriginalFilename();
-		//파일명 중 확장자만 추출 
-		String originalFileExtension = originalFile.substring(originalFile.lastIndexOf("."));
+//		//파일명 중 확장자만 추출 
+//		String originalFileExtension = originalFile.substring(originalFile.lastIndexOf("."));
 //		System.out.println(originalFile);
 //		System.out.println(originalFileExtension);
 		String filePath = "C://file_repo/";
@@ -67,10 +67,13 @@ public class TestController {
 		
 		//파일 저장
 		report.transferTo(file);
-		
+		String imageFileName = file.getName();
+		System.out.println(" 1 : " + testVo.getImageFileName());
 //		TestVo testVo = new TestVo();
-		
+		testVo.setImageFileName(imageFileName);
+		System.out.println(" 2 : " + testVo.getImageFileName());
 		testService.write(testVo);
+		
 		
 		return "redirect:/testList";
 	}
