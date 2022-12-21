@@ -11,6 +11,8 @@
 		<property name="mapperLocations" value="classpath:/egovframework/sqlmap/mariadb/**/*Mapper.xml" />
 	</bean>
 	
+<!-- 	<mybatis-spring:scan base-package="org.zerock.mapper"/> -->
+	
 <!-- 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
 	</bean> -->

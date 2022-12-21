@@ -42,6 +42,7 @@
 	</thead>
 	
 	<tbody>
+<!-- TestController.java 컨트롤러 파일의 model.addAttribute("list", testService.selectList(testVo));	부분의  "list" 속성 -->
 		<c:forEach items="${list}" var="result">
 <!-- 			<tr  onclick=window.open("/view?bno=${result.bno}","_self") style='cursor:pointer; border:0; margin:0; '> -->
 			<tr class="trlink" onclick="location.href='/view?bno=${result.bno}';" style='cursor:pointer;  '>

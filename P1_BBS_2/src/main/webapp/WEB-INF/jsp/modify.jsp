@@ -39,6 +39,8 @@
       <label>내용&nbsp;</label>
       <textarea cols="50" rows="5" name="content">${view.content}</textarea><br/>
     </div>  
+    
+           <img src= "/filepath/${view.imageFileName}"  width = 200 height = 200 id="preview" />
 <!--       window.open -> 새창 넘어옴 location.href 를 쓰는게 나을듯 -->
       <p><button type="submit" class="btn" >수정 완료</button></p>
 

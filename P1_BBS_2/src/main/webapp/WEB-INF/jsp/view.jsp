@@ -1,12 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+
+
+<%-- <c:set  var="contextPath" value="${pageContext.request.contextPath}" /> --%>
+<%
+  request.setCharacterEncoding("utf-8");
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
 <html>
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>게시물 조회</title>
+
+<%-- <c:set  var="file1" value="${pageContext.request.contextPath}" /> --%>
+
+<title>게시물 조회_jQuery</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+//   $(document).ready(function () {
+// 	  alert($("#unique2").html());
+//   });
+  
+//   window.onload = function(){
+// 	  alert($("#unique2").html());
+// // 	  $(".class1").html("<img src='../image/Sunflower.jpg'>");
+// 	  $(".class1").html("<img src='/filepath/Sunflower.jpg'>");
+// // 	  $(".class1").html("<img src='C:\file_repo\Sunflower.jpg'>");
+//   };
+
+</script>
 
 <style>
 table, td, th {
@@ -35,6 +58,7 @@ th, td {
 
 <h1>게시물 조회</h1>
 
+<!-- <div id="unique2">제이쿼리입니다!!!!33</div> -->
 
 <div id="nav">
      <%@ include file="../jsp/nav.jsp" %>
@@ -44,39 +68,11 @@ th, td {
     <p><button type="button" class="btn" onclick="location.href='/testList';">목록으로</button></p>
 </div> -->
 
-<%-- <p>
- <form style="border:0; margin:0; " method="post">
-      
-  <table id= "tab" style="border:1px solid; ">
-	<thead>
-		<tr>
-		    <th class="th01" >번호</th>
-		    <th class="th02" >제목</th>
-		    <th class="th03" >내용</th>
-		    <th class="th04" >작성자</th>
-		    <th class="th05" >작성시간</th>
-		</tr>
-	</thead>
-	
-	<tbody>
-
-			<tr>
- 				<td class="td01" >${view.bno}</td>
- 				<td class="td02" >${view.title}</td>
- 				<td class="td03" >${view.content}</td>
-				<td class="td04" >${view.writer}</td> 
-				<td class="td05" >${view.regDate}</td> 
-			</tr>
-
-	</tbody>
-  </table>
-      
- </form>
-</p> --%>
 
 <p>
 <form method="post">
 
+<!-- TestController.java 컨트롤러 파일의 model.addAttribute("view", testVo); 부분의  "view" 속성 -->
       <label>번호 :</label>
       <label class="lbl" >${view.bno}</label><br/>
        <input type="hidden" name="bno" value="${view.bno}"/><br/>
@@ -94,10 +90,22 @@ th, td {
       <textarea disabled="disabled" cols="50" rows="5" name="content" >${view.content}</textarea>
        <input type="hidden" name="content" value="${view.content}"/><br/>  
     </div>   
-          
+    
+    <div>${contextPath}</div>
+
+    <div style="display:flex;" class="result-images" >
+       <input type="hidden" name="imageFileName" value="${view.imageFileName}" />
+<%--        <img src= "${contextPath}/file?bno=${view.bno}&imageFileName=${view.imageFileName}"  width = 200 height = 200 id="preview" /> --%>
+<%--        <img src= "${contextPath}/file?bno=${view.bno}&imageFileName=${view.imageFileName}"  width = 200 height = 200 id="preview" /> --%>
+       <img src= "/filepath/${view.imageFileName}"  width = 200 height = 200 id="preview" />
+       <img src= "/filepath/${view.imageFileName}"  width = 200 height = 200 id="preview" />
+<!--        <img src= "Sunflower.jpg"  width = 200 height = 200 id="preview" /> -->
+    </div>    
+         
 </form>
 </p>
 
+<!--     <div class="class1"></div>    -->
 <div>
     <button type="button" class="btn" onclick="location.href='/modify?bno=${view.bno}';">게시물 수정</button>
     <button type="button" class="btn" onclick="location.href='/delete?bno=${view.bno}';">게시물 삭제</button>

@@ -7,43 +7,130 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
+<script src="./js/jquery.js"></script>
 <script type="text/javascript">
-  function fn_validate() {
+// var fileSize = 600;
+// $(document).ready(function(){
+function fn_validate() {	
       var upLoadFile = document.upLoadFile;
+      console.log(upLoadFile);
       var file1Origin = upLoadFile.file1;
+      console.log(file1Origin);
       var file1 = upLoadFile.file1.value;
-      var fileName = file1.substr(-3);
-      
-      var file1Size = document.upLoadFile.file1.files[0].size ; 
-/*    var file1Size = file1Origin.size; */
-/*    var file1Size = returnFileSize(file1Origin.size); */
-      
-      
-/*    참고 : console.log(document.upLoadFile.file1.files); 로 먼저 files 리스트에 들어있는  값을 확인해보자. key: size / value:  3120396 (파일사이즈byte )*/    
-      console.log(document.upLoadFile.file1.files[0].size);
-/*       console.log(file1Size); */
       console.log(file1);
-/*         if (file1 == 동영상. ) */
-      /* alert(fileName); */ 
+      var fileNameExt = file1.substr(-3);
+      console.log(fileNameExt);
+      var file1Size = document.upLoadFile.file1.files[0].size ; 
+      console.log(file1Size);
+//       console.log(file1);
+      var file1SizeMB = file1Size/1024/1024 ;
+      var limitSize = 2 ;
+
+//   function fn_validate() {
+	  
+      console.log(file1);
+
+      if (file1SizeMB >= limitSize ) {
+    	  alert( limitSize + " MB 미만의 파일만 업로드가 가능합니다.");
+          
+      } else if ( (fileNameExt != "mp4" && fileNameExt != "jpg" && fileNameExt != "png") ) {
+          alert("확장자가 .mp4 또는 .jpg 또는 .png 인 파일만 업로드가 가능합니다.");     
+      }  else {
+      } 
+   
+  
+// 첨부파일 업로드  함수
+  function fn_upload() {
+
+       if ( (file1SizeMB < limitSize )
+              && (fileNameExt == "mp4" || fileNameExt == "jpg" || fileNameExt == "png") ) {
+          upLoadFile.method = "post";
+          upLoadFile.action = "write";
+                   
+          alert(" 첨부파일 등록이 완료되었습니다! "); 
+
+      }            
+  } 
+
+//게시글 전체 업로드 함수
+  function fn_upload2() {
       
-      var file1SizeMB = file1Size / 1024 / 1024 ;
-      console.log(file1SizeMB);
-      
-       if ( (file1SizeMB < 1 )
-              && (fileName == "mp4" || fileName == "jpg" || fileName == "png") ) {
+       if ( (file1SizeMB < limitSize )
+              && (fileNameExt == "mp4" || fileNameExt == "jpg" || fileNameExt == "png") ) {
           upLoadFile.method = "post";
           upLoadFile.action = "write";
           upLoadFile.submit();  
-          alert(" 글 작성완료! ");          
+                   
+          alert(" 글작성이 완료되었습니다! "); 
 
-      } else if (file1SizeMB >= 1) {
-          alert(" 1 MB 미만의 파일만 업로드가 가능합니다.");
-      } else {
-          alert(".mp4 또는 .jpg 또는 .png 파일형식만 업로드가 가능합니다.");
-      }
-  }
+      }            
+  } 
   
+// $(document).ready(function(){
+// window.onload = function(){
+function read(){
+   $("#preview1").hide();    
+  var domEleArray = [$('#file1').clone()];  
+  
+  function readURL(input)  {
+	  
+//       if( file1Size === undefined ) {
+//           alert("첨부된 파일이 없습니다");
+//           $("#preview1").hide();
+//       } else {
+//     	  var file1Size = document.upLoadFile.file1.files[0].size ; 
+//       }
+      
+      if ( (input.files && input.files[0])  ) {
+       var reader = new FileReader();
+       reader.onload = function (e) {
+    	   console.log(e);
+    	   if(fileNameExt == 'mp4'){
+//     		   $("#preview2").show();  
+               $('#preview2').attr('src', e.target.result);
+    	   } else {
+    		   $("#preview1").show();  
+	           $('#preview1').attr('src', e.target.result);    		   
+    	   }
+//            $('#preview2').attr('src', e.target.result);
+       }
+       reader.readAsDataURL(input.files[0]);
+       readURL(this);
+    } 
+      else {
+        alert("첨부된 파일이 없습니다"); 
+    }
+ }
+//readURL()--
+
+  //file 양식으로 이미지를 선택(값이 변경) 되었을때 처리하는 코드
+  $("#file1").change(function(){ // 이미지 선택했을때
+     alert("change");
+     readURL(this);
+  
+//   if( input.files === undefined ) {
+//   alert("첨부된 파일이 없습니다");
+//   }
+  
+// !!!여기서 미리보기에 표시가 됨!!!  
+
+  
+//      if( input.files === undefined ) {
+//     	 alert("첨부된 파일이 없습니다");
+//     	 $("#preview1").hide();
+//      }else {
+//       readURL(this);
+//      } 
+  });
+  
+      $("#preview1").hide();
+  
+ }; 
+}; 
+  
+
 </script>
 
 <title>게시물 작성</title>
@@ -51,7 +138,7 @@
 
 <body>
 
-<h1>게시물 작성</h1>
+<h1>게시물 작성3</h1>
 
 <div id="nav">
      <%@ include file="../jsp/nav.jsp" %>
@@ -68,25 +155,33 @@
     <div style="display:flex;">
         <label>내용&nbsp;</label>
         <textarea cols="50" rows="5" name="content"></textarea>
-    </div>
+    </div><br/>
     
-      파일1: <input type="file" name="file1" id="file1" ><br>
+<!--       파일1: <input type="file" name="file1" id="file1" ><br> -->
+<!-- onchange 안에 적힌 함수의 순서대로 함수가 실행된다!     -->
+      파일1: <input type="file" name="file1" id="file1" onchange=" fn_validate(); fn_upload(); readURL(this);  "  accept="video/*, image/*" />
+<!--       파일1: <input type="file" name="file1" id="file1" onchange="readURL(this); fn_validate(); fn_upload();"  accept="video/*, image/*" /> -->
+<!--       파일1: <input type="file" name="file1" id="file1" onchange="readURL(this); fn_validate(); fn_upload();"  accept="video/*, image/*" /> -->
+<!-- 파일취소 버튼 -->
+<!--          <input type="button" value="취소" id="filecancle" /></td> -->
+      <br/>
       
-      <p><input type="button" class="input_btn" onClick="fn_validate()" value="작성 완료"/></p>
+    
+<%-- <c:if test=$   --%>  
+        <img id="preview1"  src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" width = 200 height = 200 /><br/>
+  
+ 
+  
+<!--         <video id="preview2"  src="#" width = 200 height = 200 controls autoplay ></video><br/> -->
+<!--       파일1: <input type="file" name="file1" id="file1"  accept="video/*, image/*" ><br> -->
+      
+ <p><input type="submit" class="input_btn" onClick="fn_upload2()" value="작성 완료"/></p>
+<!--  <p><input type="button" class="input_btn" onClick="fn_validate()" value="작성 완료"/></p> -->
 
 </form>
 
-<!-- 서블릿에 요청해 파일업로드 -->
-<!-- 중요 : 서블릿 파일인 FileUpload.java에서 생성한 "/서블릿매핑이름"을 form의 action에 써준다. 참고 : @WebServlet("/upload") -->
-<!-- <form action="upload" method="post" enctype="multipart/form-data" >
-  파일1: <input type="file" name="file1" ><br>
-  파일2: <input type="file" name="file2" ><br>
-  매개변수1: <input type="text" name="param1" ><br>
-  매개변수2: <input type="text" name="param2" ><br>
-  매개변수3: <input type="text" name="param3" ><br>
-  <input type="submit" value="업로드" ><br>
-</form>
- -->
+
+
 </body>
 
 </html>

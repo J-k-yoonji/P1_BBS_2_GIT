@@ -1,7 +1,9 @@
 package egovframework.example.test.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -21,12 +23,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import egovframework.example.test.service.TestService;
 import egovframework.example.test.vo.TestVo;
 
 @Controller
 public class TestController {
+	
+//	private static String filePath = "C://file_repo/";
 	
 	@Autowired
 	private TestService testService;
@@ -60,7 +65,7 @@ public class TestController {
 //		System.out.println(originalFile);
 //		System.out.println(originalFileExtension);
 		String filePath = "C://file_repo/";
-		///C://download/pororo.png
+		///C://download/pororo.png    
 		
 		File file = new File(filePath  + originalFile);
 //		System.out.println(file.getName());
@@ -68,10 +73,10 @@ public class TestController {
 		//파일 저장
 		report.transferTo(file);
 		String imageFileName = file.getName();
-		System.out.println(" 1 : " + testVo.getImageFileName());
+//		System.out.println(" 1 : " + testVo.getImageFileName());
 //		TestVo testVo = new TestVo();
 		testVo.setImageFileName(imageFileName);
-		System.out.println(" 2 : " + testVo.getImageFileName());
+//		System.out.println(" 2 : " + testVo.getImageFileName());
 		testService.write(testVo);
 		
 		
@@ -83,7 +88,51 @@ public class TestController {
 	public void getView(@RequestParam("bno") int bno, Model model) throws Exception {
 		TestVo testVo = testService.view(bno);
 		model.addAttribute("view", testVo);
+
 	}
+	
+////	게시물 조회용 GET메서드 + 첨부파일 조회 기능
+//@RequestMapping(value = "/file" )
+//public class FileDownload extends HttpServlet {
+//	private static final long serialVersionUID = 1L;
+//	
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		doHandle(request, response);
+//	}
+//	protected void doPost(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
+//		doHandle(request, response);
+//	}
+//	private void doHandle(HttpServletRequest request, HttpServletResponse response) 
+//			throws ServletException, IOException {
+//		request.setCharacterEncoding("utf-8");
+//		response.setContentType("text/html; charset=utf-8");
+////		response.setContentType("image/jpeg");
+//		String bno = (String) request.getParameter("bno");
+//		String imageFileName = (String) request.getParameter("imageFileName");
+//		System.out.println("imageFileName: " + imageFileName + "bno: " + bno);
+//
+//		String ARTICLE_IMAGE_REPO = "C://file_repo/";
+//		
+//		OutputStream out = response.getOutputStream();
+//		String path = ARTICLE_IMAGE_REPO + "\\" + bno + "\\" + imageFileName;
+//		File imageFile = new File(path);
+//
+//		response.setHeader("Cache-Control", "no-cache");
+//		response.addHeader("Content-disposition", "attachment;fileName=" + imageFileName);
+//		FileInputStream in = new FileInputStream(imageFile);
+//		byte[] buffer = new byte[1024 * 8];
+//		while (true) {
+//			int count = in.read(buffer);
+//			if (count == -1)
+//				break;
+//			out.write(buffer, 0, count);
+//		}
+//		in.close();
+//		out.close();		
+////				ModelAndView mav = new ModelAndView();
+////		mav.addObject("", )
+//	}	
+//}	
 	
 	//게시물 수정 (서버에서 사용자로 데이터 이동 GET메서드)
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
@@ -104,6 +153,7 @@ public class TestController {
 		return "redirect:/view?bno=" + testVo.getBno() ;
 	}
 	
+	//게시물 삭제 POST방식으로 바꾸자!
 	//게시물 삭제 (서버에서 사용자로 데이터 이동 GET메서드)
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String getDelete(@RequestParam("bno") int bno) throws Exception {
