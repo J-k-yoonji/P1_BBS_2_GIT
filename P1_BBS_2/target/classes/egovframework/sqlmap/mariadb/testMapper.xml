@@ -17,8 +17,8 @@
     <!-- 게시물 작성 -->   
 	<insert id="write" parameterType="testVo">
 		INSERT INTO 
-		       tbl_board( title, content, writer, imageFileName, imageFileSize) 
-		                VALUES (#{title}, #{content}, #{writer}, #{imageFileName}, #{imageFileSize}) 
+		       tbl_board( title, content, writer, imageFileName, newFileName) 
+		                VALUES (#{title}, #{content}, #{writer}, #{imageFileName}, #{newFileName} ) 
 	</insert>
 	
 	
@@ -28,7 +28,7 @@
      	SELECT 
      	       bno, title, content, writer, 
      	       DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate,
-     	       imageFileName, imageFileSize
+     	       imageFileName, newFileName
         FROM 
                tbl_board
         WHERE 
@@ -41,7 +41,13 @@
 	    UPDATE 
 	            tbl_board    
 	    SET 
-	            title = #{title}, content = #{content}, writer = #{writer}
+	            title = #{title}, content = #{content}, writer = #{writer}  
+	    
+<!-- 	    <if test="imageFileName!='' and imageFileName!=null"> -->
+	    <if test="imageFileName!='' and imageFileName!=null">
+	        , imageFileName = #{imageFileName}, newFileName = #{newFileName}
+	    </if>
+	    
 	    WHERE 
                 bno = #{bno} 
 	</update>

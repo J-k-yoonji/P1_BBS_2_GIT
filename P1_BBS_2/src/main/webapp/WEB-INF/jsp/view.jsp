@@ -1,116 +1,105 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+    
+    <!-- jstl의 출력과 포맷 적용 태그 라이브러리 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<%@include file="./includes/header.jsp" %>
 
 <%-- <c:set  var="contextPath" value="${pageContext.request.contextPath}" /> --%>
 <%
   request.setCharacterEncoding("utf-8");
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
-<html>
 
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<%-- <c:set  var="file1" value="${pageContext.request.contextPath}" /> --%>
-
-<title>게시물 조회_jQuery</title>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript">
-//   $(document).ready(function () {
-// 	  alert($("#unique2").html());
-//   });
-  
-//   window.onload = function(){
-// 	  alert($("#unique2").html());
-// // 	  $(".class1").html("<img src='../image/Sunflower.jpg'>");
-// 	  $(".class1").html("<img src='/filepath/Sunflower.jpg'>");
-// // 	  $(".class1").html("<img src='C:\file_repo\Sunflower.jpg'>");
-//   };
-
-</script>
-
-<style>
-table, td, th {
-	border: 1px solid black;
-	border-collapse: collapse;
-}
-
-table {
-	width: 600px;
-	height: 400px;
-}
-
-th, td {
-	vertical-align: top;
-}
-
-.th03, .td03 { width: 250px; }
-
-.th02, .td02 { width: 100px; }
-
-</style>
-
-</head>
-
-<body>
-
-<h1>게시물 조회</h1>
-
-<!-- <div id="unique2">제이쿼리입니다!!!!33</div> -->
-
-<div id="nav">
-     <%@ include file="../jsp/nav.jsp" %>
-</div>
-
-<!-- <div>
-    <p><button type="button" class="btn" onclick="location.href='/testList';">목록으로</button></p>
-</div> -->
-
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">글 조회</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+               <div id="nav">
+                    <%@ include file="../jsp/nav.jsp" %>
+               </div>                     
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                    
+                        <div class="panel-heading"><a href="/testList" >목록</a> > 글 조회</div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
 
 <p>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 
 <!-- TestController.java 컨트롤러 파일의 model.addAttribute("view", testVo); 부분의  "view" 속성 -->
-      <label>번호 :</label>
-      <label class="lbl" >${view.bno}</label><br/>
-       <input type="hidden" name="bno" value="${view.bno}"/><br/>
+    <div class="form-group"> 
+      <label>번호 </label>
+       <input class="form-control"  name="bno" value="${view.bno}" readonly="readonly" ><br/>
+    </div>
 
-      <label>제목 :</label>
-      <label class="lbl" >${view.title}</label><br/>
-       <input type="hidden" name="title" value="${view.title}"/><br/>
+    <div class="form-group">
+      <label>제목 </label>
+       <input class="form-control"  name="title" value="${view.title}" readonly="readonly" ><br/>
+    </div>
 
-      <label>작성자 :</label>
-      <label class="lbl" >${view.writer}</label><br/>
-       <input type="hidden" name="writer" value="${view.writer}"/><br/>
+    <div class="form-group">
+      <label>작성자 </label>
+       <input class="form-control"  name="writer" value="${view.writer}" readonly="readonly" ><br/>
+    </div>
 
-    <div style="display:flex;">
+    <div class="form-group">
       <label>내용&nbsp;</label>
-      <textarea disabled="disabled" cols="50" rows="5" name="content" >${view.content}</textarea>
-       <input type="hidden" name="content" value="${view.content}"/><br/>  
-    </div>   
+      <textarea class="form-control"  cols="50" rows="3" name="content" readonly="readonly" >${view.content}</textarea>
+       <input class="form-control" type="hidden" name="content" value="${view.content}" readonly="readonly" > 
+    </div><br/>    
     
     <div>${contextPath}</div>
 
-    <div style="display:flex;" class="result-images" >
-       <input type="hidden" name="imageFileName" value="${view.imageFileName}" />
+    <div class="form-group">
+       <label>첨부파일</label><br/>
+       <input class="form-control" name="imageFileName" value="${view.imageFileName}" readonly="readonly" style="width: auto; height: auto; line-height: 0.8;" > 
+<%--        <input class="form-control" type="hidden" name="imageFileName" value="${view.imageFileName}" readonly="readonly" style="display:inline-block" > --%>
+<%--        <input class="form-control" type="hidden" name="imageFileName" value="${view.imageFileName}" readonly="readonly" > --%>
 <%--        <img src= "${contextPath}/file?bno=${view.bno}&imageFileName=${view.imageFileName}"  width = 200 height = 200 id="preview" /> --%>
 <%--        <img src= "${contextPath}/file?bno=${view.bno}&imageFileName=${view.imageFileName}"  width = 200 height = 200 id="preview" /> --%>
-       <img src= "/filepath/${view.imageFileName}"  width = 200 height = 200 id="preview" />
-       <img src= "/filepath/${view.imageFileName}"  width = 200 height = 200 id="preview" />
+       <img src= "/filepath/${view.newFileName}" style="margin-top: 6px; width:200px; height:200px;" id="preview" />
+<%--        <img src= "/filepath/${view.imageFileName}"  width = 200 height = 200 id="preview" /> --%>
 <!--        <img src= "Sunflower.jpg"  width = 200 height = 200 id="preview" /> -->
-    </div>    
+    </div><br/>    
          
 </form>
 </p>
 
 <!--     <div class="class1"></div>    -->
+<!-- <div> -->
+<%--     <button type="button" class="btn" onclick="location.href='/modify?bno=${view.bno}';">게시물 수정</button> --%>
+<%--     <button type="button" class="btn" onclick="location.href='/delete?bno=${view.bno}';">게시물 삭제</button> --%>
+
+<%--  위방식은 GET방식만 가능. 삭제버튼을 클릭했을때 "POST방식"으로 상대경로와 데이터를 전달해주기위해서 form태그를 새로 생성, 아래와같이 해야했음. --%>
 <div>
-    <button type="button" class="btn" onclick="location.href='/modify?bno=${view.bno}';">게시물 수정</button>
-    <button type="button" class="btn" onclick="location.href='/delete?bno=${view.bno}';">게시물 삭제</button>
+     <form name="myForm" action="/delete?bno=${view.bno}" method="POST"></form>
+		
+	<button type="button" class="btn btn-info" onclick="location.href='/modify?bno=${view.bno}';">게시물 수정</button>
+    <button type="button" class="btn btn-danger" onclick="javascript:document.myForm.submit();">게시물 삭제</button>
 </div>
 
-</body>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-6 -->
+            </div>
+            <!-- /.row -->
+            
+            
 
+<%@include file="./includes/footer.jsp" %>
+
+<!-- <h1>부트스트랩 이까지</h1> -->
+
+
+</body>
 </html>

@@ -16,7 +16,7 @@ public class TestVo {
 	private String writer;
 	private String regDate;
 	private String imageFileName;
-	private String imageFileSize;
+	private String newFileName;
 	
 	
 //	private int viewCnt;
