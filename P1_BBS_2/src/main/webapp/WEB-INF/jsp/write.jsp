@@ -98,7 +98,7 @@
                 
                 if(!validFileType(filename)){
                     $(this).val("");
-                    alert("확장자가 .mp4 또는 .jpg 또는 .png 인 파일만 업로드가 가능합니다.");
+                    alert("확장자가 .jpg 또는 .png 인 파일만 업로드가 가능합니다.");
 //                     $("#previewImg").attr("src", "https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" );
 //                     $("#previewImg").style.display="none";
                     $("#previewImg").attr("style", "display: none ; " );
@@ -127,7 +127,7 @@
     });
 
     function validFileType(filename) {
-        const fileTypes = ["png", "jpg", "mp4"];
+        const fileTypes = ["png", "jpg"];
         return fileTypes.indexOf(filename.substring(filename.lastIndexOf(".")+1, filename.length).toLowerCase()) >= 0;
     }
     
