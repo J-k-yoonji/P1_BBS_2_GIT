@@ -1,4 +1,4 @@
-package egovframework.example.test.vo;
+package egovframework.example.board.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class TestVo {
+public class BoardVo {
 	private int bno;
 	private String title;
 	private String content;

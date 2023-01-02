@@ -1,4 +1,4 @@
-package egovframework.example.test.controller;
+package egovframework.example.board.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -13,27 +13,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import egovframework.example.test.service.TestService;
-import egovframework.example.test.vo.TestVo;
+import egovframework.example.board.service.BoardService;
+import egovframework.example.board.vo.BoardVo;
 
 @Controller
-public class TestController  {
+public class BoardController  {
 	
 //	private static String filePath = "C://file_repo/";
 	
 	@Autowired
-	private TestService testService;
+	private BoardService boardService;
 
 	@GetMapping("/test")
 	public String testPage() {
 		return "test";
 	}
 
-	@RequestMapping(value = "/testList", method = RequestMethod.GET)
-	public String getTestList(TestVo testVo, Model model) throws Exception {
-		model.addAttribute("list", testService.selectList(testVo));
+	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
+	public String getBoardList(BoardVo boardVo, Model model) throws Exception {
+		model.addAttribute("list", boardService.selectList(boardVo));
 
-		return "testList";
+		return "boardList";
 	}
 
 
@@ -44,7 +44,7 @@ public class TestController  {
 	
 	//게시물 작성 (사용자에서 서버로 데이터 이동 POST메서드) //required = false: file1 이 null 값으로 들어와도 허용해줌. value = "file1(파라미터이름)"
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String postWrite( TestVo testVo, @RequestParam(value = "file1", required = false) MultipartFile report) throws Exception {
+	public String postWrite( BoardVo boardVo, @RequestParam(value = "file1", required = false) MultipartFile report) throws Exception {
 		
 		//파일명
 		System.out.println("report"+ report);		
@@ -71,14 +71,14 @@ public class TestController  {
 			File newFile = new File(filePath  + newFileName);
 			file.renameTo(newFile);
 	
-			testVo.setImageFileName(imageFileName);
-			testVo.setNewFileName(newFileName);
+			boardVo.setImageFileName(imageFileName);
+			boardVo.setNewFileName(newFileName);
 		}
 		// File객체의 값이 빈문자열 "" 인 경우에는 db서버에 null로 저장됨.(첨부한 파일 없어도 글등록 가능!) 
 		System.out.println(report.getOriginalFilename());
 		
-		testService.write(testVo);
-		return "redirect:/testList";
+		boardService.write(boardVo);
+		return "redirect:/boardList";
 	}
 	
 	
@@ -86,10 +86,10 @@ public class TestController  {
 	//게시물 수정 (서버에서 사용자로 데이터 이동 GET메서드)
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public void getModify( @RequestParam("bno") int bno, Model model) throws Exception {
-		TestVo testVo = testService.view(bno);
-		model.addAttribute("view", testVo);
+		BoardVo boardVo = boardService.view(bno);
+		model.addAttribute("view", boardVo);
 
-		String preImagename = testVo.getImageFileName();
+		String preImagename = boardVo.getImageFileName();
 //	    System.out.println( "preImagename1 : " + preImagename);
 	    
 		
@@ -97,7 +97,7 @@ public class TestController  {
 	
 	//게시물 수정 (사용자에서 서버로 데이터 이동 POST메서드)
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-	public String postModify(TestVo testVo, @RequestParam("preFileName") String preFileName , @RequestParam(value = "file1", required = false) MultipartFile report) throws Exception {
+	public String postModify(BoardVo boardVo, @RequestParam("preFileName") String preFileName , @RequestParam(value = "file1", required = false) MultipartFile report) throws Exception {
 //			System.out.println(testVo.getImageFileName());
 	
 			// 기존 첨부파일 있다면 가져와서 저장.
@@ -129,15 +129,15 @@ public class TestController  {
 				file.renameTo(newFile);
 				
 				//Vo에 저장
-				testVo.setImageFileName(imageFileName);
-				testVo.setNewFileName(newFileName);
+				boardVo.setImageFileName(imageFileName);
+				boardVo.setNewFileName(newFileName);
 				
 				//기존파일 삭제
 				oldFile.delete();
 				
 			} else {
 				//첨부파일 수정 안하면 기존 이름 유지. 
-				testVo.setImageFileName(preFileName);
+				boardVo.setImageFileName(preFileName);
 				System.out.println("prevFile1 _ 2 : " + preFileName );
 				
 				//아래 한줄이 없었어서 글만 수정했을땐 제대로 update가 안됐었다.
@@ -148,8 +148,8 @@ public class TestController  {
 //			System.out.println("report3 : "+ report.getOriginalFilename());
 			
 			//기존 수정 POST 코드
-			testService.modify(testVo);
-			return "redirect:/view?bno=" + testVo.getBno();
+			boardService.modify(boardVo);
+			return "redirect:/view?bno=" + boardVo.getBno();
 	}
 //	
 //	//게시물 수정 (사용자에서 서버로 데이터 이동 POST메서드)
@@ -164,8 +164,8 @@ public class TestController  {
 	//게시물 조회용 GET메서드
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public void getView(@RequestParam("bno") int bno, Model model) throws Exception {
-		TestVo testVo = testService.view(bno);
-		model.addAttribute("view", testVo);
+		BoardVo boardVo = boardService.view(bno);
+		model.addAttribute("view", boardVo);
 		
 		
 	}
@@ -177,15 +177,15 @@ public class TestController  {
 	public String postDelete(@RequestParam("bno") int bno) throws Exception {
 		
 		//삭제할 게시글의 bno를 가진 게시글의DB를 불러와 testVo객체에 담아줍니다.(삭제할 게시글의 첨부파일의 '파일명'을 가져오기 위해 생성)
-		TestVo testVo = testService.view(bno);
+		BoardVo boardVo = boardService.view(bno);
         // 파일의 경로 (첨부파일 업로드 때와 동일한 경로)
         String filePath = "C://file_repo/";
         
         // 삭제할 게시글을 DB에서 삭제하기 전에, 해당 게시글에 업로드했던 첨부파일이 있다면 그 첨부파일의 이름(ImageFileName)을 가져와서 첨부파일삭제 시 사용하도록 해야합니다.
-        String saveFileName = testVo.getNewFileName();
+        String saveFileName = boardVo.getNewFileName();
         
         //TestServiceImpl 파일의 delete메소드를 호출하여 해당bno를 가진 게시글의 DB를 삭제한다.
-		testService.delete(bno);
+		boardService.delete(bno);
         
 		// '삭제할첨부파일 File객체'를 해당 파일경로('파일의 경로+삭제할파일명.확장자')를 통해 'deleteFile File객체'에  넣어줍니다.
         File deleteFile = new File(filePath + saveFileName );
@@ -196,7 +196,7 @@ public class TestController  {
             deleteFile.delete();           
         } 
 		
-		return "redirect:/testList" ;
+		return "redirect:/boardList" ;
 	}
 
 
@@ -228,11 +228,11 @@ public class TestController  {
 	
 	//파일업로드 (사용자에서 서버로 데이터 이동 POST메서드)
 	@RequestMapping(value = "/uploadForm", method = RequestMethod.POST)
-	public String postUploadForm(TestVo testVo) throws Exception {
+	public String postUploadForm(BoardVo boardVo) throws Exception {
 		System.out.println("uploadForm-2 clear");
-		testService.uploadForm(testVo);
+		boardService.uploadForm(boardVo);
 		
-		return "redirect:/testList";
+		return "redirect:/boardList";
 	}
 	
 //	//게시물 수정 (사용자에서 서버로 데이터 이동 POST메서드)

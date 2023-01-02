@@ -1,4 +1,4 @@
-package egovframework.example.test.service;
+package egovframework.example.board.service;
 
 import java.util.List;
 
@@ -8,45 +8,45 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import egovframework.example.test.vo.TestVo;
-import egovframework.example.test.vo.TestVo2;
+import egovframework.example.board.vo.BoardVo;
+import egovframework.example.board.vo.TestVo2;
 
 @Service
-public class TestServiceImpl implements TestService{
+public class BoardServiceImpl implements BoardService{
 
 //		@Autowired
 //		private SqlSession sqlSession;
 		
 		@Resource(name = "mapper")
-		private TestMapper mapper;
+		private BoardMapper mapper;
 		
 		//게시물 리스트
 		@Override
-		public List<TestVo> selectList(TestVo testVo) throws Exception{
+		public List<BoardVo> selectList(BoardVo boardVo) throws Exception{
 //			TestMapper mapper = sqlSession.getMapper(TestMapper.class);
-			return mapper.selectList(testVo);
+			return mapper.selectList(boardVo);
 		}
 		
 		//게시물 작성
 		@Override
-		public void write(TestVo testVo) throws Exception {
+		public void write(BoardVo boardVo) throws Exception {
 //			TestMapper mapper = sqlSession.getMapper(TestMapper.class);
-			mapper.write(testVo);
+			mapper.write(boardVo);
 //			testMapper.write(testVo);
 		}
 		
 		//게시물 조회
 		@Override
-		public TestVo view(int bno) throws Exception {
+		public BoardVo view(int bno) throws Exception {
 //			TestMapper mapper = sqlSession.getMapper(TestMapper.class);
 			return mapper.view(bno);
 		}
 		
 		//게시물 수정
 		@Override
-		public void modify(TestVo testVo) throws Exception {
+		public void modify(BoardVo boardVo) throws Exception {
 //			TestMapper mapper = sqlSession.getMapper(TestMapper.class);
-			mapper.modify(testVo);
+			mapper.modify(boardVo);
 		}
 		
 		//게시물 삭제
@@ -58,9 +58,9 @@ public class TestServiceImpl implements TestService{
 
 		//파일업로드
 		@Override
-		public void uploadForm(TestVo testVo) throws Exception {
+		public void uploadForm(BoardVo boardVo) throws Exception {
 //			TestMapper mapper = sqlSession.getMapper(TestMapper.class);
-			mapper.uploadForm(testVo);
+			mapper.uploadForm(boardVo);
 		}
 
 		

@@ -26,7 +26,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                     
-                        <div class="panel-heading"><a href="/testList" >목록</a> > 글 조회</div>
+                        <div class="panel-heading"><a href="/boardList" >목록</a> > 글 조회</div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
 

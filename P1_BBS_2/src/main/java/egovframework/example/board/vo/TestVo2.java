@@ -1,4 +1,4 @@
-package egovframework.example.test.vo;
+package egovframework.example.board.vo;
 
 public class TestVo2 {
 	private String userID;

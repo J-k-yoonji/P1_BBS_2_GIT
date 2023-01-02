@@ -22,7 +22,7 @@
 		<div class="panel panel-default">
 
 			<div class="panel-heading">
-				<a href="/testList">목록</a> > 글 수정
+				<a href="/boardList">목록</a> > 글 수정
 			</div>
 			<!-- /.panel-heading -->
 			<div class="panel-body">

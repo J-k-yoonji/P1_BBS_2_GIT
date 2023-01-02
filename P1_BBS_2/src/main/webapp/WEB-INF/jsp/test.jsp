@@ -12,7 +12,7 @@
 <body>
 
 <h1>테스트 메인 화면</h1>
-<p><a href="/testList">게시물 목록</a></p>
+<p><a href="/boardList">게시물 목록</a></p>
 <p><a href="/write">게시물 작성</a></p>
 
 </body>

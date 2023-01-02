@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="egovframework.example.test.service.TestMapper"> 
+<mapper namespace="egovframework.example.board.service.BoardMapper"> 
 
     <!--    resultType 은 쿼리를 실행한 뒤 결과가 있을 경우에 사용하며, 반대로 데이터를 넣을 때는 parameterType을 사용. -->
     <!-- 게시물 목록 -->   
-	<select id="selectList" resultType="testVo">
+	<select id="selectList" resultType="boardVo">
 		SELECT 
 		       bno, title, content, writer, 
 		       DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate
@@ -15,7 +15,7 @@
 	</select>
 	
     <!-- 게시물 작성 -->   
-	<insert id="write" parameterType="testVo">
+	<insert id="write" parameterType="boardVo">
 		INSERT INTO 
 		       tbl_board( title, content, writer, imageFileName, newFileName) 
 		                VALUES (#{title}, #{content}, #{writer}, #{imageFileName}, #{newFileName} ) 
@@ -24,7 +24,7 @@
 	
     <!--게시물 조회 -->
     <!-- 데이터를 넣을 떄는 parameterType 을 사용! -->
-	<select id="view" parameterType="int" resultType="testVo">
+	<select id="view" parameterType="int" resultType="boardVo">
      	SELECT 
      	       bno, title, content, writer, 
      	       DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate,
@@ -37,7 +37,7 @@
 	
 	<!-- 게시물 수정 -->
 <!-- 	중요 : parameterType 확인 -->
-	<update id="modify" parameterType="testVo" >
+	<update id="modify" parameterType="boardVo" >
 	    UPDATE 
 	            tbl_board    
 	    SET 
