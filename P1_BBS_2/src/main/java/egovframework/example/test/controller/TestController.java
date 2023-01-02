@@ -138,11 +138,14 @@ public class TestController  {
 			} else {
 				//첨부파일 수정 안하면 기존 이름 유지. 
 				testVo.setImageFileName(preFileName);
-				System.out.println("prevFile1 _ 2 : "+ preFileName );
-				return "redirect:/view?bno=" + testVo.getBno();
+				System.out.println("prevFile1 _ 2 : " + preFileName );
+				
+				//아래 한줄이 없었어서 글만 수정했을땐 제대로 update가 안됐었다.
+//				testService.modify(testVo);
+//				return "redirect:/view?bno=" + testVo.getBno();
 			}
-			// File객체의 값이 빈문자열 "" 인 경우에는 db서버에 null로 저장됨.(첨부한 파일 없어도 글등록 가능!) 
-			System.out.println("report3 : "+ report.getOriginalFilename());
+			// File객체의 값이 빈문자열 "" 인 경우에는 db서버에 null로 저장됨.(첨부한 파일 없어도 글등록 가능?!) 
+//			System.out.println("report3 : "+ report.getOriginalFilename());
 			
 			//기존 수정 POST 코드
 			testService.modify(testVo);

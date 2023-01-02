@@ -1,78 +1,90 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
-    
-    <!-- jstl의 출력과 포맷 적용 태그 라이브러리 -->
+	pageEncoding="UTF-8"%>
+
+<!-- jstl의 출력과 포맷 적용 태그 라이브러리 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<%@include file="./includes/header.jsp" %>
+<%@include file="./includes/header.jsp"%>
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">글 작성</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-               <div id="nav">
-                    <%@ include file="../jsp/nav.jsp" %>
-               </div>                     
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                    
-                        <div class="panel-heading"><a href="/testList" >목록</a> > 글 작성</div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-<!-- 						                    <h1>게시물 작성3</h1> -->				                        
-<form name="upLoadFile" method="post" enctype="multipart/form-data" action="/write" >
-  <div class="form-group">
-      <label>제목 </label>
-      <input id="title" class="form-control" type="text" name="title" /><br/>
-  </div>  
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">글 작성</h1>
+	</div>
+	<!-- /.col-lg-12 -->
+</div>
+<div id="nav">
+	<%@ include file="../jsp/nav.jsp"%>
+</div>
+<!-- /.row -->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
 
-  <div class="form-group">							
-      <label>작성자 </label>
-      <input id="writer" class="form-control" type="text" name="writer" /><br/>
-  </div>
+			<div class="panel-heading">
+				<a href="/testList">목록</a> > 글 작성
+			</div>
+			<!-- /.panel-heading -->
+			<div class="panel-body">
 
-  <div class="form-group">
-        <label>내용&nbsp;</label>
-        <textarea id="content" class="form-control" cols="50" rows="3" name="content"></textarea>
-  </div><br/>  
+				<!-- 		 <h1>게시물 작성3</h1>        -->
+				<form name="upLoadFile" method="post" enctype="multipart/form-data"
+					action="/write">
+					<div class="form-group">
+						<label>제목 </label> <input id="title" class="form-control"
+							type="text" name="title" /><br />
+					</div>
 
-  <div class="form-group">
-      <label>첨부파일</label>
-<!-- 							        <input type="file" name="file1" id="file1" onchange="  readURL(this); fn_validate(); "  accept="video/*, image/*" /><br/> -->
-<!-- 							        <img id="preview1"  src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" width = 200 height = 200 /> -->
-<!-- 							        <img id="previewImg"  src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" width = 200 height = 200 /> -->
+					<div class="form-group">
+						<label>작성자 </label> <input id="writer" class="form-control"
+							type="text" name="writer" /><br />
+					</div>
 
-   <div class="uploadImg">
-       <div class="filebox" style="width: auto; height: auto; line-height: 0.8;" >
-           <input class="upload-name" value="선택된 파일 없음" readonly="readonly" type="hidden">
-           <input type="file" id="file1" class="upload-hidden" name="file1" accept="image/*"  > <br/>
-       </div>
-           <img id="previewImg"   width = 200 height = 200  style= "display: none ; " />
-<!--            <video  controls={true} autoPlay={true} src="#" class="image-box" width = 200 height = 200></video> -->
+					<div class="form-group">
+						<label>내용&nbsp;</label>
+						<textarea id="content" class="form-control" cols="50" rows="3"
+							name="content"></textarea>
+					</div>
+					<br />
 
-   </div>
+					<div class="form-group">
+						<label>첨부파일</label>
+						<!-- 							        <input type="file" name="file1" id="file1" onchange="  readURL(this); fn_validate(); "  accept="video/*, image/*" /><br/> -->
+						<!-- 							        <img id="preview1"  src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" width = 200 height = 200 /> -->
+						<!-- 							        <img id="previewImg"  src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" width = 200 height = 200 /> -->
 
-  </div><br/>
-      
- <p><input type="submit" class="btn btn-success" onClick="return validateForm()" value="작성 완료"/></p>
+						<div class="uploadImg">
+							<div class="filebox"
+								style="width: auto; height: auto; line-height: 0.8;">
+								<input class="upload-name" value="선택된 파일 없음" readonly="readonly"
+									type="hidden"> <input type="file" id="file1"
+									class="upload-hidden" name="file1" accept="image/*"> <br />
+							</div>
+							<img id="previewImg" width=200 height=200 style="display: none;" />
+							<!--            <video  controls={true} autoPlay={true} src="#" class="image-box" width = 200 height = 200></video> -->
+
+						</div>
+
+					</div>
+					<br />
+
+					<p>
+						<input type="submit" class="btn btn-success"
+							onClick="return validateForm()" value="작성 완료" />
+					</p>
 
 
-</form>
-							
-							
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
-            </div>
-            <!-- /.row -->
+				</form>
+
+
+			</div>
+			<!-- /.panel-body -->
+		</div>
+		<!-- /.panel -->
+	</div>
+	<!-- /.col-lg-6 -->
+</div>
+<!-- /.row -->
 
 <%-- <%@include file="./includes/footer.jsp" %> --%>
 <!--  <h1>부트스트랩 이 위까지</h1> -->
@@ -205,8 +217,7 @@
 	}
 </script>
 
-<%@include file="./includes/footer.jsp" %>
+<%@include file="./includes/footer.jsp"%>
 <!-- <h1>부트스트랩 이 위까지</h1> -->
 </body>
 </html>
-            

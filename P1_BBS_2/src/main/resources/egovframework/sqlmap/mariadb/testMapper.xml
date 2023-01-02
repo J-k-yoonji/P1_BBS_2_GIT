@@ -44,7 +44,7 @@
 	            title = #{title}, content = #{content}, writer = #{writer}  
 	    
 <!-- 	    <if test="imageFileName!='' and imageFileName!=null"> -->
-	    <if test="imageFileName!='' and imageFileName!=null">
+	    <if test="newFileName != '' and newFileName != null">
 	        , imageFileName = #{imageFileName}, newFileName = #{newFileName}
 	    </if>
 	    

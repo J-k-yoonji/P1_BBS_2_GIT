@@ -1,96 +1,111 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
-    
-    <!-- jstl의 출력과 포맷 적용 태그 라이브러리 -->
+	pageEncoding="UTF-8"%>
+
+<!-- jstl의 출력과 포맷 적용 태그 라이브러리 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<%@include file="./includes/header.jsp" %>
+<%@include file="./includes/header.jsp"%>
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">글 수정</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-               <div id="nav">
-                    <%@ include file="../jsp/nav.jsp" %>
-               </div>                     
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                    
-                        <div class="panel-heading"> <a href="/testList" >목록</a> > 글 수정</div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-<!--                                            <h1>게시물 작성3</h1> -->        
-<!--중요 : action 필요 / 여기 수정폼에선 form name="upLoadFile" 라고 적으면 안되는 이유를 생각해보자. ? -->
-<form  method="post" enctype="multipart/form-data" action="/modify" name="upLoadFile">
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">글 수정</h1>
+	</div>
+	<!-- /.col-lg-12 -->
+</div>
+<div id="nav">
+	<%@ include file="../jsp/nav.jsp"%>
+</div>
+<!-- /.row -->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
 
-<!-- 바뀌면 안되는 정보는 label로 바로 출력한다. (번호) -->
-  <div class="form-group"> 
-      <label>번호 </label>
-		<input class="form-control" name="bno" value="${view.bno}" readonly="readonly" /><br/>
-  </div>		
- 
-  <div class="form-group">
-      <label>제목 </label>
-      <input id="title" class="form-control" type="text" name="title" value="${view.title}" /><br/>
-  </div>
-  
-  <div class="form-group">        
-      <label>작성자 </label>
-      <input id="writer" class="form-control" type="text" name="writer"  value="${view.writer}" /><br/>
-  </div>
-		
-  <div class="form-group">
-      <label>내용&nbsp;</label>
-      <textarea id="content" class="form-control" cols="50" rows="3" name="content">${view.content}</textarea>
-  </div><br/>  
-    
-  <div class="form-group">
-	  <label>첨부파일</label>
-    
-     <div class="uploadImg">
-       <div class="filebox" style="width: auto; height: auto; line-height: 0.8;" >
-          <input  class="upload-name" type="hidden" value="${view.imageFileName}" readonly= "readonly" >
-          
-          <input type="file" id="file1" class="upload-hidden" name="file1" value="${view.imageFileName}" accept=" image/*" /> <br/>
-       </div>  
-           <img id="previewImg" src= "/filepath/${view.newFileName}" style= "display: none ; " width = 200 height = 200 />
-           <img id="previewImg2" src= "/filepath/${view.newFileName}" class="preFileImg" style= "display: block ; " width = 200 height = 200 />
-          <input  class="upload-name" type="hidden" value="${view.newFileName}" name="preFileName"  readonly= "readonly" >
-     </div>   
-     
-     
-<!--      <div class="uploadImg"> -->
-<!--        <div class="filebox" style="width: auto; height: auto; line-height: 0.8;" > -->
-<%--           <input  type="hidden" class="upload-name" value="${view.imageFileName}" readonly= "readonly" > --%>
-<%--           <input type="file" id="file1" class="upload-hidden" name="file1" value="${view.imageFileName}" accept=" image/*" /> <br/> --%>
-<!--        </div>   -->
-<%--            <img id="previewImg" src= "/filepath/${view.newFileName}" style= "display:  ; " width = 200 height = 200 /> --%>
-<%--           <input type="hidden" class="upload-name" value="${view.newFileName}" name="preFileName"  readonly= "readonly" > --%>
-<!--      </div>    -->
-     
-     
-          
-   
-  </div><br/>
-<!--       window.open -> 새창 넘어옴 location.href 를 쓰는게 나을듯 -->
- <p><button type="submit" class="btn btn-success" onClick="return validateForm()" >수정 완료</button></p>
+			<div class="panel-heading">
+				<a href="/testList">목록</a> > 글 수정
+			</div>
+			<!-- /.panel-heading -->
+			<div class="panel-body">
+				<!--                                            <h1>게시물 작성3</h1> -->
+				<!--중요 : action 필요 / 여기 수정폼에선 form name="upLoadFile" 라고 적으면 안되는 이유를 생각해보자. ? -->
+				<form method="post" enctype="multipart/form-data" action="/modify"
+					name="upLoadFile">
 
-</form>
-                            
-                            
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-6 -->
-            </div>
-            <!-- /.row -->
+					<!-- 바뀌면 안되는 정보는 label로 바로 출력한다. (번호) -->
+					<div class="form-group">
+						<label>번호 </label> <input class="form-control" name="bno"
+							value="${view.bno}" readonly="readonly" /><br />
+					</div>
+
+					<div class="form-group">
+						<label>제목 </label> <input id="title" class="form-control"
+							type="text" name="title" value="${view.title}" /><br />
+					</div>
+
+					<div class="form-group">
+						<label>작성자 </label> <input id="writer" class="form-control"
+							type="text" name="writer" value="${view.writer}" /><br />
+					</div>
+
+					<div class="form-group">
+						<label>내용&nbsp;</label>
+						<textarea id="content" class="form-control" cols="50" rows="3"
+							name="content">${view.content}</textarea>
+					</div>
+					<br />
+
+					<div class="form-group">
+						<label>첨부파일</label>
+
+						<div class="uploadImg">
+							<div class="filebox"
+								style="width: auto; height: auto; line-height: 0.8;">
+								<input class="upload-name" type="hidden"
+									value="${view.imageFileName}" readonly="readonly"> <input
+									type="file" id="file1" class="upload-hidden" name="file1"
+									value="${view.imageFileName}" accept=" image/*" /> <br />
+							</div>
+							<img id="previewImg" src="/filepath/${view.newFileName}"
+								style="display: none;" width=200 height=200 /> <img
+								id="previewImg2" src="/filepath/${view.newFileName}"
+								class="preFileImg" style="display: block;" width=200 height=200 />
+							<input class="upload-name" type="hidden"
+								value="${view.newFileName}" name="preFileName"
+								readonly="readonly">
+						</div>
+
+
+						<!--      <div class="uploadImg"> -->
+						<!--        <div class="filebox" style="width: auto; height: auto; line-height: 0.8;" > -->
+						<%--           <input  type="hidden" class="upload-name" value="${view.imageFileName}" readonly= "readonly" > --%>
+						<%--           <input type="file" id="file1" class="upload-hidden" name="file1" value="${view.imageFileName}" accept=" image/*" /> <br/> --%>
+						<!--        </div>   -->
+						<%--            <img id="previewImg" src= "/filepath/${view.newFileName}" style= "display:  ; " width = 200 height = 200 /> --%>
+						<%--           <input type="hidden" class="upload-name" value="${view.newFileName}" name="preFileName"  readonly= "readonly" > --%>
+						<!--      </div>    -->
+
+
+
+
+					</div>
+					<br />
+					<!--       window.open -> 새창 넘어옴 location.href 를 쓰는게 나을듯 -->
+					<p>
+						<button type="submit" class="btn btn-success"
+							onClick="return validateForm()">수정 완료</button>
+					</p>
+
+				</form>
+
+
+			</div>
+			<!-- /.panel-body -->
+		</div>
+		<!-- /.panel -->
+	</div>
+	<!-- /.col-lg-6 -->
+</div>
+<!-- /.row -->
 
 <%-- <%@include file="./includes/footer.jsp" %> --%>
 <!--  <h1>부트스트랩 이 위까지</h1> -->
@@ -121,7 +136,7 @@
                     $(this).val("");
                     console.log(this);
                     console.log($(this));
-                    alert("확장자가 .mp4 또는 .jpg 또는 .png 인 파일만 업로드가 가능합니다.");
+                    alert("확장자가 .jpg 또는 .png 인 파일만 업로드가 가능합니다.");
                     $("#previewImg").attr("style", "display: none ; " );
                     return false;
                 }else if(!validFileSize($(this)[0].files[0])){
@@ -148,7 +163,7 @@
 
 //코드숙지.
     function validFileType(filename) {
-        const fileTypes = ["png", "jpg", "mp4"];
+        const fileTypes = ["png", "jpg"];
         return fileTypes.indexOf(filename.substring(filename.lastIndexOf(".")+1, filename.length).toLowerCase()) >= 0;
     }
     
@@ -209,7 +224,7 @@
     }   
 </script>
 
-<%@include file="./includes/footer.jsp" %>
+<%@include file="./includes/footer.jsp"%>
 <!-- <h1>부트스트랩 이 위까지</h1> -->
 </body>
 
