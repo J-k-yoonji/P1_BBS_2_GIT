@@ -82,9 +82,11 @@
 <%--  위방식은 GET방식만 가능. 삭제버튼을 클릭했을때 "POST방식"으로 상대경로와 데이터를 전달해주기위해서 form태그를 새로 생성, 아래와같이 해야했음. --%>
 <div>
      <form name="myForm" action="/delete?bno=${view.bno}" method="POST"></form>
-		
+<!-- 	본인이 작성한 게시물만 수정,삭제가 가능하도록 처리. 수정,삭제 버튼 : 'session의 id값(로그인한 정보)'과  '작성자'가 동일하면 수정,삭제버튼 활성화	 -->
+  <c:if test="${sessionScope.id == view.id}" >	
 	<button type="button" class="btn btn-info" onclick="location.href='/modify?bno=${view.bno}';">게시물 수정</button>
     <button type="button" class="btn btn-danger" onclick="javascript:document.myForm.submit();">게시물 삭제</button>
+  </c:if>
 </div>
 
                         </div>
