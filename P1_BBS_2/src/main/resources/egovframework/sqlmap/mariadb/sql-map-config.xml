@@ -3,6 +3,6 @@
 
 <sqlMapConfig>
 <!--참고 : testMapper.xml 로 수정!! -->
- 	<sqlMap resource="egovframework/sqlmap/mariadb/testMapper.xml"/> 
+ 	<sqlMap resource="egovframework/sqlmap/mariadb/boardMapper.xml"/> 
 <!-- 	<sqlMap resource=""/> -->
 </sqlMapConfig>

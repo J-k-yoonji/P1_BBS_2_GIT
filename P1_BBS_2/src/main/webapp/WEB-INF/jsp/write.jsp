@@ -35,10 +35,11 @@
 							type="text" name="title" /><br />
 					</div>
 
-					<div class="form-group">
-						<label>작성자 </label> <input id="writer" class="form-control"
-							type="text" name="writer" /><br />
-					</div>
+<!-- 					<div class="form-group"> -->
+<!-- 						<label>작성자 </label>  -->
+<!-- <!-- 						 <input id="id" class="form-control" type="text" name="id" /><br /> -->
+<%-- <%-- 						 <input class="form-control"  name="id" value="${view.id}" readonly="readonly" ><br/> --%>
+<!-- 					</div> -->
 
 					<div class="form-group">
 						<label>내용&nbsp;</label>
@@ -86,7 +87,7 @@
 </div>
 <!-- /.row -->
 
-<%-- <%@include file="./includes/footer.jsp" %> --%>
+<%@include file="./includes/footer.jsp"%>
 <!--  <h1>부트스트랩 이 위까지</h1> -->
 
 
@@ -194,9 +195,9 @@
 			//     	   document.forms[0].title.focus();
 			//     	   document.getElementById( 'pw1' ).value;
 			return false;
-		} else if ($('#writer').val() == "") {
+		} else if ($('#id').val() == "") {
 			alert("작성자를 입력해주십시오");
-			$('#writer').focus();
+			$('#id').focus();
 			return false;
 		} else if ($('#content').val() == "") {
 			alert("내용을 입력해주십시오");
@@ -217,7 +218,7 @@
 	}
 </script>
 
-<%@include file="./includes/footer.jsp"%>
+<%-- <%@include file="./includes/footer.jsp"%> --%>
 <!-- <h1>부트스트랩 이 위까지</h1> -->
 </body>
 </html>

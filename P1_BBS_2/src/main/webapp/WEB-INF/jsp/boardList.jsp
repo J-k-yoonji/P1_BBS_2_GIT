@@ -45,7 +45,7 @@
 							                <td>${result.bno}</td>
 							                <td>${result.title}</td>
 							<%--                <td><h4 class="hlink">${result.title}</h4></td> --%>
-							                <td>${result.writer}</td> 
+							                <td>${result.id}</td> 
 							                <td>${result.regDate}</td> 
 							            </tr>
 							        </c:forEach>
@@ -60,6 +60,9 @@
                 </div>
                 <!-- /.col-lg-6 -->
             </div>
+            
+<!-- 로그아웃 버튼 여기에서 옮겨서 header.jsp로 넣어줌 -->
+
             <!-- /.row -->
 
 <%@include file="./includes/footer.jsp" %>

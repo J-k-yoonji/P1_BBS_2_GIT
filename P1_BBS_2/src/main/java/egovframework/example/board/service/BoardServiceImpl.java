@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import egovframework.example.board.vo.BoardVo;
+import egovframework.example.board.vo.BoardVO;
 import egovframework.example.board.vo.TestVo2;
 
 @Service
@@ -20,33 +20,33 @@ public class BoardServiceImpl implements BoardService{
 		@Resource(name = "mapper")
 		private BoardMapper mapper;
 		
-		//게시물 리스트
+		//게시물 목록
 		@Override
-		public List<BoardVo> selectList(BoardVo boardVo) throws Exception{
+		public List<BoardVO> selectList(BoardVO boardVO) throws Exception{
 //			TestMapper mapper = sqlSession.getMapper(TestMapper.class);
-			return mapper.selectList(boardVo);
+			return mapper.selectList(boardVO);
 		}
 		
 		//게시물 작성
 		@Override
-		public void write(BoardVo boardVo) throws Exception {
+		public void write(BoardVO boardVO) throws Exception {
 //			TestMapper mapper = sqlSession.getMapper(TestMapper.class);
-			mapper.write(boardVo);
+			mapper.write(boardVO);
 //			testMapper.write(testVo);
 		}
 		
 		//게시물 조회
 		@Override
-		public BoardVo view(int bno) throws Exception {
+		public BoardVO view(int bno) throws Exception {
 //			TestMapper mapper = sqlSession.getMapper(TestMapper.class);
 			return mapper.view(bno);
 		}
 		
 		//게시물 수정
 		@Override
-		public void modify(BoardVo boardVo) throws Exception {
+		public void modify(BoardVO boardVO) throws Exception {
 //			TestMapper mapper = sqlSession.getMapper(TestMapper.class);
-			mapper.modify(boardVo);
+			mapper.modify(boardVO);
 		}
 		
 		//게시물 삭제
@@ -58,9 +58,9 @@ public class BoardServiceImpl implements BoardService{
 
 		//파일업로드
 		@Override
-		public void uploadForm(BoardVo boardVo) throws Exception {
+		public void uploadForm(BoardVO boardVO) throws Exception {
 //			TestMapper mapper = sqlSession.getMapper(TestMapper.class);
-			mapper.uploadForm(boardVo);
+			mapper.uploadForm(boardVO);
 		}
 
 		

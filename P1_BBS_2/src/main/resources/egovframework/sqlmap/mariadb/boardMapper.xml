@@ -3,11 +3,15 @@
 
 <mapper namespace="egovframework.example.board.service.BoardMapper"> 
 
+<!-- resultType : select 된 데이터를 반환할 (그릇)을 정해주는것 위의 코드같은경우엔 StockNewsVO 객체에 담긴다 -->
+<!-- parameterType : 자바에게 해당 Type값이 들어올거란걸 인지시켜주고 , 쿼리에서 자바에서 보낸 변수명을  #{변수명} 이렇게 안에 넣어 사용한다 -->
+<!-- parameterType="" 에는 위의 namespace에 적어준 BoardMapper.java 에서 각 메서드의 파라미터로 넣어둔 type값을 그대로 넣어주면 됨! -->
+
     <!--    resultType 은 쿼리를 실행한 뒤 결과가 있을 경우에 사용하며, 반대로 데이터를 넣을 때는 parameterType을 사용. -->
     <!-- 게시물 목록 -->   
-	<select id="selectList" resultType="boardVo">
+	<select id="selectList" resultType="boardVO">
 		SELECT 
-		       bno, title, content, writer, 
+		       bno, title, content, id, 
 		       DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate
 		FROM 
 		       tbl_board
@@ -15,18 +19,18 @@
 	</select>
 	
     <!-- 게시물 작성 -->   
-	<insert id="write" parameterType="boardVo">
+	<insert id="write" parameterType="boardVO">
 		INSERT INTO 
-		       tbl_board( title, content, writer, imageFileName, newFileName) 
-		                VALUES (#{title}, #{content}, #{writer}, #{imageFileName}, #{newFileName} ) 
+		       tbl_board( title, content, id, imageFileName, newFileName) 
+		                VALUES (#{title}, #{content}, #{id}, #{imageFileName}, #{newFileName} ) 
 	</insert>
 	
 	
     <!--게시물 조회 -->
     <!-- 데이터를 넣을 떄는 parameterType 을 사용! -->
-	<select id="view" parameterType="int" resultType="boardVo">
+	<select id="view" parameterType="int" resultType="boardVO">
      	SELECT 
-     	       bno, title, content, writer, 
+     	       bno, title, content, id, 
      	       DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate,
      	       imageFileName, newFileName
         FROM 
@@ -37,11 +41,11 @@
 	
 	<!-- 게시물 수정 -->
 <!-- 	중요 : parameterType 확인 -->
-	<update id="modify" parameterType="boardVo" >
+	<update id="modify" parameterType="boardVO" >
 	    UPDATE 
 	            tbl_board    
 	    SET 
-	            title = #{title}, content = #{content}, writer = #{writer}  
+	            title = #{title}, content = #{content} 
 	    
 <!-- 	    <if test="imageFileName!='' and imageFileName!=null"> -->
 	    <if test="newFileName != '' and newFileName != null">

@@ -9,17 +9,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class BoardVo {
+public class BoardVO { 
 	private int bno;
 	private String title;
 	private String content;
-	private String writer;
+	private String id;
 	private String regDate;
 	private String imageFileName;
 	private String newFileName;
 	
-	
 //	private int viewCnt;
-
-
 }

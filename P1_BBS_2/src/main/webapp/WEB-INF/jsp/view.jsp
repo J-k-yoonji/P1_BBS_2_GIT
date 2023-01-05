@@ -46,7 +46,9 @@
 
     <div class="form-group">
       <label>작성자 </label>
-       <input class="form-control"  name="writer" value="${view.writer}" readonly="readonly" ><br/>
+      <%--  <input class="form-control"  name="id" value="${view.id}" readonly="readonly" ><br/> --%>
+       <input class="form-control"  name="id" value="${view.id}" readonly="readonly" ><br/>
+             
     </div>
 
     <div class="form-group">
