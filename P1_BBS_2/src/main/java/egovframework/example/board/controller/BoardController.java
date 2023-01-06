@@ -31,6 +31,7 @@ public class BoardController  {
 		return "test";
 	}
 
+	//R: 게시물 전체 목록 조회
 	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
 	public String getBoardList(BoardVO boardVO, Model model) throws Exception {
 		model.addAttribute("list", boardService.selectList(boardVO));
@@ -38,14 +39,22 @@ public class BoardController  {
 		return "boardList";
 	}
 
+	//R: 게시물 상세 조회용 GET메서드
+	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	public void getView(@RequestParam("bno") int bno, Model model) throws Exception {
+		BoardVO boardVO = boardService.view(bno);
+		model.addAttribute("view", boardVO);
+		
+		
+	}
 
-	//게시물 작성 (서버에서 사용자로 데이터 이동 GET메서드)
+	//C: 게시물 작성 (서버에서 사용자로 데이터 이동 GET메서드)
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public void getWrite() throws Exception {
 	}
 	
 	//회원제게시판으로바꾸며 HttpSession session , String writer , boardVO.setId(writer); 를 추가해줌!ㅎㅎ
-	//게시물 작성 (사용자에서 서버로 데이터 이동 POST메서드) //required = false: file1 이 null 값으로 들어와도 허용해줌. value = "file1(파라미터이름)"
+	//C: 게시물 작성 (사용자에서 서버로 데이터 이동 POST메서드) //required = false: file1 이 null 값으로 들어와도 허용해줌. value = "file1(파라미터이름)"
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String postWrite( BoardVO boardVO, @RequestParam(value = "file1", required = false) MultipartFile report, HttpSession session) throws Exception {
 		
@@ -92,7 +101,7 @@ public class BoardController  {
 	
 	
 	
-	//게시물 수정 (서버에서 사용자로 데이터 이동 GET메서드)
+	//U: 게시물 수정 (서버에서 사용자로 데이터 이동 GET메서드)
 	@RequestMapping(value = "/modify", method = RequestMethod.GET)
 	public void getModify( @RequestParam("bno") int bno, Model model) throws Exception {
 		BoardVO boardVO = boardService.view(bno);
@@ -100,11 +109,9 @@ public class BoardController  {
 
 		String preImagename = boardVO.getImageFileName();
 //	    System.out.println( "preImagename1 : " + preImagename);
-	    
-		
 	}
 	
-	//게시물 수정 (사용자에서 서버로 데이터 이동 POST메서드)
+	//U: 게시물 수정 (사용자에서 서버로 데이터 이동 POST메서드)
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	public String postModify(BoardVO boardVO, @RequestParam("preFileName") String preFileName , @RequestParam(value = "file1", required = false) MultipartFile report) throws Exception {
 //			System.out.println(testVo.getImageFileName());
@@ -170,16 +177,8 @@ public class BoardController  {
 //		return "redirect:/view?bno=" + testVo.getBno();
 //	}
 	
-	//게시물 조회용 GET메서드
-	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public void getView(@RequestParam("bno") int bno, Model model) throws Exception {
-		BoardVO boardVO = boardService.view(bno);
-		model.addAttribute("view", boardVO);
-		
-		
-	}
-	
-	//게시물 삭제 POST방식으로 바꾸자! 
+
+	//D: 게시물 삭제 POST방식으로 바꾸자! 
 	//게시물 삭제 (서버에서 사용자로 데이터 이동 GET메서드) //JSP책 p.527 참고
 	//
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)

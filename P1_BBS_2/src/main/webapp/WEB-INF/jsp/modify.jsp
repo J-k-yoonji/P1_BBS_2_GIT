@@ -110,6 +110,7 @@
 <%@include file="./includes/footer.jsp"%>
 <!--  <h1>부트스트랩 이 위까지</h1> -->
 
+<!-- 자바스크립트 선언 -->
 <script type="text/javascript">
 //          자바스크립트 전역변수
 
