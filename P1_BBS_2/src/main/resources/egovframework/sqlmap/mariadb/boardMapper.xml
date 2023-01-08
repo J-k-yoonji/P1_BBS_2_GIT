@@ -8,6 +8,29 @@
 <!-- parameterType="" 에는 위의 namespace에 적어준 BoardMapper.java 에서 각 메서드의 파라미터로 넣어둔 type값을 그대로 넣어주면 됨! -->
 
     <!--    resultType 은 쿼리를 실행한 뒤 결과가 있을 경우에 사용하며, 반대로 데이터를 넣을 때는 parameterType을 사용. -->
+    
+    <!-- 페이지정보를 10개씩 가져오기 -->
+	<select id="listPage" resultType="boardVO">
+	    select  bno, title, content, id, 
+                DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate
+	    from tbl_board
+	    order by bno DESC
+	    limit #{page},10
+	</select>
+	
+	<!-- 페이지정보를 지정한 크기만큼 가져오기 -->
+	<select id="listPageCri" resultType="boardVO">
+	    select  bno, title, content, id, 
+                DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate
+	    from tbl_board
+	    order by bno DESC
+	    limit #{pageStart},#{pageSize}
+	</select>
+	
+	<select id="pageCount" resultType="int">
+	        select count(*) from tbl_board
+	</select>
+    
     <!-- 게시물 목록 -->   
 	<select id="selectList" resultType="boardVO">
 		SELECT 

@@ -9,7 +9,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">글 목록</h1>
+                    <h1 class="page-header">글 목록4</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -39,14 +39,14 @@
                                 <tbody>
 
 							<!-- TestController.java 컨트롤러 파일의 model.addAttribute("list", testService.selectList(testVo));   부분의  "list" 속성 -->
-							        <c:forEach items="${list}" var="result">
+							        <c:forEach items="${boardList }" var="i">
 							<!--            <tr  onclick=window.open("/view?bno=${result.bno}","_self") style='cursor:pointer; border:0; margin:0; '> -->
-							            <tr class="trlink" onclick="location.href='/view?bno=${result.bno}';" style='cursor:pointer;  '>
-							                <td>${result.bno}</td>
-							                <td>${result.title}</td>
+							            <tr class="trlink" onclick="location.href='/view?bno=${i.bno}';" style='cursor:pointer;  '>
+							                <td>${i.bno}</td>
+							                <td>${i.title}</td>
 							<%--                <td><h4 class="hlink">${result.title}</h4></td> --%>
-							                <td>${result.id}</td> 
-							                <td>${result.regDate}</td> 
+							                <td>${i.id}</td> 
+							                <td>${i.regDate}</td> 
 							            </tr>
 							        </c:forEach>
 
@@ -54,6 +54,29 @@
 
                                 </table>
                         </div>
+                        
+                <div class="box-footer">
+                    <div class="text-center">
+                        <ul class="pagination">
+                            <!-- 이전prev -->
+                            <c:if test="${pm.prev }">
+<%--                                 <li><a href="listPage?page=${pm.startPage-1}">&laquo;</a></li> --%>
+                                <li><a href="boardList?page=${pm.startPage-1}">&laquo;</a></li>
+                            </c:if>
+                            <!-- 페이지블럭 -->
+                            <c:forEach var="idx" begin="${pm.startPage }" end="${pm.endPage }">
+                                <!-- 삼항연산자를 사용해서 class로 스타일적용  -->
+                                <li ${pm.cri.page == idx? 'class=active':''}>
+                                    <a href="boardList?page=${idx }">${idx}</a>
+                                </li>               
+                            </c:forEach>
+                            <!-- 다음next -->
+                            <c:if test="${pm.next && pm.endPage > 0}">
+                                <li><a href="boardList?page=${pm.endPage+1}">&raquo;</a></li>
+                            </c:if>
+                        </ul>
+                    </div>
+                 </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->

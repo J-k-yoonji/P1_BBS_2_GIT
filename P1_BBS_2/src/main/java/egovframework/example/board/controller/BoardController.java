@@ -6,6 +6,8 @@ import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,12 +33,37 @@ public class BoardController  {
 		return "test";
 	}
 
+	private static final Logger l = LoggerFactory.getLogger(MemberController.class);
+	
 	//R: 게시물 전체 목록 조회
-	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
-	public String getBoardList(BoardVO boardVO, Model model) throws Exception {
-		model.addAttribute("list", boardService.selectList(boardVO));
+//	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
+//	public String getBoardList(BoardVO boardVO, Model model) throws Exception {
+//		model.addAttribute("list", boardService.selectList(boardVO));
+//
+//		return "boardList";
+//	}
+	
+	//페이징
+	//페이징처리한 글목록
+	@RequestMapping(value = "/listCri", method = RequestMethod.GET)
+	public void listCriGET(Criteria cri, Model model) throws Exception{
+		l.info("C: listCri 겟 호출" + cri);
+		model.addAttribute("boardList", boardService.listCri(cri));
+	}
 
-		return "boardList";
+	//글목록보기(PageMaker객체 사용)
+	// http://localhost:8088/board/listPage
+	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
+	public void listPageGET(Criteria cri, Model model) throws Exception{
+		l.info("C: cri는 "+cri);
+		model.addAttribute("boardList", boardService.listCri(cri));
+
+		PageMaker pm = new PageMaker();
+		pm.setCri(cri);
+		pm.setTotalCount(boardService.pageCount()); //DB의 전체ROW수 입력
+
+		// 뷰페이지로 전달 
+		model.addAttribute("pm", pm);
 	}
 
 	//R: 게시물 상세 조회용 GET메서드
@@ -44,8 +71,6 @@ public class BoardController  {
 	public void getView(@RequestParam("bno") int bno, Model model) throws Exception {
 		BoardVO boardVO = boardService.view(bno);
 		model.addAttribute("view", boardVO);
-		
-		
 	}
 
 	//C: 게시물 작성 (서버에서 사용자로 데이터 이동 GET메서드)
