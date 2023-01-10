@@ -27,6 +27,10 @@ public class BoardServiceImpl implements BoardService{
 		public List<BoardVO> listCri(Criteria cri) throws Exception {
 			return mapper.listPageCri(cri);
 		}
+		
+		public int getSeq(int bno) throws Exception {
+			return mapper.getSeq(bno);
+		}
 
 		//DB 테이블에 있는 모든 글 개수 계산 후 리턴
 		@Override
@@ -106,6 +110,8 @@ public class BoardServiceImpl implements BoardService{
 //			TestMapper mapper = sqlSession.getMapper(TestMapper.class);
 			mapper.uploadForm(boardVO);
 		}
+		
+
 
 
 

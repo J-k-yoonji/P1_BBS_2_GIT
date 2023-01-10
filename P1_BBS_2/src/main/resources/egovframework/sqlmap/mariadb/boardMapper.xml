@@ -9,23 +9,31 @@
 
     <!--    resultType 은 쿼리를 실행한 뒤 결과가 있을 경우에 사용하며, 반대로 데이터를 넣을 때는 parameterType을 사용. -->
     
-    <!-- 페이지정보를 10개씩 가져오기 -->
+    <!-- 페이지정보를 10개씩 가져오기 (답글도 적용) -->
 	<select id="listPage" resultType="boardVO">
-	    select  bno, title, content, id, 
+	   select  bno, title, content, id,
                 DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate
-	    from tbl_board
-	    order by bno DESC
-	    limit #{page},10
+       from tbl_board
+       order by bno DESC
+       limit #{page},10
 	</select>
+	
 	
 	<!-- 페이지정보를 지정한 크기만큼 가져오기 -->
 	<select id="listPageCri" resultType="boardVO">
-	    select  bno, title, content, id, 
+        <![CDATA[
+        select  bno, title, content, id, 
                 DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate
-	    from tbl_board
-	    order by bno DESC
+        from tbl_board A
+        WHERE A.group_no <= A.bno
+        ORDER BY group_no DESC, sort_seq  ASC
 	    limit #{pageStart},#{pageSize}
+	    ]]>
 	</select>
+	
+	<select id="getSeq"  parameterType="int" resultType="int">
+            select count(*) +1 from tbl_board where group_no = #{bno} 
+    </select>
 	
 	<select id="pageCount" resultType="int">
 	        select count(*) from tbl_board
@@ -33,19 +41,32 @@
     
     <!-- 게시물 목록 -->   
 	<select id="selectList" resultType="boardVO">
+		<![CDATA[
 		SELECT 
-		       bno, title, content, id, 
-		       DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate
-		FROM 
-		       tbl_board
-		ORDER BY bno DESC 
+		         bno, title, content, id, 
+		         DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate
+		FROM     tbl_board A 
+		WHERE    A.group_no <= A.bno  
+		ORDER BY group_no DESC, sort_seq  ASC
+		]]>
 	</select>
+	
+<!--     게시물 목록    -->
+<!-- 	<select id="selectList" resultType="boardVO"> -->
+<!-- 		SELECT  -->
+<!-- 		       bno, title, content, id,  -->
+<!-- 		       DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate -->
+<!-- 		FROM  -->
+<!-- 		       tbl_board -->
+<!-- 		ORDER BY bno DESC  -->
+<!-- 	</select> -->
+	
 	
     <!-- 게시물 작성 -->   
 	<insert id="write" parameterType="boardVO">
 		INSERT INTO 
-		       tbl_board( title, content, id, imageFileName, newFileName) 
-		                VALUES (#{title}, #{content}, #{id}, #{imageFileName}, #{newFileName} ) 
+		       tbl_board( title, content, id, imageFileName, newFileName, group_no, sort_seq) 
+		                VALUES (#{title}, #{content}, #{id}, #{imageFileName}, #{newFileName}, #{group_no}, #{sort_seq} ) 
 	</insert>
 	
 	
@@ -55,7 +76,7 @@
      	SELECT 
      	       bno, title, content, id, 
      	       DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate,
-     	       imageFileName, newFileName
+     	       imageFileName, newFileName, group_no groupNo, sort_seq
         FROM 
                tbl_board
         WHERE 

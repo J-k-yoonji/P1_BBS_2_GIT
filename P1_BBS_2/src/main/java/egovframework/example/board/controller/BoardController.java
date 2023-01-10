@@ -66,6 +66,11 @@ public class BoardController  {
 		model.addAttribute("pm", pm);
 	}
 
+//	//답글 작성  GET메서드
+//	@RequestMapping(value = "/boardReply", method = RequestMethod.GET)
+//	public void getBoardReply() throws Exception {
+//	}
+	
 	//R: 게시물 상세 조회용 GET메서드
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public void getView(@RequestParam("bno") int bno, Model model) throws Exception {
@@ -83,6 +88,68 @@ public class BoardController  {
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String postWrite( BoardVO boardVO, @RequestParam(value = "file1", required = false) MultipartFile report, HttpSession session) throws Exception {
 		
+		//session에 저장된 id를 writer에 저장  
+		String writer = (String) session.getAttribute("id");
+		System.out.println("작성자writer :"+ writer);	
+		//boardVO에  writer를 세팅
+		boardVO.setId(writer);
+		
+		//파일명
+		System.out.println("report"+ report);		
+		
+		//isBlank : 공백(Whitespace) 혹은 빈 문자열  상태.
+		//null : 인스턴스조차 생성되지 않은 상태
+		//isEmpty : 객체 인스턴스는 생선되었으나, 객체에 ""란 값으로 들어가 있는 상태.(빈 문자열 상태)
+		
+		if (!report.isEmpty()) {
+			String originalFile = report.getOriginalFilename();
+			String filePath = "C://file_repo/";
+			///C://download/pororo.png    
+			
+			File file = new File(filePath  + originalFile);
+			
+			//파일 저장
+			report.transferTo(file);
+			String imageFileName = file.getName();
+			String ext = imageFileName.substring(imageFileName.lastIndexOf("."));
+			String now = new SimpleDateFormat("yyyyMMdd_HmsS").format(new Date());
+			//새로운 파일명 : 업로드일시 + 확장자
+			String newFileName = now + ext;
+			
+			File newFile = new File(filePath  + newFileName);
+			file.renameTo(newFile);
+	
+			boardVO.setImageFileName(imageFileName);
+			boardVO.setNewFileName(newFileName);
+		}
+		// File객체의 값이 빈문자열 "" 인 경우에는 db서버에 null로 저장됨.(첨부한 파일 없어도 글등록 가능!) 
+		System.out.println(report.getOriginalFilename());
+		
+		boardService.write(boardVO);
+		return "redirect:/boardList";
+	}
+	
+
+	
+	//C: 게시물 작성 (서버에서 사용자로 데이터 이동 GET메서드)
+	@RequestMapping(value = "/reWrite", method = RequestMethod.GET)
+	public void getReWrite(@RequestParam("bno") int bno, Model model) throws Exception {
+		BoardVO boardVO = boardService.view(bno);
+		System.out.println(boardVO.getGroupNo());
+		boardVO.setSortSeq(boardService.getSeq(bno));
+//		boardVO.setGroupNo(bno);
+		model.addAttribute("view", boardVO);
+		
+//		model.addAttribute("group_no", boardVO.group_no);
+//		model.addAttribute("sort_seq", boardVO.sort_seq);
+	}
+	
+	//회원제게시판으로바꾸며 HttpSession session , String writer , boardVO.setId(writer); 를 추가해줌!ㅎㅎ
+	//C: 게시물 작성 (사용자에서 서버로 데이터 이동 POST메서드) //required = false: file1 이 null 값으로 들어와도 허용해줌. value = "file1(파라미터이름)"
+	@RequestMapping(value = "/reWrite", method = RequestMethod.POST)
+	public String postReWrite( BoardVO boardVO, Model model, @RequestParam(value = "file1", required = false) MultipartFile report, HttpSession session) throws Exception {
+		
+		model.addAttribute("view", boardVO);
 		//session에 저장된 id를 writer에 저장  
 		String writer = (String) session.getAttribute("id");
 		System.out.println("작성자writer :"+ writer);	

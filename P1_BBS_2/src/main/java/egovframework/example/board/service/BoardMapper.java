@@ -10,6 +10,9 @@ import egovframework.rte.psl.dataaccess.mapper.Mapper;
 @Mapper("mapper")
 public interface BoardMapper {
 	
+	//sort_seq 값 계산
+	public int getSeq(int bno) throws Exception;
+		
 	//페이징처리한 글목록
 	public List<BoardVO> listCri(Criteria cri) throws Exception;
 

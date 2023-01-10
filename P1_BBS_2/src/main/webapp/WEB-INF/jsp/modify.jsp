@@ -34,12 +34,12 @@
 					<!-- 바뀌면 안되는 정보는 label로 바로 출력한다. (번호) -->
 					<div class="form-group">
 						<label>번호 </label> <input class="form-control" name="bno"
-							value="${view.bno}" readonly="readonly" /><br />
+							value="${view.bno}" readonly="readonly" />
 					</div>
 
 					<div class="form-group">
 						<label>제목 </label> <input id="title" class="form-control"
-							type="text" name="title" value="${view.title}" /><br />
+							type="text" name="title" value="${view.title}" />
 					</div>
 
 <!-- 					<div class="form-group"> -->

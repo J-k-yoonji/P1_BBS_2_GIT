@@ -9,7 +9,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">글 목록4</h1>
+                    <h2 class="page-header">글 목록4</h2>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">목록</div>
+                        <div class="panel-heading" >목록</div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                                           

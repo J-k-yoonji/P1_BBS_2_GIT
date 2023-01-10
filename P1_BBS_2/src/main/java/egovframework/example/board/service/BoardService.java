@@ -7,6 +7,9 @@ import egovframework.example.board.vo.BoardVO;
 
 public interface BoardService {
 	
+	//sort_seq값 계산
+	public int getSeq(int bno) throws Exception;
+	
 	//페이징처리한 글목록
 	public List<BoardVO> listCri(Criteria cri) throws Exception;
 

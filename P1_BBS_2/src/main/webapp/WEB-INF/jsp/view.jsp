@@ -14,7 +14,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">글 조회</h1>
+                    <h2 class="page-header">글 조회</h2>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -34,20 +34,20 @@
 <form method="post" enctype="multipart/form-data">
 
 <!-- TestController.java 컨트롤러 파일의 model.addAttribute("view", testVo); 부분의  "view" 속성 -->
-    <div class="form-group"> 
+    <div class="form-group" >  
       <label>번호 </label>
-       <input class="form-control"  name="bno" value="${view.bno}" readonly="readonly" ><br/>
+       <input class="form-control"  name="bno" value="${view.bno}" readonly="readonly" >
+<%--        <input class="form-control"  name="bno" value="${view.bno}" type="hidden" readonly="readonly" > --%>
     </div>
 
     <div class="form-group">
       <label>제목 </label>
-       <input class="form-control"  name="title" value="${view.title}" readonly="readonly" ><br/>
+       <input class="form-control"  name="title" value="${view.title}" readonly="readonly" >
     </div>
 
     <div class="form-group">
       <label>작성자 </label>
-      <%--  <input class="form-control"  name="id" value="${view.id}" readonly="readonly" ><br/> --%>
-       <input class="form-control"  name="id" value="${view.id}" readonly="readonly" ><br/>
+       <input class="form-control"  name="id" value="${view.id}" readonly="readonly" >
              
     </div>
 
@@ -72,7 +72,7 @@
     </div><br/>    
          
 </form>
-</p>
+<p/>
 
 <!--     <div class="class1"></div>    -->
 <!-- <div> -->
@@ -87,7 +87,10 @@
 	<button type="button" class="btn btn-info" onclick="location.href='/modify?bno=${view.bno}';">게시물 수정</button>
     <button type="button" class="btn btn-danger" onclick="javascript:document.myForm.submit();">게시물 삭제</button>
   </c:if>
-</div>
+  
+  <button type="button" class="btn black mr5" onclick="javascript:goBoardReply();">답글쓰기</button>
+  
+</div><br/>
 
                         </div>
                         <!-- /.panel-body -->
@@ -103,7 +106,14 @@
 <%@include file="./includes/footer.jsp" %>
 
 <!-- <h1>부트스트랩 이까지</h1> -->
-
+<script type="text/javascript">
+    /** 게시판 - 답글 페이지 이동 */
+    function goBoardReply()
+    {
+        location.href = 'reWrite?bno=${view.bno}';
+    }
+    
+</script>
 
 </body>
 </html>

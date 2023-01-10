@@ -30,9 +30,14 @@
 				<!-- 		 <h1>게시물 작성3</h1>        -->
 				<form name="upLoadFile" method="post" enctype="multipart/form-data"
 					action="/write">
+					
+					<div class="form-group">
+                        <label>번호 </label> <input class="form-control" name="bno" type="hidden" value="${view.bno}" readonly="readonly" />
+                    </div>
+					
 					<div class="form-group">
 						<label>제목 </label> <input id="title" class="form-control"
-							type="text" name="title" /><br />
+							type="text" name="title" />
 					</div>
 
 <!-- 					<div class="form-group"> -->
@@ -45,8 +50,8 @@
 						<label>내용&nbsp;</label>
 						<textarea id="content" class="form-control" cols="50" rows="3"
 							name="content"></textarea>
-					</div>
-					<br />
+					</div><br/>
+					
 
 					<div class="form-group">
 						<label>첨부파일</label>
@@ -59,7 +64,7 @@
 								style="width: auto; height: auto; line-height: 0.8;">
 								<input class="upload-name" value="선택된 파일 없음" readonly="readonly"
 									type="hidden"> <input type="file" id="file1"
-									class="upload-hidden" name="file1" accept="image/*"> <br />
+									class="upload-hidden" name="file1" accept="image/*">
 							</div>
 							<img id="previewImg" width=200 height=200 style="display: none;" />
 							<!--            <video  controls={true} autoPlay={true} src="#" class="image-box" width = 200 height = 200></video> -->
