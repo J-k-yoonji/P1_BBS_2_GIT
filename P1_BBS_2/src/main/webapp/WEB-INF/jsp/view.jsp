@@ -102,16 +102,16 @@
      <form name="myForm2" action="/deleteReWrite?bno=${view.bno}" method="POST"></form>
 <!-- 	본인이 작성한 게시물만 수정,삭제가 가능하도록 처리. 수정,삭제 버튼 : 'session의 id값(로그인한 정보)'과  '작성자'가 동일하면 수정,삭제버튼 활성화	 -->
   <c:if test="${sessionScope.id == view.id}" >	
-	<button type="button" class="btn btn-info" onclick="location.href='/modify?bno=${view.bno}';">게시물 수정</button>
+	<button type="button" class="btn btn-info" onclick="location.href='/modify?bno=${view.bno}';">글수정</button>
 	    <c:if test="${view.sortSeq lt 1}">
-      <button type="button" class="btn btn-danger" onclick="javascript:document.myForm.submit();">게시물 삭제</button>
+      <button type="button" class="btn btn-danger" onclick="javascript:document.myForm.submit();">글삭제</button>
         </c:if>
         <c:if test="${view.sortSeq gt 0}">
       <button type="button" class="btn btn-danger" onclick="javascript:document.myForm2.submit();">답글 삭제</button>
         </c:if>
   </c:if>
   <c:if test="${view.sortSeq lt 1}">
-  <button type="button" class="btn black mr5" onclick="javascript:goBoardReply();">답글쓰기</button>
+  <button type="button" class="btn btn-secondary" onclick="javascript:goBoardReply();">답글쓰기</button>
   </c:if>
 </div><br/>
 
