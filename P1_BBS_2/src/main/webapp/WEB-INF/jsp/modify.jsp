@@ -9,7 +9,7 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">글 수정</h1>
+		<h2 class="page-header">글 수정</h2>
 	</div>
 	<!-- /.col-lg-12 -->
 </div>
@@ -57,22 +57,24 @@
 					<div class="form-group">
 						<label>첨부파일</label>
 
-						<div class="uploadImg">
-							<div class="filebox"
-								style="width: auto; height: auto; line-height: 0.8;">
-								<input class="upload-name" type="hidden"
-									value="${view.imageFileName}" readonly="readonly"> <input
-									type="file" id="file1" class="upload-hidden" name="file1"
-									value="${view.imageFileName}" accept=" image/*" /> <br />
+                    
+
+							<div class="uploadImg">
+								<div class="filebox"
+									style="width: auto; height: auto; line-height: 0.8;">
+									<input class="upload-name" type="hidden" value="${view.imageFileName}" readonly="readonly"> 
+									<input type="file" id="file1" class="upload-hidden" name="file1" value="${view.imageFileName}" accept=" image/*" /> <br />
+								</div>
+								<img id="previewImg" src="/filepath/${view.newFileName}" style="display: none;" width=200 height=200 /> 
+								
+<%-- 								 <c:if test="${null ne view.imageFileName}"> --%>
+									<img id="previewImg2" src="/filepath/${view.newFileName}" class="preFileImg" style="display: block;" width=200 height=200 />
+<%-- 								 </c:if>     --%>
+								 
+								<input class="upload-name" type="hidden" value="${view.newFileName}" name="preFileName" readonly="readonly">
 							</div>
-							<img id="previewImg" src="/filepath/${view.newFileName}"
-								style="display: none;" width=200 height=200 /> <img
-								id="previewImg2" src="/filepath/${view.newFileName}"
-								class="preFileImg" style="display: block;" width=200 height=200 />
-							<input class="upload-name" type="hidden"
-								value="${view.newFileName}" name="preFileName"
-								readonly="readonly">
-						</div>
+
+						
 
 
 						<!--      <div class="uploadImg"> -->

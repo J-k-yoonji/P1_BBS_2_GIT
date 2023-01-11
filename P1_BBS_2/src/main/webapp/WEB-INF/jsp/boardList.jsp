@@ -39,12 +39,20 @@
                                 <tbody>
 
 							<!-- TestController.java 컨트롤러 파일의 model.addAttribute("list", testService.selectList(testVo));   부분의  "list" 속성 -->
-							        <c:forEach items="${boardList }" var="i">
+							        <c:forEach items="${boardList}" var="i">
 							<!--            <tr  onclick=window.open("/view?bno=${result.bno}","_self") style='cursor:pointer; border:0; margin:0; '> -->
 							            <tr class="trlink" onclick="location.href='/view?bno=${i.bno}';" style='cursor:pointer;  '>
 							                <td>${i.bno}</td>
-							                <td>${i.title}</td>
-							<%--                <td><h4 class="hlink">${result.title}</h4></td> --%>
+							                <td>
+<!--  dispatcher-servlet 에 정적 자원 매핑을 location="/resources/" 로 해주었기 떄문에, img src에  src="/resources/image/arr.jpg" 이렇게 넣어줘야 파일이 꺠지지 않고 화면에 출력된다! -->
+									           <c:if test="${i.sortSeq gt 0}">
+									             <!-- <img width="${i.sortSeq*10}px"/> -->
+									             <img width="10px"/>
+									             <span><img src="/resources/image/arr.jpg" alt="" width="20px" /></span>
+<!-- 									             <span><img src="/resources/image/arr.jpg" alt="" width="20px" />ㄴ[답글]</span> -->
+									           </c:if>							                
+							                    ${i.title}
+							                </td>
 							                <td>${i.id}</td> 
 							                <td>${i.regDate}</td> 
 							            </tr>
@@ -53,6 +61,7 @@
                                 </tbody>
 
                                 </table>
+
                         </div>
                         
                 <div class="box-footer">

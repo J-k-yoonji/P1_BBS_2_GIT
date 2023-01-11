@@ -83,6 +83,12 @@ public class BoardServiceImpl implements BoardService{
 //			testMapper.write(testVo);
 		}
 		
+		//답글 작성
+		@Override
+		public void reWrite(BoardVO boardVO) throws Exception {
+			mapper.reWrite(boardVO);
+		}
+		
 		//게시물 조회
 		@Override
 		public BoardVO view(int bno) throws Exception {

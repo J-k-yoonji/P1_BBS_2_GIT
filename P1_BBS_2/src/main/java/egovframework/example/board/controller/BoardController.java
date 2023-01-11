@@ -52,7 +52,7 @@ public class BoardController  {
 	}
 
 	//글목록보기(PageMaker객체 사용)
-	// http://localhost:8088/board/listPage
+	// http://localhost:9080/board/listPage
 	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
 	public void listPageGET(Criteria cri, Model model) throws Exception{
 		l.info("C: cri는 "+cri);
@@ -129,7 +129,6 @@ public class BoardController  {
 		return "redirect:/boardList";
 	}
 	
-
 	
 	//C: 게시물 작성 (서버에서 사용자로 데이터 이동 GET메서드)
 	@RequestMapping(value = "/reWrite", method = RequestMethod.GET)
@@ -137,11 +136,12 @@ public class BoardController  {
 		BoardVO boardVO = boardService.view(bno);
 		System.out.println(boardVO.getGroupNo());
 		boardVO.setSortSeq(boardService.getSeq(bno));
+		boardVO.setGroupNo(bno);
 //		boardVO.setGroupNo(bno);
 		model.addAttribute("view", boardVO);
 		
-//		model.addAttribute("group_no", boardVO.group_no);
-//		model.addAttribute("sort_seq", boardVO.sort_seq);
+//		model.addAttribute("groupNo", boardVO.groupNo);
+//		model.addAttribute("sortSeq", boardVO.sortSeq);
 	}
 	
 	//회원제게시판으로바꾸며 HttpSession session , String writer , boardVO.setId(writer); 를 추가해줌!ㅎㅎ
@@ -187,7 +187,7 @@ public class BoardController  {
 		// File객체의 값이 빈문자열 "" 인 경우에는 db서버에 null로 저장됨.(첨부한 파일 없어도 글등록 가능!) 
 		System.out.println(report.getOriginalFilename());
 		
-		boardService.write(boardVO);
+		boardService.reWrite(boardVO);
 		return "redirect:/boardList";
 	}
 	

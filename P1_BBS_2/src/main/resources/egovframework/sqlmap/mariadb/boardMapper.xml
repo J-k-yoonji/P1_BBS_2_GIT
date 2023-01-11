@@ -19,24 +19,53 @@
 	</select>
 	
 	
-	<!-- 페이지정보를 지정한 크기만큼 가져오기 -->
+	<!-- 페이지정보를 지정한 크기만큼 가져오기 #사실 우리는 답글의 답글은 구현안하고, 답글까지만 구현하기 때문에, 글목록에서 정렬시 sort_seq컬럼없이, regDate를 사용해줘도 된다.대댓글엔 sort_seq 필요!-->
 	<select id="listPageCri" resultType="boardVO">
         <![CDATA[
         select  bno, title, content, id, 
-                DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate
+                DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate, groupNo, sortSeq
         from tbl_board A
-        WHERE A.group_no <= A.bno
-        ORDER BY group_no DESC, sort_seq  ASC
+        WHERE A.groupNo <= A.bno
+        ORDER BY groupNo DESC, regDate  ASC
 	    limit #{pageStart},#{pageSize}
 	    ]]>
 	</select>
 	
+	<insert id="write" parameterType="boardVO" >
+	   <![CDATA[
+	    INSERT INTO 
+               tbl_board( title, content, id, imageFileName, newFileName, groupNo, sortSeq) 
+                        VALUES (#{title}, #{content}, #{id}, #{imageFileName}, #{newFileName}, 0 , 0 ) ;
+                        
+        UPDATE tbl_board SET groupNo = ( SELECT ifnull(MAX(t.bno), 1)  FROM tbl_board t )  WHERE groupNo = 0 
+       ]]>               
+    </insert>
+    
+        
+<!--   답글 작성 (작성시 sortSeq값이 같은 groupNo 내에서  가장 큰 값으로 들어가게 해줌. 따라서 글목록을 불러올떄, ORDER BY 에 regDate를 쓰나, sortSeq를 쓰나 무방하다. getSeq도 안써줘도 될 것 같다. )   -->
+    <insert id="reWrite" parameterType="boardVO">
+        INSERT INTO 
+               tbl_board( title, content, id, imageFileName, newFileName, groupNo, sortSeq) 
+                        VALUES (#{title}, #{content}, #{id}, #{imageFileName}, #{newFileName}, #{groupNo}, ( SELECT ifnull(MAX(t.sortSeq), 0) +1  FROM tbl_board t WHERE groupNo = #{groupNo} ) ) 
+                        
+    </insert>
+	
 	<select id="getSeq"  parameterType="int" resultType="int">
-            select count(*) +1 from tbl_board where group_no = #{bno} 
+        <![CDATA[
+        SELECT  count(*)
+		FROM    tbl_board b1 
+		JOIN    tbl_board b2 
+		ON      b2.groupNo = b1.bno 
+		WHERE   b1.bno = #{bno}
+		]]>
     </select>
+    
+<!-- 	<select id="getSeq"  parameterType="int" resultType="int"> -->
+<!--             select count(*) from tbl_board where groupNo = #{bno}  -->
+<!--     </select> -->
 	
 	<select id="pageCount" resultType="int">
-	        select count(*) from tbl_board
+	    SELECT  count(*) FROM tbl_board
 	</select>
     
     <!-- 게시물 목록 -->   
@@ -46,8 +75,8 @@
 		         bno, title, content, id, 
 		         DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate
 		FROM     tbl_board A 
-		WHERE    A.group_no <= A.bno  
-		ORDER BY group_no DESC, sort_seq  ASC
+		WHERE    A.groupNo <= A.bno  
+		ORDER BY groupNo DESC, sortSeq  ASC
 		]]>
 	</select>
 	
@@ -61,13 +90,7 @@
 <!-- 		ORDER BY bno DESC  -->
 <!-- 	</select> -->
 	
-	
-    <!-- 게시물 작성 -->   
-	<insert id="write" parameterType="boardVO">
-		INSERT INTO 
-		       tbl_board( title, content, id, imageFileName, newFileName, group_no, sort_seq) 
-		                VALUES (#{title}, #{content}, #{id}, #{imageFileName}, #{newFileName}, #{group_no}, #{sort_seq} ) 
-	</insert>
+
 	
 	
     <!--게시물 조회 -->
@@ -76,7 +99,7 @@
      	SELECT 
      	       bno, title, content, id, 
      	       DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate,
-     	       imageFileName, newFileName, group_no groupNo, sort_seq
+     	       imageFileName, newFileName, groupNo, sortSeq
         FROM 
                tbl_board
         WHERE 

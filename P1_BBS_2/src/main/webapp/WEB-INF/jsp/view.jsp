@@ -34,31 +34,48 @@
 <form method="post" enctype="multipart/form-data">
 
 <!-- TestController.java 컨트롤러 파일의 model.addAttribute("view", testVo); 부분의  "view" 속성 -->
+<!--     <div class="form-group"> -->
+<%--          <input class="form-control" name="groupNo"  placeholder="원글번호:${view.groupNo}/ sortSeq순서:${view.sortSeq}" readonly="readonly" /> --%>
+<!--     </div>      -->
+    
     <div class="form-group" >  
+      <c:if test="${view.sortSeq gt 0}">
+       <label>답글</label>
+      </c:if>    
       <label>번호 </label>
        <input class="form-control"  name="bno" value="${view.bno}" readonly="readonly" >
 <%--        <input class="form-control"  name="bno" value="${view.bno}" type="hidden" readonly="readonly" > --%>
     </div>
 
     <div class="form-group">
-      <label>제목 </label>
+      <c:if test="${view.sortSeq gt 0}">
+       <label>답글</label>
+      </c:if>
+      <label>제목 </label>      
        <input class="form-control"  name="title" value="${view.title}" readonly="readonly" >
     </div>
 
     <div class="form-group">
+      <c:if test="${view.sortSeq gt 0}">
+       <label>답글</label>
+      </c:if>    
       <label>작성자 </label>
        <input class="form-control"  name="id" value="${view.id}" readonly="readonly" >
              
     </div>
 
     <div class="form-group">
+      <c:if test="${view.sortSeq gt 0}">
+       <label>답글</label>
+      </c:if>    
       <label>내용&nbsp;</label>
       <textarea class="form-control"  cols="50" rows="3" name="content" readonly="readonly" >${view.content}</textarea>
        <input class="form-control" type="hidden" name="content" value="${view.content}" readonly="readonly" > 
     </div><br/>    
     
     <div>${contextPath}</div>
-
+    
+<%--   <c:if test="${null ne view.imageFileName}"> --%>
     <div class="form-group">
        <label>첨부파일</label><br/>
        <input class="form-control" name="imageFileName" value="${view.imageFileName}" readonly="readonly" style="width: auto; height: auto; line-height: 0.8;" > 
@@ -70,7 +87,7 @@
 <%--        <img src= "/filepath/${view.imageFileName}"  width = 200 height = 200 id="preview" /> --%>
 <!--        <img src= "Sunflower.jpg"  width = 200 height = 200 id="preview" /> -->
     </div><br/>    
-         
+<%--   </c:if>        --%>
 </form>
 <p/>
 
@@ -87,9 +104,9 @@
 	<button type="button" class="btn btn-info" onclick="location.href='/modify?bno=${view.bno}';">게시물 수정</button>
     <button type="button" class="btn btn-danger" onclick="javascript:document.myForm.submit();">게시물 삭제</button>
   </c:if>
-  
+  <c:if test="${view.sortSeq lt 1}">
   <button type="button" class="btn black mr5" onclick="javascript:goBoardReply();">답글쓰기</button>
-  
+  </c:if>
 </div><br/>
 
                         </div>
@@ -107,7 +124,8 @@
 
 <!-- <h1>부트스트랩 이까지</h1> -->
 <script type="text/javascript">
-    /** 게시판 - 답글 페이지 이동 */
+/** 게시판 - 답글 페이지 이동 */
+//  view.jsp파일의 여기에서 'reWrite?bno=${view.bno}' 라고  적어줌으로써, controller의  getReWrite 메서드에서 @RequestParam("bno") 로 bno를 가져와서 여러가지로 활용할 수 있는 것!
     function goBoardReply()
     {
         location.href = 'reWrite?bno=${view.bno}';

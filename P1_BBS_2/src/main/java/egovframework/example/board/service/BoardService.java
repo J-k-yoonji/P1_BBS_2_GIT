@@ -7,7 +7,7 @@ import egovframework.example.board.vo.BoardVO;
 
 public interface BoardService {
 	
-	//sort_seq값 계산
+	//sortSeq값 계산
 	public int getSeq(int bno) throws Exception;
 	
 	//페이징처리한 글목록
@@ -28,6 +28,9 @@ public interface BoardService {
 
 	//게시물 작성
 	public void write(BoardVO boardVO) throws Exception;
+
+	//답글 작성
+	public void reWrite(BoardVO boardVO) throws Exception;
 	
 	//게시물 조회
 	public BoardVO view(int bno) throws Exception;

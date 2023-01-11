@@ -9,7 +9,7 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">글 작성</h1>
+		<h2 class="page-header">글 작성</h2>
 	</div>
 	<!-- /.col-lg-12 -->
 </div>
@@ -31,13 +31,12 @@
 				<form name="upLoadFile" method="post" enctype="multipart/form-data"
 					action="/write">
 					
-					<div class="form-group">
-                        <label>번호 </label> <input class="form-control" name="bno" type="hidden" value="${view.bno}" readonly="readonly" />
-                    </div>
+<!-- 					<div class="form-group"> -->
+<%--                         <label>번호 </label> <input id="bno" class="form-control" name="bno" type="text" value="${view.bno}" readonly="readonly" /> --%>
+<!--                     </div> -->
 					
 					<div class="form-group">
-						<label>제목 </label> <input id="title" class="form-control"
-							type="text" name="title" />
+						<label>제목 </label> <input id="title" class="form-control" type="text" name="title" />
 					</div>
 
 <!-- 					<div class="form-group"> -->
