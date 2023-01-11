@@ -103,11 +103,18 @@ public class BoardServiceImpl implements BoardService{
 			mapper.modify(boardVO);
 		}
 		
-		//게시물 삭제
+		//원글 삭제. 
 		@Override
 		public void delete(int bno) throws Exception {
 //			TestMapper mapper = sqlSession.getMapper(TestMapper.class);
 			mapper.delete(bno);
+		}
+		
+		//답글 삭제
+		@Override
+		public void deleteReWrite(int bno) throws Exception {
+//			TestMapper mapper = sqlSession.getMapper(TestMapper.class);
+			mapper.deleteReWrite(bno);
 		}
 
 		//파일업로드

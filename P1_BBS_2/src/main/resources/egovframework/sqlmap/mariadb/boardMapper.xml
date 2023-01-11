@@ -123,8 +123,17 @@
                 bno = #{bno} 
 	</update>
 	
-	<!-- 게시물 삭제 -->
+	<!-- 원글 삭제. groupNo를 이용하여, 원글삭제시, 답글도 모두 삭제. 답글만 삭제하는 것 따로 구현해야할듯. -->
 	<delete id="delete" parameterType="int">
+	    DELETE 
+	    FROM 
+                tbl_board
+	    WHERE 
+                groupNo = #{bno}                 
+	
+	</delete>
+<!-- 	답글 삭제. -->
+	<delete id="deleteReWrite" parameterType="int">
 	    DELETE 
 	    FROM 
                 tbl_board

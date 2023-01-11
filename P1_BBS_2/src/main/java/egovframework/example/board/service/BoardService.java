@@ -38,8 +38,11 @@ public interface BoardService {
 	//게시물 수정
 	public void modify(BoardVO boardVO) throws Exception;
 
-	//게시물 삭제
+	//게시물(원글) 삭제. 원글삭제시 답글까지 전부삭제함. 
 	public void delete(int bno) throws Exception;
+
+	//답글 삭제
+	public void deleteReWrite(int bno) throws Exception;
 
 	//파일업로드 	// ? boardMapper.xml 에는 없음.
 	public void uploadForm(BoardVO boardVO) throws Exception;

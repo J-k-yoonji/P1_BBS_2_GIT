@@ -38,6 +38,8 @@ public interface BoardMapper {
 
 	public void delete(int bno) throws Exception;
 
+	public void deleteReWrite(int bno) throws Exception;
+
 	// ? boardMapper.xml 에는 없음.
 	public void uploadForm(BoardVO boardVO) throws Exception;
 }

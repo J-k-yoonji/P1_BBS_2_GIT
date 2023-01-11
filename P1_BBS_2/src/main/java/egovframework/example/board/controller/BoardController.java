@@ -298,6 +298,33 @@ public class BoardController  {
 		
 		return "redirect:/boardList" ;
 	}
+	
+	//D: 답글 삭제 POST방식으로
+	@RequestMapping(value = "/deleteReWrite", method = RequestMethod.POST)
+	public String postDeleteReWrite(@RequestParam("bno") int bno) throws Exception {
+		
+		//삭제할 게시글의 bno를 가진 게시글의DB를 불러와 testVo객체에 담아줍니다.(삭제할 게시글의 첨부파일의 '파일명'을 가져오기 위해 생성)
+		BoardVO boardVO = boardService.view(bno);
+		// 파일의 경로 (첨부파일 업로드 때와 동일한 경로)
+		String filePath = "C://file_repo/";
+		
+		// 삭제할 게시글을 DB에서 삭제하기 전에, 해당 게시글에 업로드했던 첨부파일이 있다면 그 첨부파일의 이름(ImageFileName)을 가져와서 첨부파일삭제 시 사용하도록 해야합니다.
+		String saveFileName = boardVO.getNewFileName();
+		
+		//TestServiceImpl 파일의 delete메소드를 호출하여 해당bno를 가진 게시글의 DB를 삭제한다.
+		boardService.deleteReWrite(bno);
+		
+		// '삭제할첨부파일 File객체'를 해당 파일경로('파일의 경로+삭제할파일명.확장자')를 통해 'deleteFile File객체'에  넣어줍니다.
+		File deleteFile = new File(filePath + saveFileName );
+		
+		// deleteFile.exists() : 주어진 '삭제할첨부파일 File객체'(deleteFile)이 존재하는지 체크. 존재할경우 true, 존재하지않을경우 false
+		if(deleteFile.exists()) {           
+			// 삭제할 게시글DB삭제에 이어, 삭제할 게시글의 첨부파일까지 폴더에서 완전히 삭제됩니다.  
+			deleteFile.delete();           
+		} 
+		
+		return "redirect:/boardList" ;
+	}
 
 
 //    public void deleteFile(int bno) throws Exception {
