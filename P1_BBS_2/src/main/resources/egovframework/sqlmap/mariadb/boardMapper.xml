@@ -19,13 +19,15 @@
 	</select>
 	
 	
-	<!-- 페이지정보를 지정한 크기만큼 가져오기 #사실 우리는 답글의 답글은 구현안하고, 답글까지만 구현하기 때문에, 글목록에서 정렬시 sort_seq컬럼없이, regDate를 사용해줘도 된다.대댓글엔 sort_seq 필요!-->
+	<!-- 댓글수표시추가//페이지정보를 지정한 크기만큼 가져오기 #사실 우리는 답글의 답글은 구현안하고, 답글까지만 구현하기 때문에, 글목록에서 정렬시 sort_seq컬럼없이, regDate를 사용해줘도 된다.대댓글엔 sort_seq 필요!-->
 	<select id="listPageCri" resultType="boardVO">
         <![CDATA[
         select  bno, title, content, id, 
-                DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate, groupNo, sortSeq
-        from tbl_board A
-        WHERE A.groupNo <= A.bno
+                DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate, groupNo, sortSeq,
+                (SELECT COUNT(*) FROM tbl_reply WHERE bno=b.bno) AS recnt
+                
+        from tbl_board b
+        WHERE b.groupNo <= b.bno
         ORDER BY groupNo DESC, regDate  ASC
 	    limit #{pageStart},#{pageSize}
 	    ]]>

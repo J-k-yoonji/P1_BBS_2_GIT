@@ -326,26 +326,6 @@ public class BoardController  {
 		return "redirect:/boardList" ;
 	}
 
-
-//    public void deleteFile(int bno) throws Exception {
-//			TestVo testVo = testService.view(bno);
-//	        // 파일의 경로 + 파일명
-//	        String filePath = "C://file_repo/";
-//	        
-//	        String saveFileName = testVo.getImageFileName();
-//	        
-//	        File deleteFile = new File(filePath + saveFileName );
-//	 
-//	        // 파일이 존재하는지 체크 존재할경우 true, 존재하지않을경우 false
-//	        if(deleteFile.exists()) {
-//	            
-//	            // 파일을 삭제합니다.
-//	            deleteFile.delete(); 
-//	            
-//	        } 
-//	    }
-	
-	
 	
 	//파일업로드 (서버에서 사용자로 데이터 이동 GET메서드)
 	@RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
@@ -362,16 +342,6 @@ public class BoardController  {
 		return "redirect:/boardList";
 	}
 	
-//	//게시물 수정 (사용자에서 서버로 데이터 이동 POST메서드)
-//	@RequestMapping(value = "/modify", method = RequestMethod.POST)
-//	public String postModify(TestVo testVo) throws Exception {
-//		System.out.println("view" + testVo.getBno()+"3");
-//		testService.modify(testVo);
-//		
-//		return "redirect:/view?bno=" + testVo.getBno() ;
-//	}
-	
-
 	
 
 }

@@ -52,6 +52,12 @@
 <!-- 									             <span><img src="/resources/image/arr.jpg" alt="" width="20px" />ㄴ[답글]</span> -->
 									           </c:if>							                
 							                    ${i.title}
+							                   <!--  댓글이 있으면 게시글 이름 옆에 출력하기! -->
+							                    <c:if test="${i.recnt > 0 }">
+							                     <span style="color: red;">&nbsp;(${i.recnt})
+							                     </span>
+							                    </c:if>
+							                    
 							                </td>
 							                <td>${i.id}</td> 
 							                <td>${i.regDate}</td> 

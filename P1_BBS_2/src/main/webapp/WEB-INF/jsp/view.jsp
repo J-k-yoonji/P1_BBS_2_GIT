@@ -29,6 +29,30 @@
                         <div class="panel-heading"><a href="/boardList" >목록</a> > 글 조회</div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
+<!-- float:right;  -->
+
+<%--     <button type="button" class="btn" onclick="location.href='/modify?bno=${view.bno}';">게시물 수정</button> --%>
+<%--     <button type="button" class="btn" onclick="location.href='/delete?bno=${view.bno}';">게시물 삭제</button> --%>
+
+<%--  위방식은 GET방식만 가능. 삭제버튼을 클릭했을때 "POST방식"으로 상대경로와 데이터를 전달해주기위해서 form태그를 새로 생성, 아래와같이 해야했음. --%>
+<div align="right" style="float:right; margin:0px;" >
+     <form name="myForm" action="/delete?bno=${view.bno}" method="POST"></form>
+     <form name="myForm2" action="/deleteReWrite?bno=${view.bno}" method="POST"></form>
+<!--    본인이 작성한 게시물만 수정,삭제가 가능하도록 처리. 수정,삭제 버튼 : 'session의 id값(로그인한 정보)'과  '작성자'가 동일하면 수정,삭제버튼 활성화   -->
+  <c:if test="${sessionScope.id == view.id}" >  
+    <button type="button" class="btn btn-info btn-sm" onclick="location.href='/modify?bno=${view.bno}';">글수정</button>
+        <c:if test="${view.sortSeq lt 1}">
+      <button type="button" class="btn btn-danger btn-sm" onclick="javascript:document.myForm.submit();">글삭제</button>
+        </c:if>
+        <c:if test="${view.sortSeq gt 0}">
+      <button type="button" class="btn btn-danger btn-sm" onclick="javascript:document.myForm2.submit();">답글 삭제</button>
+        </c:if>
+  </c:if>
+  <c:if test="${view.sortSeq lt 1}">
+  <button type="button" class="btn btn-secondary btn-sm" onclick="javascript:goBoardReply();">답글쓰기</button>
+  </c:if>
+</div>
+
 
 <p>
 <form method="post" enctype="multipart/form-data">
@@ -37,40 +61,44 @@
 <!--     <div class="form-group"> -->
 <%--          <input class="form-control" name="groupNo"  placeholder="원글번호:${view.groupNo}/ sortSeq순서:${view.sortSeq}" readonly="readonly" /> --%>
 <!--     </div>      -->
-    
-    <div class="form-group" >  
+    <br/>
+    <div class="form-group" style="float:left;">  
       <c:if test="${view.sortSeq gt 0}">
        <label>답글</label>
       </c:if>    
       <label>번호 </label>
-       <input class="form-control"  name="bno" value="${view.bno}" readonly="readonly" >
+       <input style="width: 100px;display: block;" class="form-control"  name="bno" value="${view.bno}" readonly="readonly" >
 <%--        <input class="form-control"  name="bno" value="${view.bno}" type="hidden" readonly="readonly" > --%>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" style="float:left;">
       <c:if test="${view.sortSeq gt 0}">
        <label>답글</label>
       </c:if>
       <label>제목 </label>      
-       <input class="form-control"  name="title" value="${view.title}" readonly="readonly" >
+       <input style="display: inline-block;" class="form-control"  name="title" value="${view.title}" readonly="readonly" >
     </div>
-
-    <div class="form-group">
+    
+    <div class="form-group" style="float:left;">
       <c:if test="${view.sortSeq gt 0}">
        <label>답글</label>
       </c:if>    
       <label>작성자 </label>
-       <input class="form-control"  name="id" value="${view.id}" readonly="readonly" >
-             
+       <input style="display: inline;" class="form-control"  name="id" value="${view.id}" readonly="readonly" >
     </div>
+<!--     float:left 사용시 마지막에 아래태그 꼭 써주기! -->
+    <p style=clear:both;></p>
+
 
     <div class="form-group">
+      <span>
       <c:if test="${view.sortSeq gt 0}">
        <label>답글</label>
       </c:if>    
       <label>내용&nbsp;</label>
       <textarea class="form-control"  cols="50" rows="3" name="content" readonly="readonly" >${view.content}</textarea>
        <input class="form-control" type="hidden" name="content" value="${view.content}" readonly="readonly" > 
+      </span>
     </div><br/>    
     
     <div>${contextPath}</div>
@@ -86,34 +114,26 @@
        <img src= "/filepath/${view.newFileName}" style="margin-top: 6px; width:200px; height:200px;" id="preview" />
 <%--        <img src= "/filepath/${view.imageFileName}"  width = 200 height = 200 id="preview" /> --%>
 <!--        <img src= "Sunflower.jpg"  width = 200 height = 200 id="preview" /> -->
-    </div><br/>    
+    </div>    
 <%--   </c:if>        --%>
 </form>
 <p/>
-
 <!--     <div class="class1"></div>    -->
 <!-- <div> -->
-<%--     <button type="button" class="btn" onclick="location.href='/modify?bno=${view.bno}';">게시물 수정</button> --%>
-<%--     <button type="button" class="btn" onclick="location.href='/delete?bno=${view.bno}';">게시물 삭제</button> --%>
-
-<%--  위방식은 GET방식만 가능. 삭제버튼을 클릭했을때 "POST방식"으로 상대경로와 데이터를 전달해주기위해서 form태그를 새로 생성, 아래와같이 해야했음. --%>
+<hr>
 <div>
-     <form name="myForm" action="/delete?bno=${view.bno}" method="POST"></form>
-     <form name="myForm2" action="/deleteReWrite?bno=${view.bno}" method="POST"></form>
-<!-- 	본인이 작성한 게시물만 수정,삭제가 가능하도록 처리. 수정,삭제 버튼 : 'session의 id값(로그인한 정보)'과  '작성자'가 동일하면 수정,삭제버튼 활성화	 -->
-  <c:if test="${sessionScope.id == view.id}" >	
-	<button type="button" class="btn btn-info" onclick="location.href='/modify?bno=${view.bno}';">글수정</button>
-	    <c:if test="${view.sortSeq lt 1}">
-      <button type="button" class="btn btn-danger" onclick="javascript:document.myForm.submit();">글삭제</button>
-        </c:if>
-        <c:if test="${view.sortSeq gt 0}">
-      <button type="button" class="btn btn-danger" onclick="javascript:document.myForm2.submit();">답글 삭제</button>
-        </c:if>
-  </c:if>
-  <c:if test="${view.sortSeq lt 1}">
-  <button type="button" class="btn btn-secondary" onclick="javascript:goBoardReply();">답글쓰기</button>
-  </c:if>
-</div><br/>
+	
+	<fieldset>
+	<label>댓글</label>
+	<textarea class="form-control" id="replytext" cols="50" rows="3" name="reply" placeholder="댓글을 남겨주세요" style="padding: 0.5em 0.7em;"></textarea><br>
+	  <input type="submit" id="btnReply" class="btn btn-secondary btn-sm" value="댓글등록" />
+<!-- 	  onclick="return goReply();" -->
+	</fieldset>
+	<br/>
+	
+</div>
+<!-- 댓글목록 출력할 위치 -->
+<div id="listReply"></div>
 
                         </div>
                         <!-- /.panel-body -->
@@ -132,9 +152,95 @@
 <script type="text/javascript">
 /** 게시판 - 답글 페이지 이동 */
 //  view.jsp파일의 여기에서 'reWrite?bno=${view.bno}' 라고  적어줌으로써, controller의  getReWrite 메서드에서 @RequestParam("bno") 로 bno를 가져와서 여러가지로 활용할 수 있는 것!
-    function goBoardReply()
+
+  $(document).ready(function(){
+	  
+     listReply("1"); // 댓글 목록 불러오기. Controller방식. 페이징 추가 후 "1"도 여기 추가!
+     //listReply(); // 댓글 목록 json 리턴방식
+	 
+     //댓글쓰기 버튼 클릭 이벤트 (ajax로 처리)
+     $("#btnReply").click(function(){
+    	var replytext=$("#replytext").val();
+    	var bno="${view.bno}"
+    	var param="replytext="+replytext+"&bno="+bno;
+    	$.ajax({
+    		type: "post",
+    		url: "/reply/insert",
+    		data: param,
+    		success: function(){
+    			alert("댓글이 등록되었습니다.");
+    		    listReply("1"); //페이징 추가 후 "1"도 여기 추가!
+    		}
+        });
+    });
+  });   
+	  
+		
+	function goBoardReply()
     {
         location.href = 'reWrite?bno=${view.bno}';
+    }
+
+//     function goReply()
+//     {
+//     	if ($('#reply').val() == "") {
+//             alert("댓글을 작성해주십시오");
+//             $('#reply').focus();
+//             return false;
+//         } else {
+// //             alert(" 댓글작성이 완료되었습니다! ");
+//             document.upLoadReply.method = "post";
+//             document.upLoadReply.action = "insert";
+//             document.upLoadReply.submit();
+
+//         }
+//     }
+
+    //댓글 쓰기 (json방식) (/insertRest이용)
+//     function replyJson(){
+//     	var replytext=$("#replytext").val();
+//     	var bno="${view.bno}"
+// //     	// 비밀댓글 체크여부
+// //     	var secretReply = "n";
+// //     	//태그.is(":속성") 체크여부 true/false
+// //     	if($("#secretReply").is(":checked") ) {
+// //     		secretReply = "y";
+// //     	}
+//     	$.ajax({
+//     		type: "post",
+//     		url: "/reply/insertRest",
+//     		headers: {
+//     			"Content-Type" : "application/json"
+//     		},
+//     		dataType: "text",
+//     		//param형식보다 편하다고 함.
+//     		data: JSON.stringyfy({
+//     			bno : bno,
+//     			replytext : replytext
+// //     		  , secretReply : secretReply
+//     		}),
+//     		success: function() {
+//     			alert("댓글이 등록되었습니다.");
+//     			//댓글 입력 완료 후 댓글 목록 불러오기 함수 호출
+//     			//listReply("1"); //전통적인 Controller방식
+//     			//listReply2(); //json리턴 방식
+//     			listReply("1"); //REST방식
+//     		}
+//     	});
+    	
+//     }
+    
+    //Controller방식
+    //댓글 목록1
+    function listReply(num){
+    	$.ajax({
+    		type: "get",
+    		url: "/reply/list?bno=${view.bno}&curPage=" +num,
+    		success: function(result){
+    			//responseText가 result에 저장됨.
+    			$("#listReply").html(result);
+    		}		
+    	});
     }
     
 </script>
