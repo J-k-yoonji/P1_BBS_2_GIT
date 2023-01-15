@@ -101,7 +101,7 @@
      	SELECT 
      	       bno, title, content, id, 
      	       DATE_FORMAT(regDate, '%Y-%m-%d %T' ) as regDate,
-     	       imageFileName, newFileName, groupNo, sortSeq
+     	       imageFileName, newFileName, groupNo, sortSeq, (SELECT COUNT(*) FROM tbl_reply WHERE bno=#{bno}) AS recnt
         FROM 
                tbl_board
         WHERE 

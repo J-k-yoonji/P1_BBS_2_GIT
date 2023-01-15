@@ -3,6 +3,8 @@ package egovframework.example.board.controller;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import egovframework.example.board.service.BoardService;
@@ -73,8 +76,9 @@ public class BoardController  {
 	
 	//R: 게시물 상세 조회용 GET메서드
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public void getView(@RequestParam("bno") int bno, Model model) throws Exception {
+	public void getView(@RequestParam Map<String, Object> paramMap, @RequestParam("bno") int bno, Model model) throws Exception {
 		BoardVO boardVO = boardService.view(bno);
+		
 		model.addAttribute("view", boardVO);
 	}
 
@@ -130,22 +134,21 @@ public class BoardController  {
 	}
 	
 	
-	//C: 게시물 작성 (서버에서 사용자로 데이터 이동 GET메서드)
+	//C: 답글 작성 (서버에서 사용자로 데이터 이동 GET메서드)
 	@RequestMapping(value = "/reWrite", method = RequestMethod.GET)
 	public void getReWrite(@RequestParam("bno") int bno, Model model) throws Exception {
 		BoardVO boardVO = boardService.view(bno);
 		System.out.println(boardVO.getGroupNo());
 		boardVO.setSortSeq(boardService.getSeq(bno));
 		boardVO.setGroupNo(bno);
-//		boardVO.setGroupNo(bno);
-		model.addAttribute("view", boardVO);
 		
+		model.addAttribute("view", boardVO);
 //		model.addAttribute("groupNo", boardVO.groupNo);
 //		model.addAttribute("sortSeq", boardVO.sortSeq);
 	}
 	
 	//회원제게시판으로바꾸며 HttpSession session , String writer , boardVO.setId(writer); 를 추가해줌!ㅎㅎ
-	//C: 게시물 작성 (사용자에서 서버로 데이터 이동 POST메서드) //required = false: file1 이 null 값으로 들어와도 허용해줌. value = "file1(파라미터이름)"
+	//C: 답글 작성 (사용자에서 서버로 데이터 이동 POST메서드) //required = false: file1 이 null 값으로 들어와도 허용해줌. value = "file1(파라미터이름)"
 	@RequestMapping(value = "/reWrite", method = RequestMethod.POST)
 	public String postReWrite( BoardVO boardVO, Model model, @RequestParam(value = "file1", required = false) MultipartFile report, HttpSession session) throws Exception {
 		
@@ -342,6 +345,122 @@ public class BoardController  {
 		return "redirect:/boardList";
 	}
 	
+//	//댓글 관련 메서드 
+//	//AJAX 호출 (댓글 등록)
+//    @RequestMapping(value="/board/reply/save", method=RequestMethod.POST)
+//    @ResponseBody
+//    public Object boardReplySave(@RequestParam Map<String, Object> paramMap) {
+// 
+//        //리턴값
+//        Map<String, Object> retVal = new HashMap<String, Object>();
+// 
+//        //패스워드 암호화
+////        ShaPasswordEncoder encoder = new ShaPasswordEncoder(256);
+////        String password = encoder.encodePassword(paramMap.get("reply_password").toString(), null);
+////        paramMap.put("reply_password", password);
+// 
+//        //정보입력
+//        int result = boardService.regReply(paramMap);
+// 
+//        if(result>0){
+//            retVal.put("code", "OK");
+//            retVal.put("reply_id", paramMap.get("replyer_id"));
+//            retVal.put("groupNo", paramMap.get("groupNo"));
+//            retVal.put("message", "등록에 성공 하였습니다.");
+//        }else{
+//            retVal.put("code", "FAIL");
+//            retVal.put("message", "등록에 실패 하였습니다.");
+//        }
+// 
+//        return retVal;
+// 
+//    }
+// 
+//    //AJAX 호출 (댓글 삭제)
+//    @RequestMapping(value="/board/reply/del", method=RequestMethod.POST)
+//    @ResponseBody
+//    public Object boardReplyDel(@RequestParam Map<String, Object> paramMap) {
+// 
+//        //리턴값
+//        Map<String, Object> retVal = new HashMap<String, Object>();
+// 
+//        //패스워드 암호화
+////        ShaPasswordEncoder encoder = new ShaPasswordEncoder(256);
+////        String password = encoder.encodePassword(paramMap.get("reply_password").toString(), null);
+////        paramMap.put("reply_password", password);
+// 
+//        //정보입력
+//        int result = boardService.delReply(paramMap);
+// 
+//        if(result>0){
+//            retVal.put("code", "OK");
+//        }else{
+//            retVal.put("code", "FAIL");
+//            retVal.put("message", "삭제에 실패했습니다. 패스워드를 확인해주세요.");
+//        }
+// 
+//        return retVal;
+// 
+//    }
+// 
+//    //AJAX 호출 (댓글 패스워드 확인)
+//    @RequestMapping(value="/board/reply/check", method=RequestMethod.POST)
+//    @ResponseBody
+//    public Object boardReplyCheck(@RequestParam Map<String, Object> paramMap) {
+// 
+//        //리턴값
+//        Map<String, Object> retVal = new HashMap<String, Object>();
+// 
+//        //패스워드 암호화
+////        ShaPasswordEncoder encoder = new ShaPasswordEncoder(256);
+////        String password = encoder.encodePassword(paramMap.get("reply_password").toString(), null);
+////        paramMap.put("reply_password", password);
+// 
+//        //정보입력
+//        boolean check = boardService.checkReply(paramMap);
+// 
+//        if(check){
+//            retVal.put("code", "OK");
+//            retVal.put("replyer_id", paramMap.get("replyer_id"));
+//        }else{
+//            retVal.put("code", "FAIL");
+//            retVal.put("message", "패스워드를 확인해 주세요.");
+//        }
+// 
+//        return retVal;
+// 
+//    }
+// 
+//    //AJAX 호출 (댓글 수정)
+//    @RequestMapping(value="/board/reply/update", method=RequestMethod.POST)
+//    @ResponseBody
+//    public Object boardReplyUpdate(@RequestParam Map<String, Object> paramMap) {
+// 
+//        //리턴값
+//        Map<String, Object> retVal = new HashMap<String, Object>();
+// 
+//        //패스워드 암호화
+////        ShaPasswordEncoder encoder = new ShaPasswordEncoder(256);
+////        String password = encoder.encodePassword(paramMap.get("reply_password").toString(), null);
+////        paramMap.put("reply_password", password);
+//// 
+////        System.out.println(paramMap);
+// 
+//        //정보입력
+//        boolean check = boardService.updateReply(paramMap);
+// 
+//        if(check){
+//            retVal.put("code", "OK");
+//            retVal.put("replyer_id", paramMap.get("replyer_id"));
+//            retVal.put("message", "수정에 성공 하였습니다.");
+//        }else{
+//            retVal.put("code", "FAIL");
+//            retVal.put("message", "수정에 실패 하였습니다.");
+//        }
+// 
+//        return retVal;
+// 
+//    }
 	
 
 }

@@ -12,23 +12,23 @@
   request.setCharacterEncoding("utf-8");
 %>
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2 class="page-header">글 조회</h2>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-               <div id="nav">
-                    <%@ include file="../jsp/nav.jsp" %>
-               </div>                     
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                    
-                        <div class="panel-heading"><a href="/boardList" >목록</a> > 글 조회</div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
+	<div class="row">
+		<div class="col-lg-12">
+            <h2 class="page-header">글 조회</h2>
+		</div>
+	   <!-- /.col-lg-12 -->
+	</div>
+	<div id="nav">
+	     <%@ include file="../jsp/nav.jsp" %>
+	</div>                     
+           <!-- /.row -->
+           <div class="row">
+               <div class="col-lg-12">
+                   <div class="panel panel-default">
+                   
+                       <div class="panel-heading"><a href="/boardList" >목록</a> > 글 조회</div>
+                       <!-- /.panel-heading -->
+                       <div class="panel-body">
 <!-- float:right;  -->
 
 <%--     <button type="button" class="btn" onclick="location.href='/modify?bno=${view.bno}';">게시물 수정</button> --%>
@@ -67,7 +67,8 @@
        <label>답글</label>
       </c:if>    
       <label>번호 </label>
-       <input style="width: 100px;display: block;" class="form-control"  name="bno" value="${view.bno}" readonly="readonly" >
+       <input style="width: 100px;display: block;" class="form-control"  name="bno" id="bno" value="${view.bno}" readonly="readonly" >
+<%--        <input style="width: 100px;display: block;" class="form-control"  name="recnt" id="bno" value="${view.recnt}" readonly="readonly" > --%>
 <%--        <input class="form-control"  name="bno" value="${view.bno}" type="hidden" readonly="readonly" > --%>
     </div>
 
@@ -116,15 +117,22 @@
 <!--        <img src= "Sunflower.jpg"  width = 200 height = 200 id="preview" /> -->
     </div>    
 <%--   </c:if>        --%>
-</form>
-<p/>
+<!-- </form> -->
+<!-- <p/> -->
 <!--     <div class="class1"></div>    -->
 <!-- <div> -->
 <hr>
+</form>
+<p/>
 <div>
 	
 	<fieldset>
 	<label>댓글</label>
+     <!--  댓글이 있으면 게시글 이름 옆에 출력하기! -->
+<%--       <c:if test="${view.recnt > 0 }"> --%>
+<%--        <span style="color: blue;">(${view.recnt}) --%>
+<!--        </span> -->
+<%--       </c:if> --%>
 	<textarea class="form-control" id="replytext" cols="50" rows="3" name="reply" placeholder="댓글을 남겨주세요" style="padding: 0.5em 0.7em;"></textarea><br>
 	  <input type="submit" id="btnReply" class="btn btn-secondary btn-sm" value="댓글등록" />
 <!-- 	  onclick="return goReply();" -->
@@ -132,6 +140,7 @@
 	<br/>
 	
 </div>
+
 <!-- 댓글목록 출력할 위치 -->
 <div id="listReply"></div>
 
@@ -158,7 +167,7 @@
      listReply("1"); // 댓글 목록 불러오기. Controller방식. 페이징 추가 후 "1"도 여기 추가!
      //listReply(); // 댓글 목록 json 리턴방식
 	 
-     //댓글쓰기 버튼 클릭 이벤트 (ajax로 처리)
+     //댓글등록 버튼 클릭 이벤트 (ajax로 처리)
      $("#btnReply").click(function(){
     	var replytext=$("#replytext").val();
     	var bno="${view.bno}"
@@ -168,8 +177,10 @@
     		url: "/reply/insert",
     		data: param,
     		success: function(){
+    			document.getElementById("replytext").value=''; //댓글 작성후 댓글창 초기화!
     			alert("댓글이 등록되었습니다.");
     		    listReply("1"); //페이징 추가 후 "1"도 여기 추가!
+    		    
     		}
         });
     });
@@ -231,6 +242,7 @@
 //     }
     
     //Controller방식
+    //게시글 하단에 댓글들이 나타나게 구현. 댓글들 불러오는 방식: ajax를 이용하여 해당 게시물의 bno를 가지고 있는 댓글들을 모두 가져오는 방식을 이용.
     //댓글 목록1
     function listReply(num){
     	$.ajax({

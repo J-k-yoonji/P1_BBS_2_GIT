@@ -42,4 +42,6 @@ public interface BoardMapper {
 
 	// ? boardMapper.xml 에는 없음.
 	public void uploadForm(BoardVO boardVO) throws Exception;
+	
+	
 }
