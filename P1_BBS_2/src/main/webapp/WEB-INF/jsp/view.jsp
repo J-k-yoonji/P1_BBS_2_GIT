@@ -62,30 +62,33 @@
 <%--          <input class="form-control" name="groupNo"  placeholder="원글번호:${view.groupNo}/ sortSeq순서:${view.sortSeq}" readonly="readonly" /> --%>
 <!--     </div>      -->
     <br/>
-    <div class="form-group" style="float:left;">  
+<!--     <div class="form-group" style="float:left;">   -->
+    <div class="form-group">  
       <c:if test="${view.sortSeq gt 0}">
        <label>답글</label>
       </c:if>    
       <label>번호 </label>
-       <input style="width: 100px;display: block;" class="form-control"  name="bno" id="bno" value="${view.bno}" readonly="readonly" >
+       <input  class="form-control"  name="bno" id="bno" value="${view.bno}" readonly="readonly" >
 <%--        <input style="width: 100px;display: block;" class="form-control"  name="recnt" id="bno" value="${view.recnt}" readonly="readonly" > --%>
 <%--        <input class="form-control"  name="bno" value="${view.bno}" type="hidden" readonly="readonly" > --%>
     </div>
 
-    <div class="form-group" style="float:left;">
+    <div class="form-group">
       <c:if test="${view.sortSeq gt 0}">
        <label>답글</label>
       </c:if>
       <label>제목 </label>      
-       <input style="display: inline-block;" class="form-control"  name="title" value="${view.title}" readonly="readonly" >
+       <input  class="form-control"  name="title" value="${view.title}" readonly="readonly" >
+<%--        <input style="width: auto;" class="form-control"  name="title" value="${view.title}" readonly="readonly" > --%>
+<%--        <input style="display: inline-block;" class="form-control"  name="title" value="${view.title}" readonly="readonly" > --%>
     </div>
     
-    <div class="form-group" style="float:left;">
+    <div class="form-group">
       <c:if test="${view.sortSeq gt 0}">
        <label>답글</label>
       </c:if>    
       <label>작성자 </label>
-       <input style="display: inline;" class="form-control"  name="id" value="${view.id}" readonly="readonly" >
+       <input  class="form-control"  name="id" value="${view.id}" readonly="readonly" >
     </div>
 <!--     float:left 사용시 마지막에 아래태그 꼭 써주기! -->
     <p style=clear:both;></p>
@@ -128,11 +131,11 @@
 	
 	<fieldset>
 	<label>댓글</label>
-     <!--  댓글이 있으면 게시글 이름 옆에 출력하기! -->
-<%--       <c:if test="${view.recnt > 0 }"> --%>
-<%--        <span style="color: blue;">(${view.recnt}) --%>
-<!--        </span> -->
-<%--       </c:if> --%>
+<!--       댓글이 있으면 게시글 이름 옆에 출력하기! -->
+      <c:if test="${view.recnt > 0 }">
+       <span style="color: blue;">(${view.recnt})
+       </span>
+      </c:if>
 	<textarea class="form-control" id="replytext" cols="50" rows="3" name="reply" placeholder="댓글을 남겨주세요" style="padding: 0.5em 0.7em;"></textarea><br>
 	  <input type="submit" id="btnReply" class="btn btn-secondary btn-sm" value="댓글등록" />
 <!-- 	  onclick="return goReply();" -->
@@ -180,6 +183,7 @@
     			document.getElementById("replytext").value=''; //댓글 작성후 댓글창 초기화!
     			alert("댓글이 등록되었습니다.");
     		    listReply("1"); //페이징 추가 후 "1"도 여기 추가!
+    		    location.reload(); //댓글작성 후 새로고침해서 댓글(댓글수) 최신화해주기!
     		    
     		}
         });
@@ -251,6 +255,7 @@
     		success: function(result){
     			//responseText가 result에 저장됨.
     			$("#listReply").html(result);
+    			
     		}		
     	});
     }
