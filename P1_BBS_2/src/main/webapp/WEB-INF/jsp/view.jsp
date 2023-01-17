@@ -33,7 +33,6 @@
 
 <%--     <button type="button" class="btn" onclick="location.href='/modify?bno=${view.bno}';">게시물 수정</button> --%>
 <%--     <button type="button" class="btn" onclick="location.href='/delete?bno=${view.bno}';">게시물 삭제</button> --%>
-
 <%--  위방식은 GET방식만 가능. 삭제버튼을 클릭했을때 "POST방식"으로 상대경로와 데이터를 전달해주기위해서 form태그를 새로 생성, 아래와같이 해야했음. --%>
 <div align="right" style="float:right; margin:0px;" >
      <form name="myForm" action="/delete?bno=${view.bno}" method="POST"></form>
@@ -69,8 +68,6 @@
       </c:if>    
       <label>번호 </label>
        <input  class="form-control"  name="bno" id="bno" value="${view.bno}" readonly="readonly" >
-<%--        <input style="width: 100px;display: block;" class="form-control"  name="recnt" id="bno" value="${view.recnt}" readonly="readonly" > --%>
-<%--        <input class="form-control"  name="bno" value="${view.bno}" type="hidden" readonly="readonly" > --%>
     </div>
 
     <div class="form-group">
@@ -79,8 +76,6 @@
       </c:if>
       <label>제목 </label>      
        <input  class="form-control"  name="title" value="${view.title}" readonly="readonly" >
-<%--        <input style="width: auto;" class="form-control"  name="title" value="${view.title}" readonly="readonly" > --%>
-<%--        <input style="display: inline-block;" class="form-control"  name="title" value="${view.title}" readonly="readonly" > --%>
     </div>
     
     <div class="form-group">
@@ -196,54 +191,6 @@
         location.href = 'reWrite?bno=${view.bno}';
     }
 
-//     function goReply()
-//     {
-//     	if ($('#reply').val() == "") {
-//             alert("댓글을 작성해주십시오");
-//             $('#reply').focus();
-//             return false;
-//         } else {
-// //             alert(" 댓글작성이 완료되었습니다! ");
-//             document.upLoadReply.method = "post";
-//             document.upLoadReply.action = "insert";
-//             document.upLoadReply.submit();
-
-//         }
-//     }
-
-    //댓글 쓰기 (json방식) (/insertRest이용)
-//     function replyJson(){
-//     	var replytext=$("#replytext").val();
-//     	var bno="${view.bno}"
-// //     	// 비밀댓글 체크여부
-// //     	var secretReply = "n";
-// //     	//태그.is(":속성") 체크여부 true/false
-// //     	if($("#secretReply").is(":checked") ) {
-// //     		secretReply = "y";
-// //     	}
-//     	$.ajax({
-//     		type: "post",
-//     		url: "/reply/insertRest",
-//     		headers: {
-//     			"Content-Type" : "application/json"
-//     		},
-//     		dataType: "text",
-//     		//param형식보다 편하다고 함.
-//     		data: JSON.stringyfy({
-//     			bno : bno,
-//     			replytext : replytext
-// //     		  , secretReply : secretReply
-//     		}),
-//     		success: function() {
-//     			alert("댓글이 등록되었습니다.");
-//     			//댓글 입력 완료 후 댓글 목록 불러오기 함수 호출
-//     			//listReply("1"); //전통적인 Controller방식
-//     			//listReply2(); //json리턴 방식
-//     			listReply("1"); //REST방식
-//     		}
-//     	});
-    	
-//     }
     
     //Controller방식
     //게시글 하단에 댓글들이 나타나게 구현. 댓글들 불러오는 방식: ajax를 이용하여 해당 게시물의 bno를 가지고 있는 댓글들을 모두 가져오는 방식을 이용.

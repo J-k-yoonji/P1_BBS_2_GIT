@@ -35,7 +35,6 @@ public class BoardServiceImpl implements BoardService{
 		//DB 테이블에 있는 모든 글 개수 계산 후 리턴
 		@Override
 		public int pageCount() throws Exception {
-//			return session.selectOne(namespace+".pageCount");
 			return mapper.pageCount();
 		}
 		
@@ -47,7 +46,6 @@ public class BoardServiceImpl implements BoardService{
 				page = 1;
 			}
 			page = (page - 1)*10;
-//			return session.selectList(namespace+".listPage", page);
 			return mapper.listPage(page);
 		}
 
@@ -58,15 +56,6 @@ public class BoardServiceImpl implements BoardService{
 //			return session.selectList(namespace+".listPageCri", cri);
 			return mapper.listPageCri(cri);
 		}
-
-//		//DB 테이블에 있는 모든 글 개수 계산 후 리턴
-//		@Override
-//		public int pageCount() throws Exception{
-//			return session.selectOne(namespace+".pageCount");
-//		}
-		
-		//
-		
 		
 		//게시물 목록
 		@Override
@@ -123,10 +112,6 @@ public class BoardServiceImpl implements BoardService{
 //			TestMapper mapper = sqlSession.getMapper(TestMapper.class);
 			mapper.uploadForm(boardVO);
 		}
-		
-
-
-
 
 		
 }

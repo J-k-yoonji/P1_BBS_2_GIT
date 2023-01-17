@@ -46,21 +46,8 @@ public interface BoardService {
 	//답글 삭제
 	public void deleteReWrite(int bno) throws Exception;
 
-	//파일업로드 	// ? boardMapper.xml 에는 없음.
+	//파일업로드
 	public void uploadForm(BoardVO boardVO) throws Exception;
 	
-	//댓글관련
-	//댓글 등록
-//    int regReply(Map<String, Object> paramMap);
-//    //댓글 목록
-//    List<ReplyVO> getReplyList(Map<String, Object> paramMap);
-//    //댓글 삭제
-//    int delReply(Map<String, Object> paramMap);
-//    
-//    int getBoardCheck(Map<String, Object> paramMap);
-//    //댓글체크
-//    boolean checkReply(Map<String, Object> paramMap);
-//    //댓글수정
-//    boolean updateReply(Map<String, Object> paramMap);
 
 }
