@@ -68,5 +68,13 @@
  <!-- 정적 자원 매핑 -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
     <mvc:view-controller path="/cmmn/validator.do" view-name="cmmn/validator"/>
+ 
+<!--  @ResponseBody 및 json converter 관련 에러    -->
+    <mvc:annotation-driven>
+     <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+     </mvc:message-converters>
+   </mvc:annotation-driven>
 
 </beans>
