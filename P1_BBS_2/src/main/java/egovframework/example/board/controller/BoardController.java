@@ -50,7 +50,7 @@ public class BoardController  {
 	//페이징처리한 글목록
 	@RequestMapping(value = "/listCri", method = RequestMethod.GET)
 	public void listCriGET(Criteria cri, Model model) throws Exception{
-		l.info("C: listCri 겟 호출" + cri);
+		l.info("C: listCri GET 호출" + cri);
 		model.addAttribute("boardList", boardService.listCri(cri));
 	}
 
