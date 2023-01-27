@@ -113,5 +113,11 @@ public class BoardServiceImpl implements BoardService{
 			mapper.uploadForm(boardVO);
 		}
 
+		@Override
+		public void fileCancel(int bno) throws Exception {
+			mapper.fileCancel(bno);
+			
+		}
+
 		
 }

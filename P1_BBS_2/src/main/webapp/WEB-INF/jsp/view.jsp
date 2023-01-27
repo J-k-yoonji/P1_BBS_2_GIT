@@ -97,15 +97,15 @@
 <%-- 					<div>${contextPath}</div> --%>
 
 					<%--   <c:if test="${null ne view.imageFileName}"> --%>
-					<div class="form-group">
+					<div id="fileUpload" class="form-group">
 						<label>첨부파일</label><br /> 
 						<span style=" width: 100%; "><input id="file1" class="form-control FileNameLen" name="imageFileName" value="${view.imageFileName}" readonly="readonly" style=" line-height: 0.8;" accept="image/*, video/*"></span>
 						<%--        <input class="form-control" type="hidden" name="imageFileName" value="${view.imageFileName}" readonly="readonly" style="display:inline-block" > --%>
 						<%--        <input class="form-control" type="hidden" name="imageFileName" value="${view.imageFileName}" readonly="readonly" > --%>
 						<%--        <img src= "${contextPath}/file?bno=${view.bno}&imageFileName=${view.imageFileName}"  width = 200 height = 200 id="preview" /> --%>
 						<%--        <img src= "${contextPath}/file?bno=${view.bno}&imageFileName=${view.imageFileName}"  width = 200 height = 200 id="preview" /> --%>
-						<img id="previewImg" src="/filepath/${view.newFileName}" style="margin-top: 6px; width: auto; height: 200px; display: ;" id="preview" />
-						<video  id="previewImg2" controls autoPlay muted src="/filepath/${view.newFileName}" class="image-box" style="margin-top: 6px; width: auto; height: 200px; display: ;"></video>
+						<img id="previewImg" src="/filepath/${view.newFileName}" style="margin-top: 6px; width: auto; height: 200px; display: ;" />
+						<video  id="previewVideo" controls autoPlay muted src="/filepath/${view.newFileName}" class="image-box" style="margin-top: 6px; width: auto; height: 200px; display: ;"></video>
 						<%--        <img src= "/filepath/${view.imageFileName}"  width = 200 height = 200 id="preview" /> --%>
 						<!--        <img src= "Sunflower.jpg"  width = 200 height = 200 id="preview" /> -->
 					</div>
@@ -157,7 +157,7 @@
 		var filename = $("#file1")[0].value;
 		
         readImage($("#file1")[0]); //미리보기
-        readImage2($("#file1")[0]); //미리보기
+        readVideo($("#file1")[0]); //미리보기
 
 		listReply("1"); // 댓글 목록 불러오기. Controller방식. 페이징 추가 후 "1"도 여기 추가!
 		//listReply(); // 댓글 목록 json 리턴방식
@@ -183,15 +183,20 @@
 		
 	});
 	
-//  파일입력시 파일이름길이 측정해 input의 width값 설정. 
+//  파일이름길이 측정해 input의 width값 설정. 
 //         $(".FileNameLen").on("keydown", function checkLength() {
     $(document).ready(function() {	
-      var inputed = $(".FileNameLen").val().length ; // class명이 "FileNameLen"인 input에 입력된 '파일이름 길이값' inputed
-      console.log(inputed);
-    //input칸이 너무 길어지진 않도록 식을 설정해줌.
-      $(".FileNameLen").css("width", (inputed*40)/((inputed/10)+1)); 
-//       $(".FileNameLen").css("width", (inputed * 30) / ((inputed / 10) + 1) ); //input
+	     var inputed = $(".FileNameLen").val().length ; // class명이 "FileNameLen"인 input에 입력된 '파일이름 길이값' inputed
+	     console.log(inputed);
+	   //input칸이 너무 길어지진 않도록 식을 설정해줌.
+	     if(inputed > 0) {
+	   	   $(".FileNameLen").css( "width", (inputed*40)/((inputed/10)+1) ); 
+	     } else {
+	       $("#fileUpload").attr("style", "display: none;")
+	     }
+//       $(".FileNameLen").css("width", (inputed * 40) / ((inputed / 10) + 1) ); //input
 //       $(".FileNameLen").css("width", ( (inputed * 40) / ((inputed / 10) + 1) ) ) ; 
+      
     });
 
 	function goBoardReply() {
@@ -235,7 +240,7 @@
             // display= 이 아니라, display: 로 하는 것 주의! 
             $("#previewImg").attr("style", "display: ;" );
         } else if( validFileType(filename) == 2 ) {
-            $("#previewImg").attr("style", "display: none ;" );
+            $("#previewImg").attr("style", "display: none;" );
             return false;
         } else {
             return true;
@@ -243,21 +248,21 @@
     }
     
     //영상파일 미리보기 띄우기 
-    function readImage2(input) {
+    function readVideo(input) {
         var filename = $("#file1")[0].value;
         
         if( (input.files && input.files[0]) && (validFileType(filename) == 2) ) {
             const reader = new FileReader();
             reader.onload = function(e){
-                const previewImage = document.getElementById("previewImg2");
+                const previewImage = document.getElementById("previewVideo");
                 previewImage.src = e.target.result;
             }
             // reader가 이미지 읽도록 하기
             reader.readAsDataURL(input.files[0]);
             // display= 이 아니라, display: 로 하는 것 주의! 
-            $("#previewImg2").attr("style", "display: ;" );
+            $("#previewVideo").attr("style", "display: ;" );
         } else if( validFileType(filename) != 2 ) {
-            $("#previewImg2").attr("style", "display: none ;" );
+            $("#previewVideo").attr("style", "display: none;" );
             return false;
         } else {
             return true;

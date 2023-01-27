@@ -36,6 +36,8 @@ public interface BoardMapper {
 
 	public void modify(BoardVO boardVO) throws Exception;
 
+	public void fileCancel(int bno) throws Exception;
+	
 	public void delete(int bno) throws Exception;
 
 	public void deleteReWrite(int bno) throws Exception;

@@ -123,6 +123,11 @@
                 bno = #{bno} 
 	</update>
 	
+<!-- 	수정 - 첨부파일 - 취소 시 첨부파일 없는 게시물로 수정되도록 함 -->
+	<update id="fileCancel" parameterType="int">
+	 UPDATE tbl_board SET imageFileName = NULL, newFileName = NULL  WHERE bno = #{bno}
+	</update>
+	
 	<!-- 원글 삭제. groupNo를 이용하여, 원글삭제시, 답글도 모두 삭제. 답글만 삭제하는 것 따로 구현. -->
 	<delete id="delete" parameterType="int">
 	    DELETE 

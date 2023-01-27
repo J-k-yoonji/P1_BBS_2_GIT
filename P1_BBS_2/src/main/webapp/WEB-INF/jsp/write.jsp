@@ -62,7 +62,7 @@
 							    <input type="file" id="file1" class="upload-hidden" name="file1" accept="image/*, video/*">
 							</div>
 							<img id="previewImg" width=auto height=200 style="display: none;" />
-							<video  id="previewImg2" controls autoPlay muted src="#" class="image-box" width=auto height=200 style="display: none;"></video>
+							<video  id="previewVideo" controls autoPlay muted src="#" class="image-box" width=auto height=200 style="display: none;"></video>
 
 						</div>
 
@@ -111,6 +111,7 @@
             	// $("#file1")[0].files[0].name  == $("#file1").val().split('/').pop().split('\\').pop() == pink.jpg
             	// jpg = console.log($("#file1")[0].files[0].name.substring($("#file1")[0].files[0].name.lastIndexOf(".")+1, $("#file1")[0].files[0].name.length).toLowerCase())
             	var filename = $(this)[0].files[0].name;
+            	console.log($("#file1")[0].files[0].name);
                 
               //if(!validFileType(filename)){
                 if(validFileType(filename) == -1){	
@@ -118,12 +119,12 @@
                     alert("확장자가 .jpg/.png/.mp4 인 파일만 업로드가 가능합니다.");
 //                     $("#previewImg").attr("src", "https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" );
 //                     $("#previewImg").style.display="none";
-                    $("#previewImg").attr("style", "display: none ; " );
+                    $("#previewImg").attr("style", "display: none;" );
                     return false;
                 }else if(!validFileSize($(this)[0].files[0])){
                     $(this).val("");
                     alert("파일 사이즈가 10MB를 초과합니다.");
-                    $("#previewImg").attr("style", "display: none ; " );
+                    $("#previewImg").attr("style", "display: none;" );
                     return false;
                 }
                 
@@ -140,10 +141,11 @@
             }
 
             readImage($(this)[0]); //미리보기
-            readImage2($(this)[0]); //미리보기
+            readVideo($(this)[0]); //미리보기
         });
     });
 
+    // 파일 확장자 설정    
     function validFileType(filename) {
         const fileTypes = ["png", "jpg", "mp4"];
         //indexOf 함수는, 문자열(string)에서 특정 문자열(searchvalue)을 찾고, 검색된 문자열이 '첫번째'로 나타나는 위치 index를 리턴함. 찾는 문자열이 없으면 -1을 리턴.
@@ -151,6 +153,7 @@
 //         return fileTypes.indexOf(filename.substring(filename.lastIndexOf(".")+1, filename.length).toLowerCase()) >= 0;
     }
     
+    //파일 크기 설정
     function validFileSize(file){
         if(file.size > 5910485760){ //10MB
             return false;
@@ -158,7 +161,7 @@
             return true;
         }
     }
-
+    
 
     //이미지파일 미리보기 띄우기 p.716
     function readImage(input) {
@@ -175,7 +178,7 @@
             // display= 이 아니라, display: 로 하는 것 주의! 
             $("#previewImg").attr("style", "display: ;" );
         } else if( validFileType(filename) == 2 ) {
-        	$("#previewImg").attr("style", "display: none ;" );
+        	$("#previewImg").attr("style", "display: none;" );
         	return false;
         } else {
             return true;
@@ -183,21 +186,21 @@
     }
     
     //영상파일 미리보기 띄우기 
-    function readImage2(input) {
+    function readVideo(input) {
     	var filename = $("#file1")[0].files[0].name; 
     	
         if( (input.files && input.files[0]) && (validFileType(filename) == 2) ) {
             const reader = new FileReader();
             reader.onload = function(e){
-                const previewImage = document.getElementById("previewImg2");
+                const previewImage = document.getElementById("previewVideo");
                 previewImage.src = e.target.result;
             }
             // reader가 이미지 읽도록 하기
             reader.readAsDataURL(input.files[0]);
             // display= 이 아니라, display: 로 하는 것 주의! 
-            $("#previewImg2").attr("style", "display: ;" );
+            $("#previewVideo").attr("style", "display: ;" );
         } else if( validFileType(filename) != 2 ) {
-        	$("#previewImg2").attr("style", "display: none ;" );
+        	$("#previewVideo").attr("style", "display: none;" );
         	return false;
         } else {
             return true;

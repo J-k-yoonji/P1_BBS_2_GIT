@@ -39,6 +39,8 @@ public interface BoardService {
 	
 	//게시물 수정
 	public void modify(BoardVO boardVO) throws Exception;
+	
+	public void fileCancel(int bno) throws Exception;
 
 	//게시물(원글) 삭제. 원글삭제시 답글까지 전부삭제함. 
 	public void delete(int bno) throws Exception;
