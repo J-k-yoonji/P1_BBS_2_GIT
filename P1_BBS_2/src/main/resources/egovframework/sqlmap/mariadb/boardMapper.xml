@@ -113,10 +113,16 @@
 	            tbl_board    
 	    SET 
 	            title = #{title}, content = #{content} 
-	    
+<!-- 	    수정시 새파일을 첨부할 경우에만, 아래 칼럼에 값을 새로 넣어줌! -->
 <!-- 	    <if test="imageFileName!='' and imageFileName!=null"> -->
-	    <if test="newFileName != '' and newFileName != null">
+<!-- 	    <if test="newFileName != '' and newFileName != null"> -->
+<!--             , imageFileName = #{imageFileName}, newFileName = #{newFileName} -->
+<!--         </if> -->
+	    <if test="imageFileName != '' and newFileName != null">
 	        , imageFileName = #{imageFileName}, newFileName = #{newFileName}
+	    </if>
+	    <if test="newFileName == '' or newFileName == null">
+	        , imageFileName = null, newFileName = null
 	    </if>
 	    
 	    WHERE 

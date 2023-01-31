@@ -221,9 +221,9 @@ public class BoardController  {
 //			String prevFile1 = report.getOriginalFilename();
 //			System.out.println("prevFile1 _ 1 : "+ prevFile1 );
 			
+			String originalFile = report.getOriginalFilename();
+			System.out.println("getOriginalFilename _0 : " + report.getOriginalFilename() );
 			if (!report.isEmpty()) {
-				String originalFile = report.getOriginalFilename();
-				
 				///C://download/pororo.png    
 				
 				File file = new File(filePath  + originalFile);
@@ -246,24 +246,33 @@ public class BoardController  {
 				//기존파일 삭제
 				oldFile.delete();
 				
-			} else {
-//				//첨부파일 수정 안하면 (수정-첨부파일-취소 시) 기존 이름 유지. 
-//				boardVO.setImageFileName(preFileName);
-//				System.out.println("prevFile1 _ 3 : " + preFileName );
-				
-				//첨부파일 수정 안하면 (수정-첨부파일-취소 시) 첨부파일 없는 게시글로 작성됨. (기존파일도 삭제). 
-//				boardVO.setImageFileName(null);
-//				boardVO.setNewFileName(null);
-				boardService.fileCancel(boardVO.getBno());
+			} else if (!preFileName.isEmpty()) {
+				//첨부파일 수정 안하면 (수정-첨부파일-취소 시) 기존 이름 유지. 
+				boardVO.setImageFileName(originalFile);
+				boardVO.setNewFileName(preFileName);
 				System.out.println("prevFile1 _ 2 : " + preFileName );
-				oldFile.delete();
+				System.out.println("getImageFileName _1 : " + boardVO.getImageFileName() );
+				System.out.println("getNewFileName _1 : " + boardVO.getNewFileName() );
+				System.out.println("getOriginalFilename _1 : " + report.getOriginalFilename() );
 				
-				
+//				//첨부파일 수정 안하면 (수정-첨부파일-취소 시) 첨부파일 없는 게시글로 작성됨. (기존파일도 삭제). 
+//				//boardVO.setImageFileName(null);
+//				//boardVO.setNewFileName(null);
+//				boardService.fileCancel(boardVO.getBno());
+//				System.out.println("prevFile1 _ 2 : " + preFileName );
+//				oldFile.delete();
 				
 				
 				//아래 한 줄이 없어서 글만 수정했을땐 제대로 update가 안됐었다.
 //				testService.modify(testVo);
 //				return "redirect:/view?bno=" + testVo.getBno();
+			} else {
+				boardVO.setImageFileName(null);
+				boardVO.setNewFileName(null);
+				System.out.println("prevFile1 _ 3 : " + preFileName );
+				System.out.println("getImageFileName _2 : " + boardVO.getImageFileName() );
+				System.out.println("getNewFileName _2 : " + boardVO.getNewFileName() );
+				System.out.println("getOriginalFilename _2 : " + report.getOriginalFilename() );
 			}
 			// File객체의 값이 빈문자열 "" 인 경우에는 db서버에 null로 저장됨.(첨부한 파일 없어도 글등록 가능?!) 
 //			System.out.println("report3 : "+ report.getOriginalFilename());
@@ -329,6 +338,37 @@ public class BoardController  {
 		
 		return "redirect:/boardList" ;
 	}
+	
+//	//D: 수정시 기존 첨부파일 삭제 POST방식으로
+//	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
+//	public String postDeleteFile(@RequestParam("bno") int bno) throws Exception {
+//		
+//		//삭제할 게시글의 bno를 가진 게시글의DB를 불러와 testVo객체에 담아줍니다.(삭제할 게시글의 첨부파일의 '파일명'을 가져오기 위해 생성)
+//		BoardVO boardVO = boardService.view(bno);
+//		// 파일의 경로 (첨부파일 업로드 때와 동일한 경로)
+//		String filePath = "C://file_repo/";
+//		
+//		// 삭제할 게시글을 DB에서 삭제하기 전에, 해당 게시글에 업로드했던 첨부파일이 있다면 그 첨부파일의 이름(ImageFileName)을 가져와서 첨부파일삭제 시 사용하도록 해야합니다.
+//		String saveFileName = boardVO.getNewFileName();
+//		
+//		//TestServiceImpl 파일의 delete메소드를 호출하여 해당bno를 가진 게시글의 DB를 삭제한다.
+//		boardService.deleteReWrite(bno);
+//		
+//		// '삭제할첨부파일 File객체'를 해당 파일경로('파일의 경로+삭제할파일명.확장자')를 통해 'deleteFile File객체'에  넣어줍니다.
+//		File deleteFile = new File(filePath + saveFileName );
+//		
+//		// deleteFile.exists() : 주어진 '삭제할첨부파일 File객체'(deleteFile)이 존재하는지 체크. 존재할경우 true, 존재하지않을경우 false
+//		if(deleteFile.exists()) {           
+//			// 삭제할 게시글DB삭제에 이어, 삭제할 게시글의 첨부파일까지 폴더에서 완전히 삭제됩니다.  
+//			deleteFile.delete();           
+//		} 
+//		
+//		return "redirect:/boardList" ;
+//		
+//	}
+//	boardService.fileCancel(boardVO.getBno());
+//	System.out.println("prevFile1 _ 2 : " + preFileName );
+//	oldFile.delete();
 
 	
 	//파일업로드 (서버에서 사용자로 데이터 이동 GET메서드)

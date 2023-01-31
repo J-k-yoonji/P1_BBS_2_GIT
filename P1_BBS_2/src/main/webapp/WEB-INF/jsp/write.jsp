@@ -116,7 +116,7 @@
               //if(!validFileType(filename)){
                 if(validFileType(filename) == -1){	
                     $(this).val("");
-                    alert("확장자가 .jpg/.png/.mp4 인 파일만 업로드가 가능합니다.");
+                    alert("확장자가 .jpg .png .mp4 인 파일만 업로드가 가능합니다.");
 //                     $("#previewImg").attr("src", "https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" );
 //                     $("#previewImg").style.display="none";
                     $("#previewImg").attr("style", "display: none;" );
@@ -145,7 +145,7 @@
         });
     });
 
-    // 파일 확장자 설정    
+    //파일 확장자 설정    
     function validFileType(filename) {
         const fileTypes = ["png", "jpg", "mp4"];
         //indexOf 함수는, 문자열(string)에서 특정 문자열(searchvalue)을 찾고, 검색된 문자열이 '첫번째'로 나타나는 위치 index를 리턴함. 찾는 문자열이 없으면 -1을 리턴.
@@ -155,7 +155,7 @@
     
     //파일 크기 설정
     function validFileSize(file){
-        if(file.size > 5910485760){ //10MB
+        if(file.size > 57671680){ //55MB
             return false;
         }else{
             return true;

@@ -13,7 +13,17 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h2 class="page-header">글 조회</h2>
+        <div class="page-header">
+           <h2>             
+             <c:if test="${view.sortSeq lt 1}">
+                          글
+             </c:if>
+             <c:if test="${view.sortSeq gt 0}">
+                          답글
+             </c:if>
+                          조회
+           </h2>
+        </div>
 	</div>
 	<!-- /.col-lg-12 -->
 </div>
@@ -99,7 +109,10 @@
 					<%--   <c:if test="${null ne view.imageFileName}"> --%>
 					<div id="fileUpload" class="form-group">
 						<label>첨부파일</label><br /> 
-						<span style=" width: 100%; "><input id="file1" class="form-control FileNameLen" name="imageFileName" value="${view.imageFileName}" readonly="readonly" style=" line-height: 0.8;" accept="image/*, video/*"></span>
+						<span style=" width: 100%; display: inline-block;">
+						  <input id="file1" class="form-control FileNameLen" name="imageFileName" value="${view.imageFileName}" readonly="readonly" style=" line-height: 0.8; display: inline-block;" accept="image/*, video/*">
+<%-- 						  <input id="file1" class="form-control FileNameLen" name="imageFileName" value="${view.imageFileName}" readonly="readonly" style=" line-height: 0.8; display: inline-block;" accept="image/*, video/*"> --%>
+						</span>
 						<%--        <input class="form-control" type="hidden" name="imageFileName" value="${view.imageFileName}" readonly="readonly" style="display:inline-block" > --%>
 						<%--        <input class="form-control" type="hidden" name="imageFileName" value="${view.imageFileName}" readonly="readonly" > --%>
 						<%--        <img src= "${contextPath}/file?bno=${view.bno}&imageFileName=${view.imageFileName}"  width = 200 height = 200 id="preview" /> --%>
@@ -229,6 +242,7 @@
     function readImage(input) {
         var filename = $("#file1")[0].value;
         
+        //이미지 파일이 있는 경우
         if( (input.files && input.files[0]) && (validFileType(filename) != 2) ) {
             const reader = new FileReader();
             reader.onload = function(e){
@@ -238,12 +252,14 @@
             // reader가 이미지 읽도록 하기
             reader.readAsDataURL(input.files[0]);
             // display= 이 아니라, display: 로 하는 것 주의! 
-            $("#previewImg").attr("style", "display: ;" );
-        } else if( validFileType(filename) == 2 ) {
+            $("#previewImg").css("display", "block" );
+        } else if( validFileType(filename) == 2 ) {             //영상파일이 있는 경우
             $("#previewImg").attr("style", "display: none;" );
             return false;
-        } else {
-            return true;
+        } else {          //아무파일도 없는 경우
+        	$("#previewImg").css("display", "none");
+        	$("#previewVideo").css("display", "none");
+        	return true;
         }
     }
     
@@ -251,6 +267,7 @@
     function readVideo(input) {
         var filename = $("#file1")[0].value;
         
+        //영상파일이 있는 경우
         if( (input.files && input.files[0]) && (validFileType(filename) == 2) ) {
             const reader = new FileReader();
             reader.onload = function(e){
@@ -260,12 +277,14 @@
             // reader가 이미지 읽도록 하기
             reader.readAsDataURL(input.files[0]);
             // display= 이 아니라, display: 로 하는 것 주의! 
-            $("#previewVideo").attr("style", "display: ;" );
-        } else if( validFileType(filename) != 2 ) {
-            $("#previewVideo").attr("style", "display: none;" );
+            $("#previewVideo").css("display", "block" );
+        } else if( validFileType(filename) != 2 ) {              //이미지파일이거나, 아무파일도 없는 경우
+            $("#previewVideo").css("display", "none");
+            $("#previewImg").css("display", "block" );
             return false;
         } else {
-            return true;
+
+        	return true;
         }
     }
 	
