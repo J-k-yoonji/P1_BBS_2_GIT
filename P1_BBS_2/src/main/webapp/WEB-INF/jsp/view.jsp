@@ -97,7 +97,7 @@
 					<div style="clear: both;"></div>
 
 
-					<div class="form-group">
+					<div class="form-group wrap">
 						<span> <c:if test="${view.sortSeq gt 0}">
 								<label>답글</label>
 							</c:if> <label>내용&nbsp;</label> <textarea class="form-control" cols="50" rows="3" name="content" readonly="readonly">${view.content}</textarea> <input class="form-control" type="hidden" name="content" value="${view.content}" readonly="readonly">
@@ -130,7 +130,7 @@
 					<hr>
 				</form>
 				<p />
-				<div>
+				<div class="">
 
 					<fieldset>
 						<label>댓글</label>
@@ -138,7 +138,7 @@
 						<c:if test="${view.recnt > 0 }">
 							<span style="color: blue;">(${view.recnt}) </span>
 						</c:if>
-						<textarea class="form-control" id="replytext" cols="50" rows="3" name="reply" placeholder="댓글을 남겨주세요" style="padding: 0.5em 0.7em;"></textarea>
+						<textarea class="form-control" id="replytext" cols="50" rows="3" name="reply" placeholder="댓글을 남겨주세요" style="padding: 0.5em 0.7em;" required></textarea>
 						<br> <input type="submit" id="btnReply" class="btn btn-secondary btn-sm" value="댓글등록" />
 						<!-- 	  onclick="return goReply();" -->
 					</fieldset>
@@ -148,6 +148,7 @@
 
 				<!-- 댓글목록 출력할 위치 -->
 				<div id="listReply"></div>
+<%-- 				<%@include file="./replyList.jsp"%> --%>
 
 			</div>
 			<!-- /.panel-body -->
@@ -180,19 +181,24 @@
 			var replytext = $("#replytext").val();
 			var bno = "${view.bno}"
 			var param = "replytext=" + replytext + "&bno=" + bno;
-			$.ajax({
-				type : "post",
-				url : "/reply/insert",
-				data : param,
-				success : function() {
-					document.getElementById("replytext").value = ''; //댓글 작성후 댓글창 초기화!
-					alert("댓글이 등록되었습니다.");
-					listReply("1"); //페이징 추가 후 "1"도 여기 추가!
-					location.reload(); //댓글작성 후 새로고침해서 댓글(댓글수) 최신화해주기!
-
-				}
-			});
+            if (replytext =='') {
+                alert("댓글 내용이 없습니다.");
+                return false;
+            } else {
+				$.ajax({
+					type : "post",
+					url : "/reply/insert",
+					data : param,
+					success : function() {
+						document.getElementById("replytext").value = ''; //댓글 작성후 댓글창 초기화!
+						alert("댓글이 등록되었습니다.");
+						listReply("1"); //페이징 추가 후 "1"도 여기 추가!
+						location.reload(); //댓글작성 후 새로고침해서 댓글(댓글수) 최신화해주기!
+					}
+			    });
+            }
 		});
+		
 		
 	});
 	

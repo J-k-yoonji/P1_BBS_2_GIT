@@ -59,7 +59,7 @@
 					<%-- 							type="text" name="id" value="${view.id}" /><br /> --%>
 					<!-- 					</div> -->
 
-					<div class="form-group">
+					<div class="form-group wrap">
                         <c:if test="${view.sortSeq gt 0}">
                             <label>답글</label>
                         </c:if>					
@@ -251,6 +251,15 @@
             $('#previewImg00').css('display', 'none'); //새로운 사진 파일이 첨부되면 기존 첨부파일의 미리보기는 사라짐!
             $('#previewVideo00').css('display', 'none'); //새로운 영상 파일이 첨부되면 기존 첨부파일의 미리보기는 사라짐!
         });
+        
+        
+        $('.wrap').on( 'keyup', 'textarea', function (e){
+            $(this).css('height', 'auto' );
+            $(this).height( this.scrollHeight );
+        });
+        
+        $('.wrap').find( 'textarea' ).keyup();
+          
     });
 
     //코드숙지.

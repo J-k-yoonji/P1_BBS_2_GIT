@@ -44,7 +44,7 @@
 <%-- <%-- 						 <input class="form-control"  name="id" value="${view.id}" readonly="readonly" ><br/> --%>
 <!-- 					</div> -->
 
-					<div class="form-group">
+					<div class="form-group wrap">
 						<label>내용&nbsp;</label>
 						<textarea id="content" class="form-control" cols="50" rows="3" name="content"></textarea>
 					</div>
@@ -91,7 +91,9 @@
 
 
 <script type="text/javascript">
-// 			자바스크립트 전역변수
+
+//파일사이즈 설정. 55 MB = 57671680 Bytes / 1048576
+var fileSizeLimitMB = 550 ;  
 
     $(document).ready(function(){
         //파일첨부 change 이벤트 발생시마다, 미리보기에 변화를 주어야 한다!
@@ -123,7 +125,7 @@
                     return false;
                 }else if(!validFileSize($(this)[0].files[0])){
                     $(this).val("");
-                    alert("파일 사이즈가 10MB를 초과합니다.");
+                    alert("파일 사이즈가 "+ fileSizeLimitMB +"MB를 초과합니다.");  //$("#file1")[0].files[0].size
                     $("#previewImg").attr("style", "display: none;" );
                     return false;
                 }
@@ -143,6 +145,14 @@
             readImage($(this)[0]); //미리보기
             readVideo($(this)[0]); //미리보기
         });
+        	
+        $('.wrap').on( 'keyup', 'textarea', function (e){
+            $(this).css('height', 'auto' );
+            $(this).height( this.scrollHeight );
+        });
+        
+        $('.wrap').find( 'textarea' ).keyup();        
+        
     });
 
     //파일 확장자 설정    
@@ -153,9 +163,11 @@
 //         return fileTypes.indexOf(filename.substring(filename.lastIndexOf(".")+1, filename.length).toLowerCase()) >= 0;
     }
     
+
     //파일 크기 설정
     function validFileSize(file){
-        if(file.size > 57671680){ //55MB
+//        var fileSizeLimitMB = 25 ;  //55 MB = 57671680 Bytes / 1048576
+    	if(file.size > (fileSizeLimitMB * 1048576) ){
             return false;
         }else{
             return true;
@@ -250,6 +262,8 @@
 
 		}
 	}
+	
+	
 </script>
 
 <%-- <%@include file="./includes/footer.jsp"%> --%>

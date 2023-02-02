@@ -8,7 +8,7 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h2 class="page-header">글 목록4</h2>
+		<h2 class="page-header">글 목록</h2>
 	</div>
 	<!-- /.col-lg-12 -->
 </div>
@@ -29,8 +29,8 @@
 						<tr>
 							<th style="width: 10%;">번호</th>
 							<th style="width: 60%;">제목</th>
-							<th style="width: 20%;">작성자</th>
-							<th style="width: 10%;">작성시간</th>
+							<th class="col-md-3" style="width: 10%; min-width: 100px;">작성자</th>
+							<th class="col-md-4" style="width: 20%; min-width: 150px;">작성시간</th>
 							<!--  <th>수정시간</th> -->
 						</tr>
 					</thead>
@@ -58,8 +58,8 @@
 									</c:if>
 
 								</td>
-								<td>${i.id}</td>
-								<td>${i.regDate}</td>
+								<td class="col-md-3">${i.id}</td>
+								<td class="col-md-4">${i.regDate}</td>
 							</tr>
 						</c:forEach>
 
