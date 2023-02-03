@@ -52,10 +52,10 @@
 					<c:if test="${sessionScope.id == view.id}">
 						<button type="button" class="btn btn-info btn-sm" onclick="location.href='/modify?bno=${view.bno}';">글수정</button>
 						<c:if test="${view.sortSeq lt 1}">
-							<button type="button" class="btn btn-danger btn-sm" onclick="javascript:document.myForm.submit();">글삭제</button>
+							<button type="button" class="btn btn-danger btn-sm" onclick="if(!confirm('삭제하시면 복구할 수 없습니다. \n정말로 삭제하시겠습니까?')){return false;}; javascript:document.myForm.submit();">글삭제</button>
 						</c:if>
 						<c:if test="${view.sortSeq gt 0}">
-							<button type="button" class="btn btn-danger btn-sm" onclick="javascript:document.myForm2.submit();">답글 삭제</button>
+							<button type="button" class="btn btn-danger btn-sm" onclick="if(!confirm('삭제하시면 복구할 수 없습니다. \n정말로 삭제하시겠습니까?')){return false;}; javascript:document.myForm2.submit();">답글 삭제</button>
 						</c:if>
 					</c:if>
 					<c:if test="${view.sortSeq lt 1}">
