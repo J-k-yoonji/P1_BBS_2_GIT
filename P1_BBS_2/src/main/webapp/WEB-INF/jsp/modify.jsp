@@ -182,11 +182,19 @@
         //파일첨부 이벤트
         $('.filebox .upload-hidden').on('change', function () {
             var fileExist = $(this)[0].files.length;
+            var filename2 = $(".upload-name")[0].value; 
             if (fileExist == 0) {
             	//첨부파일-취소 버튼 물렀을 경우.
                 $('#previewImg_m').css('display', 'none');
                 $('#previewVideo_m').css('display', 'none');
-                $(".btn-circle").css("display", "none"); // X 버튼
+                
+                if ( validFileType(filename2) == 0 || validFileType(filename2) == 1 ) {
+                $('#previewImg00').css('display', 'block');
+                $(".btn-circle").css("display", "block"); // X 버튼
+                } else if (validFileType(filename2) == 2) {
+                $('#previewVideo00').css('display', 'block');
+                $(".btn-circle").css("display", "block"); // X 버튼
+                }
 //                 $('#previewVideo_m').attr('src', '');
 //                 $('#previewImg00').attr('src', '');
 //                 $('#previewVideo00').attr('src', '');
