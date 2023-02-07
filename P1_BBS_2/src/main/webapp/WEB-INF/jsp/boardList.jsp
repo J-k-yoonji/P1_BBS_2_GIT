@@ -72,17 +72,17 @@
 			<div class="box-footer">
 				<div class="text-center">
 					<ul class="pagination">
-						<!-- 이전prev -->
+						<!-- 이전prev boolean값이 true면-->
 						<c:if test="${pm.prev }">
 							<%-- <li><a href="listPage?page=${pm.startPage-1}">&laquo;</a></li> --%>
 							<li><a href="boardList?page=${pm.startPage-1}">&laquo;</a></li>
 						</c:if>
 						<!-- 페이지블럭 -->
-						<c:forEach var="idx" begin="${pm.startPage }" end="${pm.endPage }">
-							<!-- 삼항연산자를 사용해서 class로 스타일적용  -->
-							<li ${pm.cri.page == idx? 'class=active':''}><a href="boardList?page=${idx }">${idx}</a></li>
+						<c:forEach var="pageB" begin="${pm.startPage }" end="${pm.endPage }">
+							<!-- 현재 pageB(페이징버튼) 표시. 삼항연산자로 active 스타일적용.  -->
+							<li ${ (pm.cri.page == pageB) ? 'class=active':''}><a href="boardList?page=${pageB}">${pageB}</a></li>
 						</c:forEach>
-						<!-- 다음next -->
+						<!-- 다음next boolean값이 true면 > 0 도 꼭 넣어줘여할까??-->
 						<c:if test="${pm.next && pm.endPage > 0}">
 							<li><a href="boardList?page=${pm.endPage+1}">&raquo;</a></li>
 						</c:if>

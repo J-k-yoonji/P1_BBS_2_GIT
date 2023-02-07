@@ -36,7 +36,7 @@ public class BoardController  {
 		return "test";
 	}
 
-	private static final Logger l = LoggerFactory.getLogger(MemberController.class);
+	private static final Logger l = LoggerFactory.getLogger(BoardController.class);
 	
 	//R: 게시물 전체 목록 조회 (페이징 적용 전)
 //	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
@@ -47,7 +47,7 @@ public class BoardController  {
 //	}
 	
 	//페이징
-	//페이징처리한 글목록
+	//페이징처리한 글목록// ?? 
 	@RequestMapping(value = "/listCri", method = RequestMethod.GET)
 	public void listCriGET(Criteria cri, Model model) throws Exception{
 		l.info("C: listCri GET 호출" + cri);
@@ -55,19 +55,20 @@ public class BoardController  {
 	}
 
 	//글목록보기(PageMaker객체 사용)
-	// http://localhost:9080/board/listPage
 	@RequestMapping(value = "/boardList", method = RequestMethod.GET)
 	public void listPageGET(Criteria cri, Model model) throws Exception{
 		l.info("C: cri는 "+cri);
+		// listPageCri
 		model.addAttribute("boardList", boardService.listCri(cri));
 
 		PageMaker pm = new PageMaker();
 		pm.setCri(cri);
 		pm.setTotalCount(boardService.pageCount()); //DB의 전체ROW수 입력
 
-		// 뷰페이지로 전달 
+		// 뷰페이지로 전달 (맨아래 페이지블럭에 페이징 숫자 표시함)
 		model.addAttribute("pm", pm);
 	}
+	
 
 //	//답글 작성  GET메서드
 //	@RequestMapping(value = "/boardReply", method = RequestMethod.GET)

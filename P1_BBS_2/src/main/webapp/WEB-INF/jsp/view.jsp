@@ -232,7 +232,6 @@
 			success : function(result) {
 				//responseText가 result에 저장됨.
 				$("#listReply").html(result);
-
 			}
 		});
 	}

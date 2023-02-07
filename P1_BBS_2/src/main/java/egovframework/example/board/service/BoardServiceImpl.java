@@ -19,43 +19,48 @@ public class BoardServiceImpl implements BoardService{
 		@Resource(name = "mapper")
 		private BoardMapper mapper;
 		
+//		@Resource(name = "replyMapper")
+//		private ReplyMapper replyMapper;
+		
 		HttpSession session ;
 		
-		//페이징 관련.
-		//페이지처리한 글 목록
-		@Override
-		public List<BoardVO> listCri(Criteria cri) throws Exception {
-			return mapper.listPageCri(cri);
-		}
 		
 		public int getSeq(int bno) throws Exception {
 			return mapper.getSeq(bno);
 		}
 
+		
+		//페이징 관련.
+		//페이지처리한 글 목록??
+		@Override
+		public List<BoardVO> listCri(Criteria cri) throws Exception {
+			System.out.println("BoardServiceImpl: listCri 호출");
+			return mapper.listPageCri(cri);
+		}
 		//DB 테이블에 있는 모든 글 개수 계산 후 리턴
 		@Override
 		public int pageCount() throws Exception {
 			return mapper.pageCount();
 		}
-		
 		//페이징 (원래 DAOImpl에 있던 코드들!)
 		@Override
 		public List<BoardVO> listPage(int page) throws Exception {
-			//페이지가 0인 경우 1로 바꿔서 처리
+			//현재 페이지번호가 <= 0 인경우 1로 바꿔서 처리
 			if(page <= 0) {
 				page = 1;
 			}
 			page = (page - 1)*10;
 			return mapper.listPage(page);
 		}
-
 		//페이징 처리하는 동작(Criteria 객체 사용)
 		@Override
 		public List<BoardVO> listPageCri(Criteria cri) throws Exception {
-			System.out.println("DAO: listPageCri 호출");
+			System.out.println("ServiceImpl: listPageCri 호출");
 //			return session.selectList(namespace+".listPageCri", cri);
 			return mapper.listPageCri(cri);
 		}
+		
+		
 		
 		//게시물 목록
 		@Override

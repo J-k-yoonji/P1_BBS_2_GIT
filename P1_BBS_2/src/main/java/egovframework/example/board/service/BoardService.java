@@ -12,13 +12,14 @@ public interface BoardService {
 	//sortSeq값 계산
 	public int getSeq(int bno) throws Exception;
 	
+	
 	//페이징처리한 글목록
 	public List<BoardVO> listCri(Criteria cri) throws Exception;
-
+	
 	//DB 테이블에 있는 모든 글 개수 계산 후 리턴
 	public int pageCount() throws Exception;
 	
-	//특정 페이지에 있는 글정보를 확인 
+	//특정 페이지에 있는 글정보 확인 
 	public List<BoardVO> listPage(int page) throws Exception;
 		
 	//페이징 처리하는 동작(Criteria 객체 사용)
